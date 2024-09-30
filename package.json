@@ -6,17 +6,22 @@
   "scripts": {
     "start": "echo \"start script\"",
     "start:dev": "webpack serve -c config/webpack.config",
+    "start:nodemon": "nodemon server/server.js",
     "build": "webpack -c config/webpack.config.production.js",
     "build:dev": "webpack -c config/webpack.config.development.js"
   },
   "author": "Bohdan Nyshchyi",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "eslint-plugin-cypress": "^3.5.0",
     "eslint-plugin-import": "^2.30.0",
     "eslint-plugin-react": "^7.37.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-unicorn": "^55.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.7.0",
+    "nodemon": "^3.1.7",
     "prettier": "^3.3.3",
     "react": "18.3.1",
     "react-dom": "18.3.1"
