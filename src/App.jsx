@@ -1,7 +1,16 @@
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Login from './pages/Login';
+
 const App = () => {
-    return <div className="App">My first app</div>;
+    return (
+        <>
+            <Routes>
+                <Route path="/" element={<Login />} />
+            </Routes>
+        </>
+        // <Login/>
+    );
 };
 
 export default App;
-// export { App };

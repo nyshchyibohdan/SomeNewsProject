@@ -2,8 +2,6 @@
 // import path from 'path';
 // dotenv.config();
 // import mongoose from 'mongoose';
-
-const path = require('path');
 require('dotenv').config();
 
 const mongoose = require('mongoose');

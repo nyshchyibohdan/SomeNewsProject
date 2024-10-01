@@ -1,39 +1,20 @@
-// import express from 'express';
-// import connectDB from "../config/db.config.js";
-// import jwt from "jsonwebtoken";
-
 const express = require('express');
+const cors = require('cors');
+const authRoutes = require('../src/routes/loginRoute');
 const connectDB = require('../config/db.config');
-const jwt = require('jsonwebtoken');
+connectDB();
+require('dotenv').config();
 
-const PORT = process.env.PORT;
-const secret = process.env.SECRET_KEY;
 
 const app = express();
-
-app.use(express.json()); // req.body is undefined without it
-
-connectDB();
+app.use(cors());
+app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.send('API is OK');
-    console.log("API is running");
+    res.send("API is ok");
 });
 
-app.post('/login', (req, res) => {
-    console.log(req.body);
-    const token = jwt.sign({
-        email: req.body.email,
-    }, secret);
-    res.json({
-        success: true,
-        token
-    });
-})
+app.use('/api/auth', authRoutes);
 
-app.listen(PORT, (err) => {
-    if(err){
-        return console.log(err);
-    }
-    console.log(`Server running on port ${PORT}`)
-});
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
