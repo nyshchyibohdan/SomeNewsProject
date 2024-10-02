@@ -4,14 +4,17 @@
   "description": "My awesome project",
   "main": "index.js",
   "scripts": {
+    "start:dev": "webpack serve -c config/webpack.config",
     "start": "webpack serve -c config/webpack.config",
     "start:nodemon": "nodemon server/server.js",
     "build": "webpack -c config/webpack.config.production.js",
-    "build:dev": "webpack -c config/webpack.config.development.js"
+    "build:dev": "webpack -c config/webpack.config.development.js",
+    "cy:open": "cypress open"
   },
   "author": "Bohdan Nyshchyi",
   "license": "ISC",
   "dependencies": {
+    "@cypress/code-coverage": "^3.13.3",
     "axios": "^1.7.7",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
@@ -21,6 +24,7 @@
     "eslint-plugin-import": "^2.30.0",
     "eslint-plugin-react": "^7.37.0",
     "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-unicorn": "^55.0.0",
     "express": "^4.21.0",
     "express-validator": "^7.2.0",
