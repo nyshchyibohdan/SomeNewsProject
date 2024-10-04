@@ -1,5 +1,22 @@
 .navbar {
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    align-items: center;
+    gap: 35px;
+}
+.navbar-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: none;
+}
+.link{
+    text-decoration: none;
+    color: white;
+    font-weight: normal;
+    font-size: 16px;
+}
+.link-reposts{
+    font-weight: bold;
 }

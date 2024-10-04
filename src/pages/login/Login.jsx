@@ -1,21 +1,31 @@
 import './Login.css';
 
 import axios from 'axios';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { isAuthenticated } from '../../utils/auth';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const handleSubmit = async (e) => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isAuthenticated()) {
+            navigate('/home');
+        }
+    }, [navigate]);
+
+    const loginSubmitted = async (e) => {
         e.preventDefault();
         try {
             const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
             localStorage.setItem('token', res.data.token);
 
-            alert('Login successful!');
+            navigate('/home');
         } catch (error) {
             console.error(error);
             if(error.status === 500) {
@@ -28,7 +38,7 @@ const Login = () => {
     return (
         <div className="login-container">
             <h2 className="login-title">Login</h2>
-            <form onSubmit={handleSubmit} className="form">
+            <form onSubmit={loginSubmitted} className="login-form">
                 <div className="field email-field">
                     <label className="field-label email-field-title">Email</label>
                     <input
@@ -50,7 +60,7 @@ const Login = () => {
                     />
                 </div>
                 <div className='error-stack'>{error && <p className='error'>{error}</p>}</div>
-                <div className="button-link">
+                <div className="login-button-link">
                     <Link className='link-to' to="/register">Don't have account?</Link>
                     <button type="submit" className="login-button">
                         Login

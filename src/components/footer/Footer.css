@@ -1,4 +1,4 @@
-.header {
+.footer {
     height: 40px;
     display: flex;
     flex-direction: row;
@@ -6,17 +6,11 @@
     padding: 50px 160px;
     background: #15171a;
 }
-.header-navbar {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-.header-logo {
+.footer-logo {
     align-self: center;
     font-size: 24px;
 }
-.header-logo-link {
+.footer-logo-link {
     text-decoration: none;
     color: #9eabb8;
     font-family: 'Roboto', sans-serif;

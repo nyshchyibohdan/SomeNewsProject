@@ -1,8 +1,10 @@
 import './Register.css';
 
 import axios from 'axios';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { isAuthenticated } from '../../utils/auth';
 
 const Register = () => {
     const [nickname, setNickname] = useState('');
@@ -11,13 +13,21 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState([]);
 
-    const handleSubmit = async (e) => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isAuthenticated()) {
+            navigate('/home');
+        }
+    }, [navigate]);
+
+    const registerSubmitted = async (e) => {
         e.preventDefault();
         try {
             const res = await axios.post('http://localhost:5000/api/auth/register', { nickname, email, password, confirmPassword });
             localStorage.setItem('token', res.data.token);
 
-            alert('Register successful!');
+            navigate('/home');
         } catch(error) {
             console.error(error);
             if(error.status === 500) {
@@ -33,7 +43,7 @@ const Register = () => {
     return (
         <div className="register-container">
             <h2 className='register-title'>Create account</h2>
-            <form onSubmit={handleSubmit} className={`form ${error.length > 0 ? 'form-error' : ''}`}>
+            <form onSubmit={registerSubmitted} className={`register-form ${error.length > 0 ? 'form-error' : ''}`}>
                 <div className='field'>
                     <label className='field-label'>Nickname</label>
                     <input
@@ -83,7 +93,7 @@ const Register = () => {
                         </ul>
                     )}
                 </div>
-                <div className='button-link'>
+                <div className='register-button-link'>
                     <Link className='link-to' to="/login">Already have account?</Link>
                     <button type="submit" className='register-button'>Create account</button>
                 </div>
