@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import axios from 'axios';
+import React, { useState } from 'react';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -8,13 +8,16 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
             const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
             localStorage.setItem('token', res.data.token);
 
             alert('Login successful!');
-        } catch (err) {
+        } catch (error) {
+            console.error(error);
+            if(error.status === 500) {
+                setError("Something went wrong!");
+            }
             setError('Invalid credentials, please try again.');
         }
     };
@@ -41,7 +44,7 @@ const Login = () => {
                         required
                     />
                 </div>
-                {error && <p style={{ color: 'red' }}>{error}</p>} {/* Show error message */}
+                {error && <p style={{ color: 'red' }}>{error}</p>}
                 <button type="submit">Login</button>
             </form>
         </div>

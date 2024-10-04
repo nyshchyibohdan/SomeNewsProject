@@ -30,6 +30,8 @@ const config = {
     resolve: {
         extensions: ['.js', '.jsx'],
     },
+    // devServer: {  port: 8000, open: true, historyApiFallback: true, }
+    devServer: { historyApiFallback: true }
 };
 
 module.exports = config;
