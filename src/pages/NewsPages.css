@@ -1,0 +1,127 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0px 160px;
+}
+.news-list{
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+.loader{
+    transform: translate(50%, 50%);
+}
+
+/* Main news list item styles */
+
+.main-news-item{
+    width: 960px;
+    height: 480px;
+}
+.main-news-item-container{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+.main-news-img{
+    border-radius: 8px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 60%;
+    object-fit: cover;
+}
+.main-text-button{
+    margin-left: 56px;
+    margin-right: 56px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    bottom: 44px;
+    gap: 68px;
+}
+.main-item-text{
+    height: 116px;
+    color: white;
+}
+.news-item-button{
+    width: 104px;
+    display: inline-block;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    background: #293038;
+    border: none;
+    border-radius: 8px;
+    color: #9EABB8;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.5s;
+}
+.news-item-button:hover{
+    background: #121417;
+}
+
+/* Other list items styles */
+
+.news-item{
+    /*padding: 16px 16px 16px 16px;*/
+    width: 960px;
+    height: 203px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.news-item-container{
+    gap: 0;
+}
+
+.news-item-img{
+    width: 320px;
+    height: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.home-article-author{
+    width: 100%;
+    color: #9EABB8;
+    font-size: 14px;
+    margin-top: 0;
+}
+
+.home-article-title{
+    width: 600px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.article-desc{
+    width: 600px;
+    color: #9EABB8;
+    font-size: 14px;
+}
+
+.item-button{
+    padding: 7px 15px;
+    width: 85px;
+    border: 0.5px solid transparent;
+    bottom: 0;
+}
+
+.item-button:hover{
+    border: 0.5px solid #293038;
+    background: #121417;
+}

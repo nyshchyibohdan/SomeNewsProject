@@ -1,0 +1,19 @@
+.footer {
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 50px 160px;
+    background: #15171a;
+}
+.footer-logo {
+    align-self: center;
+    font-size: 24px;
+}
+.footer-logo-link {
+    text-decoration: none;
+    color: #9eabb8;
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+}

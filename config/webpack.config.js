@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('node:path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
@@ -25,12 +25,17 @@ const config = {
                     },
                 ],
             },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+            },
         ],
     },
     resolve: {
         extensions: ['.js', '.jsx'],
     },
-    mode: "development"
+    // devServer: {  port: 8000, open: true, historyApiFallback: true, }
+    devServer: { historyApiFallback: true }
 };
 
 module.exports = config;

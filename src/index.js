@@ -1,11 +1,63 @@
+import './index.css';
+
 import React from 'react';
-// import ReactDOM from 'react-dom';
-// import * ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { createRoot } from 'react-dom/client';
-import App from './App'; // require('./App').default
+import Article from './pages/article/Article';
+// import App from './App';
+import Home from './pages/home/Home';
+import Login from './pages/login/Login';
+import Register from './pages/register/Register';
+import Science from './pages/science/Science';
+import Sport from './pages/sport/Sport';
+import Technology from './pages/technology/Technology';
 
-const containerElement = document.getElementById('root');
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <Home />,
+        errorElement: <div>404 Not found</div>
+    },
+    {
+        path: '/:articleId/',
+        element: <Article />,
+        errorElement: <div>404 Not found</div>
+    },
+    {
+        path: '/home',
+        element: <Home />,
+        errorElement: <div>404 Not found</div>
+    },
+    {
+        path: '/tech',
+        element: <Technology />,
+        errorElement: <div>404 Not found</div>
+    },
+    {
+        path: '/sport',
+        element: <Sport />,
+        errorElement: <div>404 Not found</div>
+    },
+    {
+        path: '/science',
+        element: <Science />,
+        errorElement: <div>404 Not found</div>
+    },
+    {
+        path: '/login',
+        element: <Login />,
+        errorElement: <div>404 Not found</div>
+    },
+    {
+        path: '/register',
+        element: <Register />,
+        errorElement: <div>404 Not found</div>
+    }
+]);
 
-const root = createRoot(containerElement);
-root.render(<App />);
+ReactDOM.createRoot(document.querySelector('#root')).render(
+    <React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>,
+);
