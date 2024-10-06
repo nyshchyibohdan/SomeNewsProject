@@ -10,7 +10,7 @@ router.get('/general', async (request, res) => {
     try {
         const response = await axios.get(`https://newsapi.org/v2/top-headlines`, {
             params: {
-                category: 'technology',
+                category: 'general',
                 apiKey: NEWS_API,
             },
         });
@@ -21,9 +21,10 @@ router.get('/general', async (request, res) => {
                 description: article.description,
                 content: article.content,
                 publishedAt: article.publishedAt,
-                source: article.source.name,
+                source: article.source,
                 url: article.url,
                 author: article.author,
+                img: article.urlToImage,
             }))
             .filter((article) => {
                 if (!article.title.includes('[Removed]')) {
