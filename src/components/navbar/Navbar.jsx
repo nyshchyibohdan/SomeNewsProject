@@ -9,14 +9,14 @@ function Navbar() {
             <Link className="link link-home" to="/">
                 Home
             </Link>
-            <Link className="link link-technology" to="/">
+            <Link className="link link-technology" to="/tech">
                 Technology
             </Link>
-            <Link className="link link-sport" to="/">
+            <Link className="link link-sport" to="/sport">
                 Sport
             </Link>
-            <Link className="link link-politics" to="/">
-                Politics
+            <Link className="link link-politics" to="/science">
+                Science
             </Link>
             <Link className="link link-reposts" to="/">Reposts</Link>
             <Link to=''>

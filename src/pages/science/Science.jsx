@@ -8,7 +8,7 @@ import { BounceLoader } from 'react-spinners';
 import { Footer, Header } from '../../components';
 import { isAuthenticated } from '../../utils/auth';
 
-function Home() {
+function Science() {
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -23,7 +23,7 @@ function Home() {
     useEffect(() => {
         const fetchNews = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/newsapi/general');
+                const response = await axios.get('http://localhost:5000/api/newsapi/science');
 
                 localStorage.setItem('news', JSON.stringify(response.data));
 
@@ -40,8 +40,8 @@ function Home() {
     }, []);
 
     if (loading) return <BounceLoader className='loader'
-        color="#ffffff"
-        speedMultiplier={1}
+                                      color="#ffffff"
+                                      speedMultiplier={1}
     />;
     if (error) return <p>Error loading news: {error.message}</p>;
 
@@ -89,4 +89,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default Science;
