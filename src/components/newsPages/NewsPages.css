@@ -39,6 +39,12 @@
     opacity: 60%;
     object-fit: cover;
 }
+.main-news-img-alt{
+    position: absolute;
+    align-self: center;
+    justify-self: center;
+    object-fit: contain;
+}
 .main-text-button{
     margin-left: 56px;
     margin-right: 56px;
@@ -92,6 +98,10 @@
     height: 100%;
     border-radius: 8px;
     object-fit: cover;
+}
+
+.news-item-img-alt{
+    width: 200px;
 }
 
 .home-article-author{
