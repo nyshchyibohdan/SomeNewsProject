@@ -37,7 +37,9 @@ const Login = () => {
 
     return (
         <div className="login-container">
-            <h2 className="login-title">Login</h2>
+            <h2 data-testid="cypress-login-title" className="login-title">
+                Login
+            </h2>
             <form onSubmit={loginSubmitted} className="login-form">
                 <div className="field email-field">
                     <label className="field-label email-field-title">Email</label>
