@@ -47,6 +47,12 @@ router.post('/register', regAndLog, async (request, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
+    const nicknameRegex = /[!"#$%&()*,.:<>?@^{|}]/;
+    if(nicknameRegex.test(nickname)) {
+        return res.status(400).json({
+            errors: [...errors.array(), { msg: 'Nickname should not have special symbols' }]
+        });
+    }
     try {
         const registerDocument = await User.create({
             nickname: nickname,

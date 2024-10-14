@@ -21,8 +21,8 @@ const Register = () => {
         }
     }, [navigate]);
 
-    const registerSubmitted = async (e) => {
-        e.preventDefault();
+    const registerSubmitted = async (event) => {
+        event.preventDefault();
         try {
             const res = await axios.post('http://localhost:5000/api/auth/register', { nickname, email, password, confirmPassword });
             localStorage.setItem('token', res.data.token);
@@ -30,12 +30,13 @@ const Register = () => {
             navigate('/home');
         } catch(error) {
             console.error(error);
-            if(error.status === 500) {
+            if (error.response && error.response.status === 500) {
                 setError(["Something went wrong!"]);
-            }
-            else{
+            } else if (error.response && Array.isArray(error.response.data.errors)) {
                 const errorMessages = error.response.data.errors.map(error_ => error_.msg);
                 setError(errorMessages);
+            } else {
+                setError(["An unexpected error occurred"]);
             }
         }
     };
