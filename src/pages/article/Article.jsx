@@ -41,14 +41,14 @@ const Article = () => {
             return (
                 <>
                     <p>{article.content.split('[+')[0]}</p>
-                    <a className='article-text-link' href={article.url} target="_blank" rel="noopener noreferrer">
+                    <a className="article-text-link" href={article.url} target="_blank" rel="noopener noreferrer">
                         Read more
                     </a>
                 </>
             );
         }
         return <p>{article.content}</p>;
-    }
+    };
     return (
         <div>
             <Header />
@@ -68,7 +68,7 @@ const Article = () => {
                     {handleContent(article)}
                 </div>
                 <div className="article-author-place">
-                    <hr className='article-author-rule'/>
+                    <hr className="article-author-rule" />
                     <p className="article-author">{article.author}</p>
                 </div>
             </div>

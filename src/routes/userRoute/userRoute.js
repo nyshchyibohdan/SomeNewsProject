@@ -14,7 +14,7 @@ router.get('/profile', async (request, res) => {
         const token = request.get('auth');
         if (!token) {
             return res.status(400).json({
-                message: 'Token is missing'
+                message: 'Token is missing',
             });
         }
 
@@ -25,7 +25,7 @@ router.get('/profile', async (request, res) => {
 
         if (!user) {
             return res.status(400).json({
-                message: "User not found"
+                message: 'User not found',
             });
         }
         return res.status(200).json({
@@ -34,14 +34,14 @@ router.get('/profile', async (request, res) => {
                 nickname: user.nickname,
                 email: user.email,
                 bio: user.bio,
-                profilePic: user.profilePic
-            }
+                profilePic: user.profilePic,
+            },
         });
     } catch (error) {
         console.error('Error:', error);
         return res.status(500).send('Server error');
     }
-})
+});
 
 router.post('/upload-pic', async (request, res) => {
     try {
@@ -69,7 +69,7 @@ router.post('/update-bio', async (request, res) => {
         console.error('Error updating bio:', error);
         res.status(500).json({ message: 'Server error' });
     }
-})
+});
 
 router.post('/change-password', async (request, res) => {
     const { oldPassword, newPassword } = request.body;
@@ -108,7 +108,7 @@ router.post('/change-password', async (request, res) => {
         console.error('Error updating password:', error);
         res.status(500).json({ success: false, message: 'Server error' });
     }
-})
+});
 
 router.delete('/delete-account', async (request, res) => {
     const { password } = request.body;
@@ -151,6 +151,5 @@ router.delete('/delete-account', async (request, res) => {
         res.status(500).json({ success: false, message: 'Server error' });
     }
 });
-
 
 module.exports = router;

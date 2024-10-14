@@ -18,7 +18,7 @@ export const isAuthenticated = () => {
         return true;
     } catch (error) {
         console.error('Invalid token:', error);
-        return false;  
+        return false;
     }
 };
 

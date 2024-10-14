@@ -28,8 +28,8 @@ const Login = () => {
             navigate('/home');
         } catch (error) {
             console.error(error);
-            if(error.status === 500) {
-                setError("Something went wrong!");
+            if (error.status === 500) {
+                setError('Something went wrong!');
             }
             setError('Invalid credentials, please try again.');
         }
@@ -59,9 +59,11 @@ const Login = () => {
                         required
                     />
                 </div>
-                <div className='error-stack'>{error && <p className='error'>{error}</p>}</div>
+                <div className="error-stack">{error && <p className="error">{error}</p>}</div>
                 <div className="login-button-link">
-                    <Link className='link-to' to="/register">Don't have account?</Link>
+                    <Link className="link-to" to="/register">
+                        Don&apos;t have account?
+                    </Link>
                     <button type="submit" className="login-button">
                         Login
                     </button>

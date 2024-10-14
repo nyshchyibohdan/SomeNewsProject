@@ -1,11 +1,11 @@
-const { defineConfig } = require("cypress");
-const webpackConfig = require("./config/webpack.config.cypress");
+const { defineConfig } = require('cypress');
+const webpackConfig = require('./config/webpack.config.cypress');
 
 module.exports = defineConfig({
     component: {
         devServer: {
-            framework: "react",
-            bundler: "webpack",
+            framework: 'react',
+            bundler: 'webpack',
             webpackConfig,
         },
         specPattern: ['src/**/*.cy.{js,jsx}'],

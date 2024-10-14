@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BounceLoader } from 'react-spinners';
 
 import defaultProfilePic from '../../assets/imgs/logo.png';
@@ -154,21 +154,25 @@ function Profile() {
         }
 
         try {
-            const response = await axios.post('http://localhost:5000/api/users/change-password', {
-                oldPassword: oldPassword,
-                newPassword: newPassword,
-            }, {
-                headers: {
-                    auth: localStorage.getItem('token'),
+            const response = await axios.post(
+                'http://localhost:5000/api/users/change-password',
+                {
+                    oldPassword: oldPassword,
+                    newPassword: newPassword,
                 },
-            });
+                {
+                    headers: {
+                        auth: localStorage.getItem('token'),
+                    },
+                },
+            );
 
             if (response.data.success) {
                 setError('');
                 setOldPassword('');
                 setNewPassword('');
                 setConfirmPassword('');
-                passChangeModalToggle()
+                passChangeModalToggle();
             } else {
                 setError('Error changing password');
             }
@@ -237,9 +241,15 @@ function Profile() {
                     <div className={'profile-nickname-buttons'}>
                         <h1 className={'profile-nickname'}>{user.nickname}</h1>
                         <div className={'profile-buttons'}>
-                            <button className={'button reposts-button'}>Reposts</button>
-                            <button className={'button likes-button'}>Likes</button>
-                            <button className={'button articles-button'}>Articles</button>
+                            <Link to="" className={'button link-to-page'}>
+                                Reposts
+                            </Link>
+                            <Link to="" className={'button link-to-page'}>
+                                Likes
+                            </Link>
+                            <Link to="/new-article" className={'button link-to-page'}>
+                                Articles
+                            </Link>
                         </div>
                     </div>
                 </div>

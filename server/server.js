@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (request, res) => {
-    res.send("API is ok");
+    res.send('API is ok');
 });
 
 app.use('/api/auth', authRoutes);

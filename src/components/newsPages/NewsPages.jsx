@@ -1,6 +1,7 @@
 import '../../components/newsPages/NewsPages.css';
 
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BounceLoader } from 'react-spinners';
@@ -8,6 +9,10 @@ import { BounceLoader } from 'react-spinners';
 import defaultPic from '../../assets/imgs/logo.png';
 import { isAuthenticated } from '../../utils/auth';
 import { Footer, Header } from '../index';
+
+NewsPages.propTypes = {
+    apiRoute: PropTypes.string.isRequired,
+};
 
 function NewsPages({ apiRoute }) {
     const [news, setNews] = useState([]);
@@ -39,10 +44,7 @@ function NewsPages({ apiRoute }) {
         fetchNews();
     }, [apiRoute]);
 
-    if (loading) return <BounceLoader className='loader'
-                                      color="#ffffff"
-                                      speedMultiplier={1}
-    />;
+    if (loading) return <BounceLoader className="loader" color="#ffffff" speedMultiplier={1} />;
     if (error) return <p>Error loading news: {error.message}</p>;
 
     return (
@@ -56,7 +58,11 @@ function NewsPages({ apiRoute }) {
                         return index === 0 ? (
                             <li key={index} className="main-news-item">
                                 <div className="main-news-item-container">
-                                    <img className={`main-news-img ${imgSource === defaultPic ? 'main-news-img-alt' : ''}`} src={article.img ?? defaultPic} alt="" />
+                                    <img
+                                        className={`main-news-img ${imgSource === defaultPic ? 'main-news-img-alt' : ''}`}
+                                        src={article.img ?? defaultPic}
+                                        alt=""
+                                    />
                                     <div className="main-text-button">
                                         <div className="main-item-text">
                                             <h2 className="main-article-title">{article.title}</h2>
@@ -78,7 +84,11 @@ function NewsPages({ apiRoute }) {
                                         Read more
                                     </Link>
                                 </div>
-                                <img className={`news-item-img ${imgSource === defaultPic ? 'news-item-img-alt' : ''}`} src={article.img ?? defaultPic} alt="" />
+                                <img
+                                    className={`news-item-img ${imgSource === defaultPic ? 'news-item-img-alt' : ''}`}
+                                    src={article.img ?? defaultPic}
+                                    alt=""
+                                />
                             </li>
                         );
                     })}

@@ -4,14 +4,14 @@
 /* Roboto flex */
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-body{
+body {
     margin: 0px;
     background-color: #121417;
     font-family: 'Roboto Flex', sans-serif;
-    color: #9EABB8;
+    color: #9eabb8;
 }
 
-.button{
+.button {
     width: 104px;
     display: inline-block;
     padding: 10px 20px;
@@ -26,7 +26,7 @@ body{
     cursor: pointer;
     transition: background 0.5s;
 }
-.button:hover{
+.button:hover {
     border: 2px solid #293038;
     background: #121417;
 }

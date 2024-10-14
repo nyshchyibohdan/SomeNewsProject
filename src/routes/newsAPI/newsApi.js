@@ -27,12 +27,7 @@ router.get('/general', async (request, res) => {
                 img: article.urlToImage,
             }))
             .filter((article) => {
-                return (
-                    article.title &&
-                    article.description &&
-                    article.url &&
-                    !article.title.includes('[Removed]')
-                );
+                return article.title && article.description && article.url && !article.title.includes('[Removed]');
             });
 
         res.json(articles);

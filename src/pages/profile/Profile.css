@@ -1,4 +1,4 @@
-.profile-container{
+.profile-container {
     color: white;
     display: flex;
     flex-direction: column;
@@ -8,7 +8,7 @@
     width: 960px;
 }
 
-.horizontal-rule{
+.horizontal-rule {
     margin-top: 25px;
     margin-bottom: 25px;
     width: 960px;
@@ -18,7 +18,7 @@
 
 /* Profile picture block styles */
 
-.main-profile-info{
+.main-profile-info {
     height: 325px;
     display: flex;
     flex-direction: row;
@@ -27,22 +27,22 @@
     gap: 80px;
 }
 
-.profile-image-block{
+.profile-image-block {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap:20px;
+    gap: 20px;
 }
 
-.profile-image{
+.profile-image {
     width: 270px;
     height: 270px;
     object-fit: cover;
     border-radius: 50%;
 }
 
-.profile-image-input-label{
+.profile-image-input-label {
     font-weight: bold;
     font-size: 16px;
     border: 2px solid transparent;
@@ -54,18 +54,18 @@
     transition: 0.5s ease;
 }
 
-.profile-image-input-label:hover{
+.profile-image-input-label:hover {
     border: 2px solid #293038;
     background: transparent;
 }
 
-.profile-image-input{
+.profile-image-input {
     display: none;
 }
 
 /* Profile nickname and buttons block styles */
 
-.profile-nickname-buttons{
+.profile-nickname-buttons {
     padding-top: 50px;
     height: 325px;
     display: flex;
@@ -74,19 +74,24 @@
     gap: 40px;
 }
 
-.profile-nickname{
+.profile-nickname {
     font-size: 48px;
 }
 
-.profile-buttons{
+.profile-buttons {
     display: flex;
     flex-direction: row;
     gap: 58px;
 }
 
+.link-to-page {
+    padding: 10px 0;
+    width: 104px;
+}
+
 /* Profile bio block styles */
 
-.profile-bio{
+.profile-bio {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -94,7 +99,7 @@
     justify-content: center;
 }
 
-.bio-main-parts{
+.bio-main-parts {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -102,19 +107,19 @@
     justify-content: space-between;
 }
 
-.bio-title{
+.bio-title {
     font-size: 40px;
     font-weight: bold;
     margin-top: 0;
     margin-bottom: 10px;
 }
 
-.bio-edit-button-active{
+.bio-edit-button-active {
     border: 2px solid #293038;
     background: transparent;
 }
 
-.bio-input{
+.bio-input {
     width: 100%;
     height: auto;
     display: flex;
@@ -123,12 +128,12 @@
     gap: 10px;
 }
 
-.bio-input-text{
+.bio-input-text {
     font-size: 16px;
     font-weight: normal;
 }
 
-.bio-input-field{
+.bio-input-field {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-weight: normal;
@@ -143,11 +148,11 @@
 
 /* Account activities block styles */
 
-.account-activities{
+.account-activities {
     width: 100%;
 }
 
-.activities-title-block{
+.activities-title-block {
     margin-top: 25px;
     width: 100%;
     display: flex;
@@ -155,29 +160,29 @@
     justify-content: flex-start;
 }
 
-.activities-title{
+.activities-title {
     margin: 25px 0;
     width: 300px;
     font-size: 24px;
 }
 
-.activities-title-rule{
+.activities-title-rule {
     flex-grow: 1;
     margin: 25px 0;
 }
 
-.profile-logout-button{
-    background: #810A0A;
+.profile-logout-button {
+    background: #810a0a;
     margin-bottom: 40px;
     border: 2px solid transparent;
 }
 
-.profile-logout-button:hover{
+.profile-logout-button:hover {
     background: transparent;
-    border: 2px solid #810A0A;
+    border: 2px solid #810a0a;
 }
 
-.activity-block{
+.activity-block {
     width: 100%;
     height: 55px;
     display: flex;
@@ -186,57 +191,57 @@
     justify-content: space-between;
 }
 
-.activity-title{
+.activity-title {
     font-size: 16px;
     font-weight: bold;
     width: 136px;
 }
 
-.activities-rule{
+.activities-rule {
     margin: 0;
     width: 55px;
     rotate: 90deg;
 }
 
-.activity-desc{
+.activity-desc {
     font-size: 16px;
     font-weight: normal;
     width: 390px;
 }
 
-.change-password-button{
-    background: #810A0A;
+.change-password-button {
+    background: #810a0a;
     border: 2px solid transparent;
 }
 
-.change-password-button:hover{
+.change-password-button:hover {
     background: transparent;
-    border: 2px solid #810A0A;
+    border: 2px solid #810a0a;
 }
 
-.delete-acc-title{
+.delete-acc-title {
     width: 136px;
-    color: #B50A0A;
+    color: #b50a0a;
 }
 
-.delete-acc-desc{
-    color: #B50A0A;
+.delete-acc-desc {
+    color: #b50a0a;
     width: 390px;
 }
 
-.delete-account-button{
-    background: #B50A0A;
+.delete-account-button {
+    background: #b50a0a;
     border: 2px solid transparent;
 }
 
-.delete-account-button:hover{
+.delete-account-button:hover {
     background: transparent;
-    border: 2px solid #B50A0A;
+    border: 2px solid #b50a0a;
 }
 
 /* Password change modal form styles */
 
-.password-change-form{
+.password-change-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -244,20 +249,20 @@
     gap: 20px;
 }
 
-.password-field{
+.password-field {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-.password-label{
+.password-label {
     font-weight: bold;
     font-size: large;
-    color: #9EABB8;
+    color: #9eabb8;
 }
 
-.form-buttons-container{
+.form-buttons-container {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -265,14 +270,12 @@
     gap: 20px;
 }
 
-.cancel-pass-change-button{
-    background: #810A0A;
+.cancel-pass-change-button {
+    background: #810a0a;
     border: 2px solid transparent;
 }
 
-.cancel-pass-change-button:hover{
+.cancel-pass-change-button:hover {
     background: transparent;
-    border: 2px solid #810A0A;
+    border: 2px solid #810a0a;
 }
-
-

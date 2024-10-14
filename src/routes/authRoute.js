@@ -42,15 +42,15 @@ router.post('/login', async (request, res) => {
 });
 
 router.post('/register', regAndLog, async (request, res) => {
-    const { nickname, email, password, confirmPassword } = request.body;
+    const { nickname, email, password } = request.body;
     let errors = validationResult(request);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
     const nicknameRegex = /[!"#$%&()*,.:<>?@^{|}]/;
-    if(nicknameRegex.test(nickname)) {
+    if (nicknameRegex.test(nickname)) {
         return res.status(400).json({
-            errors: [...errors.array(), { msg: 'Nickname should not have special symbols' }]
+            errors: [...errors.array(), { msg: 'Nickname should not have special symbols' }],
         });
     }
     try {

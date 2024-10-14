@@ -11,7 +11,7 @@
     object-fit: cover;
     border: none;
 }
-.link{
+.link {
     text-decoration: none;
     color: white;
     font-weight: normal;
@@ -19,16 +19,16 @@
     transition: 0.5s ease;
 }
 
-.link-current{
+.link-current {
     color: #9eabb8;
     text-decoration: underline;
 }
 
-.link:hover{
+.link:hover {
     color: #9eabb8;
 }
 
-.link-reposts{
+.link-reposts {
     font-weight: bold;
 }
 
@@ -61,18 +61,18 @@
     text-align: center;
 }
 
-.profile-link{
+.profile-link {
     text-decoration: none;
     color: white;
     font-weight: bold;
     font-size: 16px;
     transition: 0.5s ease;
 }
-.profile-link:hover{
+.profile-link:hover {
     color: #9eabb8;
 }
 
-.logout-button{
+.logout-button {
     border: none;
     background-color: transparent;
     color: #e74c3c;
@@ -81,6 +81,6 @@
     transition: 0.5s ease;
 }
 
-.logout-button:hover{
+.logout-button:hover {
     color: #a3372b;
 }

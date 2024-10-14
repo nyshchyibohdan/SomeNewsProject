@@ -19,9 +19,15 @@ const config = {
         'plugin:unicorn/recommended',
         /*https://www.npmjs.com/package/eslint-plugin-cypress*/
         'plugin:cypress/recommended',
+        'eslint:recommended',
+        'plugin:react/recommended',
+        'plugin:prettier/recommended',
     ],
     /* https://github.com/import-js/eslint-plugin-import */
     settings: {
+        react: {
+            version: 'detect', // Automatically detects the React version
+        },
         'import/resolver': {
             node: {
                 extensions: ['.js', '.jsx'],
@@ -31,9 +37,11 @@ const config = {
             },
         },
     },
-    plugins: ['simple-import-sort', 'react'],
-    ignorePatterns: ['node_modules'],
+    plugins: ['simple-import-sort', 'react', 'prettier'],
+    ignorePatterns: ['node_modules', '*.json', '*.css'],
     rules: {
+        'prettier/prettier': 'error',
+        semi: ['warn', 'always'],
         'unicorn/filename-case': [
             'error',
             {
@@ -43,7 +51,12 @@ const config = {
                 },
             },
         ],
+        'no-unused-vars': 'off',
+        'unicorn/prefer-logical-operator-over-ternary': 'off',
+        'unicorn/no-null': 'off',
+        'unicorn/prefer-module': 'off',
         'unicorn/no-empty-file': 'off',
+        'unicorn/prevent-abbreviations': 'off',
         'simple-import-sort/exports': 'error',
         'simple-import-sort/imports': 'error',
         'import/namespace': [2, { allowComputed: true }],
@@ -51,6 +64,12 @@ const config = {
         'import/newline-after-import': 'error',
     },
     overrides: [
+        {
+            files: ['*.json', '*.css'],
+            rules: {
+                'prettier/prettier': 'off',
+            },
+        },
         {
             files: ['*rc.js', '*.config.js'],
             rules: {

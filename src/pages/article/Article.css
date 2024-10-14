@@ -1,4 +1,4 @@
-.article-container{
+.article-container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -8,7 +8,7 @@
 
 /* Article title and buttons part styles*/
 
-.article-title-button-container{
+.article-title-button-container {
     height: 100px;
     display: flex;
     flex-direction: row;
@@ -16,7 +16,7 @@
     justify-content: space-between;
 }
 
-.article-title{
+.article-title {
     color: white;
     width: 630px;
     max-width: 640px;
@@ -24,18 +24,18 @@
     font-size: 21px;
 }
 
-.article-buttons{
+.article-buttons {
     display: flex;
     flex-direction: row;
     gap: 20px;
     align-items: center;
 }
 
-.article-reposts-counter{
+.article-reposts-counter {
     font-size: 18px;
 }
 
-.article-button{
+.article-button {
     background: #293038;
     color: #ffffff;
     font-size: 16px;
@@ -47,18 +47,18 @@
     transition: background 0.5s;
 }
 
-.article-button:hover{
+.article-button:hover {
     border: 2px solid #ffffff;
 }
 
-.article-button-active{
+.article-button-active {
     background: transparent;
     border: 2px solid #293038;
 }
 
 /* Article image styles */
 
-.article-img{
+.article-img {
     width: 900px;
     border-radius: 8px;
     object-fit: cover;
@@ -66,13 +66,13 @@
 
 /* Article main text styles */
 
-.article-main-text{
+.article-main-text {
     color: white;
     font-weight: normal;
     font-size: 24px;
 }
 
-.article-text-link{
+.article-text-link {
     border: 0.5px solid transparent;
     width: 104px;
     display: inline-block;
@@ -81,21 +81,21 @@
     text-decoration: none;
     background: #293038;
     border-radius: 8px;
-    color: #9EABB8;
+    color: #9eabb8;
     font-weight: bold;
     font-size: 16px;
     cursor: pointer;
     transition: background 0.5s;
 }
 
-.article-text-link:hover{
+.article-text-link:hover {
     border: 0.5px solid #293038;
     background: #121417;
 }
 
 /* Article author text styles */
 
-.article-author-place{
+.article-author-place {
     margin-top: 25px;
     margin-bottom: 25px;
     width: 100%;
@@ -104,14 +104,14 @@
     justify-content: flex-start;
 }
 
-.article-author-rule{
+.article-author-rule {
     flex-grow: 1;
     margin-right: 10px;
     border: none;
     border-bottom: 2px solid #293038;
 }
 
-.article-author{
+.article-author {
     margin: 0;
     font-size: 24px;
     font-weight: bold;

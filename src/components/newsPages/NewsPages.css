@@ -4,7 +4,7 @@
     justify-content: space-between;
     padding: 0px 160px;
 }
-.news-list{
+.news-list {
     list-style: none;
     padding-left: 0;
     display: flex;
@@ -14,24 +14,24 @@
     gap: 25px;
 }
 
-.loader{
+.loader {
     transform: translate(50%, 50%);
 }
 
 /* Main news list item styles */
 
-.main-news-item{
+.main-news-item {
     width: 960px;
     height: 480px;
 }
-.main-news-item-container{
+.main-news-item-container {
     width: 100%;
     height: 100%;
     position: relative;
     justify-content: center;
     align-items: center;
 }
-.main-news-img{
+.main-news-img {
     border-radius: 8px;
     position: absolute;
     width: 100%;
@@ -39,13 +39,13 @@
     opacity: 60%;
     object-fit: cover;
 }
-.main-news-img-alt{
+.main-news-img-alt {
     position: absolute;
     align-self: center;
     justify-self: center;
     object-fit: contain;
 }
-.main-text-button{
+.main-text-button {
     margin-left: 56px;
     margin-right: 56px;
     position: absolute;
@@ -54,11 +54,11 @@
     bottom: 44px;
     gap: 68px;
 }
-.main-item-text{
+.main-item-text {
     height: 116px;
     color: white;
 }
-.news-item-button{
+.news-item-button {
     width: 104px;
     display: inline-block;
     padding: 10px 20px;
@@ -67,19 +67,19 @@
     background: #293038;
     border: none;
     border-radius: 8px;
-    color: #9EABB8;
+    color: #9eabb8;
     font-weight: bold;
     font-size: 16px;
     cursor: pointer;
     transition: background 0.5s;
 }
-.news-item-button:hover{
+.news-item-button:hover {
     background: #121417;
 }
 
 /* Other list items styles */
 
-.news-item{
+.news-item {
     /*padding: 16px 16px 16px 16px;*/
     width: 960px;
     height: 203px;
@@ -89,49 +89,49 @@
     align-items: center;
 }
 
-.news-item-container{
+.news-item-container {
     gap: 0;
 }
 
-.news-item-img{
+.news-item-img {
     width: 320px;
     height: 100%;
     border-radius: 8px;
     object-fit: cover;
 }
 
-.news-item-img-alt{
+.news-item-img-alt {
     width: 200px;
 }
 
-.home-article-author{
+.home-article-author {
     width: 100%;
-    color: #9EABB8;
+    color: #9eabb8;
     font-size: 14px;
     margin-top: 0;
 }
 
-.home-article-title{
+.home-article-title {
     width: 600px;
     color: white;
     font-weight: bold;
     font-size: 16px;
 }
 
-.article-desc{
+.article-desc {
     width: 600px;
-    color: #9EABB8;
+    color: #9eabb8;
     font-size: 14px;
 }
 
-.item-button{
+.item-button {
     padding: 7px 15px;
     width: 85px;
     border: 0.5px solid transparent;
     bottom: 0;
 }
 
-.item-button:hover{
+.item-button:hover {
     border: 0.5px solid #293038;
     background: #121417;
 }

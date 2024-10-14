@@ -13,7 +13,7 @@ function Navbar() {
         nickname: '',
         email: '',
         bio: '',
-        profilePic: ''
+        profilePic: '',
     });
     const location = useLocation();
     const currentPath = location.pathname;
@@ -26,15 +26,15 @@ function Navbar() {
     const logoutUser = () => {
         logout();
         navigate('/login');
-    }
+    };
 
     useEffect(() => {
         const getUser = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/api/users/profile', {
                     headers: {
-                        auth: localStorage.getItem('token')
-                    }
+                        auth: localStorage.getItem('token'),
+                    },
                 });
                 setUser(response.data.user);
             } catch (error) {
@@ -42,25 +42,26 @@ function Navbar() {
             }
         };
         getUser();
-    }, [])
+    }, []);
 
     function checkpath() {
         if (currentPath !== '/profile') {
             return (
-                <div className='dropdown-container'>
+                <div className="dropdown-container">
                     <button className="dropdown-menu-button" onClick={toggleDropdown}>
-                        <img
-                            className="navbar-avatar"
-                            src={user.profilePic || defaultProfilePic}
-                        />
+                        <img className="navbar-avatar" src={user.profilePic || defaultProfilePic} />
                     </button>
                     {showDropdown && (
                         <ul className="dropdown-menu">
                             <li>
-                                <Link className='link profile-link' to='/profile'>Profile</Link>
+                                <Link className="link profile-link" to="/profile">
+                                    Profile
+                                </Link>
                             </li>
                             <li>
-                                <button className='logout-button' onClick={logoutUser}>Logout</button>
+                                <button className="logout-button" onClick={logoutUser}>
+                                    Logout
+                                </button>
                             </li>
                         </ul>
                     )}
@@ -71,7 +72,10 @@ function Navbar() {
 
     return (
         <div className="navbar">
-            <Link className={`link ${currentPath === '/' || currentPath === '/home' ? 'link-current' : ''} link-home`} to="/">
+            <Link
+                className={`link ${currentPath === '/' || currentPath === '/home' ? 'link-current' : ''} link-home`}
+                to="/"
+            >
                 Home
             </Link>
             <Link className={`link ${currentPath === '/tech' ? 'link-current' : ''} link-tech`} to="/tech">
