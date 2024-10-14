@@ -51,12 +51,12 @@ function NewsPages({ apiRoute }) {
             <div className="container">
                 <ul className={'news-list'}>
                     {news.map((article, index) => {
-                        const imgSource = article.img ?? defaultPic;
+                        const imgSource = article.img ? article.img : defaultPic;
 
                         return index === 0 ? (
                             <li key={index} className="main-news-item">
                                 <div className="main-news-item-container">
-                                    <img className={`main-news-img ${imgSource === defaultPic ? 'main-news-img-alt' : ''}`} src={imgSource} alt="" />
+                                    <img className={`main-news-img ${imgSource === defaultPic ? 'main-news-img-alt' : ''}`} src={article.img ?? defaultPic} alt="" />
                                     <div className="main-text-button">
                                         <div className="main-item-text">
                                             <h2 className="main-article-title">{article.title}</h2>
@@ -78,7 +78,7 @@ function NewsPages({ apiRoute }) {
                                         Read more
                                     </Link>
                                 </div>
-                                <img className={`news-item-img ${imgSource === defaultPic ? 'news-item-img-alt' : ''}`} src={imgSource} alt="" />
+                                <img className={`news-item-img ${imgSource === defaultPic ? 'news-item-img-alt' : ''}`} src={article.img ?? defaultPic} alt="" />
                             </li>
                         );
                     })}

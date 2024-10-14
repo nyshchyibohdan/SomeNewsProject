@@ -16,7 +16,71 @@
     color: white;
     font-weight: normal;
     font-size: 16px;
+    transition: 0.5s ease;
 }
+
+.link-current{
+    color: #9eabb8;
+    text-decoration: underline;
+}
+
+.link:hover{
+    color: #9eabb8;
+}
+
 .link-reposts{
     font-weight: bold;
+}
+
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown-menu-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    right: 0;
+    top: 30px;
+    background-color: #25292e;
+    border: none;
+    border-radius: 8px;
+    width: 150px;
+    padding: 10px 0;
+    list-style-type: none;
+}
+
+.dropdown-menu li {
+    padding: 10px;
+    text-align: center;
+}
+
+.profile-link{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    transition: 0.5s ease;
+}
+.profile-link:hover{
+    color: #9eabb8;
+}
+
+.logout-button{
+    border: none;
+    background-color: transparent;
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 16px;
+    transition: 0.5s ease;
+}
+
+.logout-button:hover{
+    color: #a3372b;
 }

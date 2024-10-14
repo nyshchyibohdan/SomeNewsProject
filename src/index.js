@@ -8,6 +8,7 @@ import Article from './pages/article/Article';
 // import App from './App';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
+import Profile from './pages/profile/Profile';
 import Register from './pages/register/Register';
 import Science from './pages/science/Science';
 import Sport from './pages/sport/Sport';
@@ -42,6 +43,11 @@ const router = createBrowserRouter([
     {
         path: '/science',
         element: <Science />,
+        errorElement: <div>404 Not found</div>
+    },
+    {
+        path: '/profile',
+        element: <Profile />,
         errorElement: <div>404 Not found</div>
     },
     {

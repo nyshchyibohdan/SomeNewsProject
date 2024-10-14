@@ -13,10 +13,20 @@ const UserSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    bio: {
+        type: String,
+        required: false,
+        unique: false
+    },
+    profilePic: {
+        type: String,
+        required: false,
+        unique: false
+    },
     password: {
         type: String,
         required: true
-    }
+    },
 }, {
     timestamps: true,
 });
