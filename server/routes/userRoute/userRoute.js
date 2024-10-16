@@ -98,15 +98,16 @@ router.post('/change-password', async (request, res) => {
                 const salt = await bcrypt.genSalt(12);
                 const newHashedPassword = await bcrypt.hash(newPassword, salt);
                 await User.findByIdAndUpdate(user._id, { password: newHashedPassword });
+                console.log('Password updated successfully');
+                return res.status(200).json({ success: true, message: 'Password updated successfully' });
             } else {
                 console.log('Invalid password');
                 return res.status(400).json({ success: false, message: 'Invalid password' });
             }
         });
-        return res.status(200).json({ success: true, message: 'Password updated successfully' });
     } catch (error) {
         console.error('Error updating password:', error);
-        res.status(500).json({ success: false, message: 'Server error' });
+        return res.status(500).json({ success: false, message: 'Server error' });
     }
 });
 

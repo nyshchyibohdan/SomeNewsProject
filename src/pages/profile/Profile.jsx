@@ -151,6 +151,7 @@ function Profile() {
         }
         if (newPassword.length < 8) {
             setError('Password length is less that 8 symbols');
+            return;
         }
 
         try {
@@ -173,12 +174,14 @@ function Profile() {
                 setNewPassword('');
                 setConfirmPassword('');
                 passChangeModalToggle();
-            } else {
-                setError('Error changing password');
             }
         } catch (error_) {
-            console.error(error_);
-            setError('Server error while changing password');
+            if (error_.response) {
+                setError(error_.response.data.message);
+            } else {
+                setError('Server error');
+                console.error('Error:', error_.message);
+            }
         }
     };
 
