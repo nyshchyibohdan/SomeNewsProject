@@ -44,6 +44,7 @@ const Login = () => {
                 <div className="field email-field">
                     <label className="field-label email-field-title">Email</label>
                     <input
+                        data-testid="cypress-email-input"
                         className="input email-input"
                         type="email"
                         value={email}
@@ -54,6 +55,7 @@ const Login = () => {
                 <div className="field password-field">
                     <label className="field-label password-field-label">Password</label>
                     <input
+                        data-testid="cypress-password-input"
                         className="input password-input"
                         type="password"
                         value={password}

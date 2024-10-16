@@ -53,6 +53,7 @@ const Register = () => {
                 <div className="field">
                     <label className="field-label">Nickname</label>
                     <input
+                        data-testid="cypress-reg-nickname-input"
                         className="input"
                         type="text"
                         value={nickname}
@@ -62,6 +63,7 @@ const Register = () => {
                 <div className="field">
                     <label className="field-label">Email</label>
                     <input
+                        data-testid="cypress-reg-email-input"
                         className="input"
                         type="email"
                         value={email}
@@ -72,6 +74,7 @@ const Register = () => {
                 <div className="field">
                     <label className="field-label">Password</label>
                     <input
+                        data-testid="cypress-reg-password-input"
                         className="input"
                         type="password"
                         value={password}
@@ -82,6 +85,7 @@ const Register = () => {
                 <div className="field">
                     <label className="field-label">Confirm password</label>
                     <input
+                        data-testid="cypress-reg-confirm-password-input"
                         className="input"
                         type="password"
                         value={confirmPassword}
@@ -102,7 +106,7 @@ const Register = () => {
                     <Link className="link-to" to="/login">
                         Already have account?
                     </Link>
-                    <button type="submit" className="register-button">
+                    <button type="submit" className="register-button" data-testid="cypress-reg-button">
                         Create account
                     </button>
                 </div>

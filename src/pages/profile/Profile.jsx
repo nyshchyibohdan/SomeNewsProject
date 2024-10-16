@@ -387,13 +387,13 @@ function Profile() {
                     <Box sx={styleModal}>
                         <form onSubmit={deleteAccount} className={'password-change-form'}>
                             <div className={'password-field old-password-field'}>
-                                <label htmlFor="oldPassword" className={'password-label old-password-label'}>
+                                <label htmlFor="confirm-pass-to-delete" className={'password-label old-password-label'}>
                                     Confirm password to delete account
                                 </label>
                                 <input
                                     className="input password-input"
                                     type="password"
-                                    id="oldPassword"
+                                    id="confirm-pass-to-delete"
                                     value={passwordToDeleteAccount}
                                     onChange={passwordToDeleteAccountChange}
                                     required
@@ -403,11 +403,11 @@ function Profile() {
                             <div className={'form-buttons-container'}>
                                 <button
                                     onClick={deleteAccountModalToggle}
-                                    className={'button cancel-pass-change-button'}
+                                    className={'button cancel-account-delete-button'}
                                 >
                                     Cancel
                                 </button>
-                                <button type="submit" className={'button submit-pass-change-button'}>
+                                <button type="submit" className={'button submit-account-delete-button'}>
                                     Submit
                                 </button>
                             </div>
