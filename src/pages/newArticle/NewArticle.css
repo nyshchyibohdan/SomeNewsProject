@@ -1,0 +1,145 @@
+.new-article-page-container {
+    width: 960px !important;
+    height: 100%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 280px;
+    gap: 20px;
+}
+
+.new-article-title-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 5px;
+}
+
+.new-article-title-label {
+    color: #9eabb8;
+    font-weight: bold;
+    font-size: large;
+}
+
+.new-article-title-input {
+    width: 928px;
+    height: 40px;
+    background: #121417;
+    border: 2px #293038 solid;
+    border-radius: 12px;
+    font-size: 18px;
+    color: #9eabb8;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.new-article-main-image-container {
+    color: #9eabb8;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.new-article-main-image-label {
+    font-weight: bold;
+    font-size: 16px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background: #293038;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: 0.5s ease;
+}
+
+.new-article-main-image-label:hover {
+    border: 2px solid #293038;
+    background: transparent;
+}
+
+.new-article-main-image {
+    display: none;
+}
+
+.create-article-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+}
+
+.cancel-link {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 10px 0;
+    width: 105px;
+    background: #810a0a;
+    border: 2px solid transparent;
+    text-align: center;
+    border-radius: 8px;
+    transition: background 0.5s;
+}
+
+.cancel-link:hover {
+    background: transparent;
+    border: 2px solid #810a0a;
+}
+
+.create-article-button {
+    width: 158px;
+}
+
+.new-article-error-stack {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+/* Quill editor custom styles */
+
+.quill {
+    width: 960px;
+}
+
+.ql-editor {
+    background-color: #121417;
+    color: white;
+    border: 1px solid #293038;
+    font-family: 'Roboto', sans-serif;
+    min-height: 200px;
+    height: 75%;
+}
+
+.ql-toolbar.ql-snow {
+    border: 2px solid #293038;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    padding: 8px;
+}
+
+.ql-toolbar .ql-fill {
+    fill: white;
+}
+
+.ql-container.ql-snow {
+    border: 1px solid #293038;
+}
+
+.ql-toolbar .ql-stroke {
+    stroke: white;
+}
+
+.ql-toolbar .ql-picker-label {
+    color: white;
+}
