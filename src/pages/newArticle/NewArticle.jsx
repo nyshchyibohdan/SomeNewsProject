@@ -11,6 +11,25 @@ import defaultProfilePic from '../../assets/imgs/logo.png';
 import { Footer, Header } from '../../components/index';
 import { isAuthenticated } from '../../utils/auth';
 
+const toolbarOptions = [
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+    ['bold', 'italic', 'underline'],
+    ['blockquote', 'code-block'],
+    ['link', 'image'],
+
+    [{ header: 1 }, { header: 2 }],
+    [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
+
+    [{ align: [] }],
+
+    ['clean'],
+];
+
+const quill = {
+    toolbar: toolbarOptions,
+};
+
 function NewArticle() {
     const [user, setUser] = useState(null);
     const [articleTitle, setArticleTitle] = useState('');
@@ -29,10 +48,6 @@ function NewArticle() {
             setArticleMainImage(null);
         }
     };
-
-    useEffect(() => {
-        console.log(articleMainImage); // DELETE THIS METHOD
-    }, [articleMainImage]);
 
     const navigate = useNavigate();
 
@@ -135,7 +150,7 @@ function NewArticle() {
                         Set article&apos;s main picture (optional)
                     </label>
                 </div>
-                <ReactQuill value={articleContent} onChange={setArticleContent} ref={quillReference} />
+                <ReactQuill modules={quill} value={articleContent} onChange={setArticleContent} ref={quillReference} />
                 <div className={'create-article-buttons'}>
                     <Link className={'cancel-link'} to="/profile">
                         Cancel

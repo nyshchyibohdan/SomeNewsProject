@@ -126,6 +126,34 @@
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
     padding: 8px;
+
+    .ql-formats {
+        margin-right: 15px;
+    }
+
+    .ql-picker-label {
+        border: 1px solid transparent;
+    }
+
+    .ql-picker-options {
+        background-color: #293038;
+        border: 1px solid transparent;
+
+        .ql-picker-item {
+            color: white;
+        }
+        .ql-picker-item:hover {
+            color: #9eabb8;
+        }
+    }
+    .ql-picker.ql-expanded {
+        .ql-picker-label {
+            border-color: #293038;
+        }
+        .ql-picker-options {
+            border-color: #293038;
+        }
+    }
 }
 
 .ql-toolbar .ql-fill {

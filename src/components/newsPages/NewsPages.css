@@ -101,7 +101,8 @@
 }
 
 .news-item-img-alt {
-    width: 200px;
+    object-fit: contain;
+    width: 320px;
 }
 
 .home-article-author {
