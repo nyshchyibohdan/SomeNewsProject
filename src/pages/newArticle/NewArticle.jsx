@@ -148,6 +148,8 @@ function NewArticle() {
         <div>
             <Header />
             <div className={'new-article-page-container'}>
+                <div className="new-article-error-stack">{error && <p className="error">{error}</p>}</div>
+
                 <div className={'new-article-title-container'}>
                     <label className={'new-article-title-label'}>Article title</label>
                     <input className={'new-article-title-input'} type="text" onChange={changeArticleTitle} />
@@ -182,8 +184,6 @@ function NewArticle() {
                         Create Article
                     </button>
                 </div>
-
-                <div className="new-article-error-stack">{error && <p className="error">{error}</p>}</div>
             </div>
             <Footer />
         </div>
