@@ -37,6 +37,35 @@
     padding-right: 16px;
 }
 
+.new-article-desc-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 5px;
+}
+
+.new-article-desc-label {
+    color: #9eabb8;
+    font-weight: bold;
+    font-size: large;
+}
+
+.article-desc-input-field {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    color: #9eabb8;
+    font-weight: normal;
+    border: 2px #293038 solid;
+    background: transparent;
+    padding: 8px;
+    width: 98%;
+    border-radius: 8px;
+    overflow: hidden;
+    resize: none;
+}
+
 .new-article-main-image-container {
     color: #9eabb8;
     width: 100%;

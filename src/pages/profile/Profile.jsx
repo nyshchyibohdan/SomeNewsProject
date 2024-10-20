@@ -10,6 +10,7 @@ import { BounceLoader } from 'react-spinners';
 import defaultProfilePic from '../../assets/imgs/logo.png';
 import { Footer, Header } from '../../components';
 import { isAuthenticated, logout } from '../../utils/auth';
+import { getUser } from '../../utils/userService';
 
 const styleModal = {
     color: 'white',
@@ -67,7 +68,20 @@ function Profile() {
     };
 
     useEffect(() => {
-        if (!isAuthenticated()) {
+        const fetchUserData = async () => {
+            try {
+                const userData = await getUser();
+                setUser(userData);
+            } catch (error) {
+                console.log(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (isAuthenticated()) {
+            fetchUserData();
+        } else {
             navigate('/login');
         }
     }, [navigate]);
@@ -79,22 +93,6 @@ function Profile() {
     const logoutUser = () => {
         logout();
         navigate('/login');
-    };
-
-    const getUser = async () => {
-        try {
-            const response = await axios.get('http://localhost:5000/api/users/profile', {
-                headers: {
-                    auth: localStorage.getItem('token'),
-                },
-            });
-            setUser(response.data.user);
-            setBiography(response.data.user.bio);
-            setLoading(false);
-        } catch (error) {
-            console.error('Error getting user', error);
-            setLoading(false);
-        }
     };
 
     const changeProfilePic = (event) => {
@@ -250,7 +248,7 @@ function Profile() {
                             <Link to="" className={'button link-to-page'}>
                                 Likes
                             </Link>
-                            <Link to="/new-article" className={'button link-to-page'}>
+                            <Link to="/user-articles" className={'button link-to-page'}>
                                 Articles
                             </Link>
                         </div>

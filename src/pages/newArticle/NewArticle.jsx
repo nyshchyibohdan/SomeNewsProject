@@ -10,6 +10,7 @@ import { BounceLoader } from 'react-spinners';
 import defaultProfilePic from '../../assets/imgs/logo.png';
 import { Footer, Header } from '../../components/index';
 import { isAuthenticated } from '../../utils/auth';
+import { getUser } from '../../utils/userService';
 
 const toolbarOptions = [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -33,6 +34,7 @@ const quill = {
 function NewArticle() {
     const [user, setUser] = useState(null);
     const [articleTitle, setArticleTitle] = useState('');
+    const [articleDescription, setArticleDescription] = useState('');
     const [articleMainImage, setArticleMainImage] = useState('');
     const [loading, setLoading] = useState(true);
     const [articleContent, setArticleContent] = useState('');
@@ -48,11 +50,29 @@ function NewArticle() {
             setArticleMainImage(null);
         }
     };
+    const changeArticleDescription = (event) => {
+        setArticleDescription(event.target.value);
+        event.target.style.height = 'auto';
+        event.target.style.height = `${event.target.scrollHeight}px`;
+    };
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!isAuthenticated()) {
+        const fetchUserData = async () => {
+            try {
+                const userData = await getUser();
+                setUser(userData);
+            } catch (error) {
+                console.log(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (isAuthenticated()) {
+            fetchUserData();
+        } else {
             navigate('/login');
         }
     }, [navigate]);
@@ -60,22 +80,6 @@ function NewArticle() {
     useEffect(() => {
         getUser();
     }, []);
-
-    const getUser = async () => {
-        try {
-            const response = await axios.get('http://localhost:5000/api/users/profile', {
-                headers: {
-                    auth: localStorage.getItem('token'),
-                },
-            });
-            setUser(response.data.user);
-            setLoading(false);
-        } catch (error) {
-            setError('Cannot get user info');
-            console.error('Error getting user', error);
-            setLoading(false);
-        }
-    };
 
     const saveArticle = async (event) => {
         event.preventDefault();
@@ -86,6 +90,15 @@ function NewArticle() {
         }
         if (articleTitle.length > 100) {
             setError('Article title should be less than 100');
+            return;
+        }
+        if (articleDescription.length > 200) {
+            setError('Article description should be less than 200');
+            return;
+        }
+
+        if (articleDescription.length < 10) {
+            setError('Article description should be more that 10');
             return;
         }
 
@@ -110,6 +123,7 @@ function NewArticle() {
 
             const response = await axios.post('http://localhost:5000/api/articles/save-article', {
                 title: articleTitle,
+                description: articleDescription,
                 mainPicture: base64String,
                 content: articleContent,
                 author: user.id,
@@ -117,7 +131,7 @@ function NewArticle() {
 
             if (response.data.success) {
                 setError('');
-                navigate('/profile');
+                navigate('/user-articles');
             }
         } catch (error) {
             if (error.response) {
@@ -137,6 +151,15 @@ function NewArticle() {
                 <div className={'new-article-title-container'}>
                     <label className={'new-article-title-label'}>Article title</label>
                     <input className={'new-article-title-input'} type="text" onChange={changeArticleTitle} />
+                </div>
+                <div className={'new-article-desc-container'}>
+                    <label className={'new-article-desc-label'}>Article description</label>
+                    <textarea
+                        className={'article-desc-input-field'}
+                        value={articleDescription}
+                        onChange={changeArticleDescription}
+                        rows={2}
+                    />
                 </div>
                 <div className={'new-article-main-image-container'}>
                     <label className={'new-article-main-image-label'}>

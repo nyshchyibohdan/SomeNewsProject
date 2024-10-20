@@ -137,11 +137,12 @@
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-weight: normal;
+    border: 2px #293038 solid;
     color: white;
     background: transparent;
     padding: 8px;
     width: 98%;
-    border-radius: 5px;
+    border-radius: 8px;
     overflow: hidden;
     resize: none;
 }
