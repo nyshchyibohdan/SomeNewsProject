@@ -82,14 +82,16 @@ function NewArticle() {
     }, []);
 
     const saveArticle = async (event) => {
+        window.scrollTo(0, 0);
+
         event.preventDefault();
 
         if (articleTitle.length < 5) {
             setError('Article length should be more than 5');
             return;
         }
-        if (articleTitle.length > 100) {
-            setError('Article title should be less than 100');
+        if (articleTitle.length > 70) {
+            setError('Article title should be less than 70');
             return;
         }
         if (articleDescription.length > 200) {

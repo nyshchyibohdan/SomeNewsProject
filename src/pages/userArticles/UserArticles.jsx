@@ -114,7 +114,7 @@ function UserArticles() {
                                         <div className={'article-buttons-container'}>
                                             <Link
                                                 className="button link-to-page"
-                                                to={`/${article._id}`}
+                                                to={`/user-articles/${article._id}`}
                                                 state={article}
                                             >
                                                 Read more

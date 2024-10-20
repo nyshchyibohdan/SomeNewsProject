@@ -15,6 +15,7 @@ import Science from './pages/science/Science';
 import Sport from './pages/sport/Sport';
 import Technology from './pages/technology/Technology';
 import UserArticles from './pages/userArticles/UserArticles';
+import UserFullArticle from './pages/userFullArticle/UserFullArticle';
 
 const router = createBrowserRouter([
     {
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
         errorElement: <div>404 Not found</div>,
     },
     {
-        path: '/:articleId/',
+        path: '/:articleId',
         element: <Article />,
         errorElement: <div>404 Not found</div>,
     },
@@ -60,6 +61,11 @@ const router = createBrowserRouter([
     {
         path: '/user-articles',
         element: <UserArticles />,
+        errorElement: <div>404 Not found</div>,
+    },
+    {
+        path: '/user-articles/:userArticleId',
+        element: <UserFullArticle />,
         errorElement: <div>404 Not found</div>,
     },
     {

@@ -146,6 +146,7 @@
     color: white;
     border: 1px solid #293038;
     font-family: 'Roboto', sans-serif;
+    font-size: 18px;
     min-height: 200px;
     height: 75%;
 }

@@ -73,4 +73,48 @@ router.delete('/delete-article', async (req, res) => {
     }
 });
 
+router.get('/user-full-article', async (req, res) => {
+    const articleId = req.query.articleId;
+
+    try {
+        const article = await Article.findById(articleId);
+        if (!article) {
+            return res.status(400).json({
+                success: false,
+                message: 'Article not found',
+            });
+        }
+
+        console.log('Article found');
+
+        const articleAuthor = await User.findById(article.author);
+        if (!articleAuthor) {
+            console.log('no user found for article');
+            return res.status(404).json({
+                success: false,
+                message: 'No author found with this ID',
+            });
+        }
+
+        return res.status(200).json({
+            article: {
+                id: article._id,
+                title: article.title,
+                mainPic: article.mainPicture,
+                description: article.description,
+                content: article.content,
+                author: articleAuthor.nickname,
+            },
+            success: true,
+            message: 'Article found successfully',
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: 'Error getting user article',
+        });
+    }
+});
+
 module.exports = router;
