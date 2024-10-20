@@ -1,11 +1,11 @@
 import './Navbar.css';
 
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import defaultProfilePic from '../../assets/imgs/logo.png';
 import { logout } from '../../utils/auth';
+import { getUser } from '../../utils/userService';
 
 function Navbar() {
     const [showDropdown, setShowDropdown] = useState(false);
@@ -29,19 +29,15 @@ function Navbar() {
     };
 
     useEffect(() => {
-        const getUser = async () => {
+        const fetchUserData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/users/profile', {
-                    headers: {
-                        auth: localStorage.getItem('token'),
-                    },
-                });
-                setUser(response.data.user);
+                const userData = await getUser();
+                setUser(userData);
             } catch (error) {
-                console.error('Error getting user', error);
+                console.log(error.message);
             }
         };
-        getUser();
+        fetchUserData();
     }, []);
 
     function checkpath() {

@@ -1,0 +1,124 @@
+.user-articles-page-container {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px 280px;
+    width: 960px;
+    min-height: 740px;
+    height: 100%;
+}
+
+.user-articles-page-title {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-articles-page-title-h1 {
+    width: 300px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.user-articles-page-title-rule {
+    width: 489px;
+}
+
+.user-articles-list {
+    width: 100%;
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+.article-item {
+    /*padding: 16px 16px 16px 16px;*/
+    width: 100%;
+    height: 203px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.article-item-container {
+    gap: 0;
+}
+
+.article-item-img {
+    width: 320px;
+    height: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.article-item-img-alt {
+    object-fit: contain;
+    width: 320px;
+}
+
+.article-author {
+    width: 100%;
+    color: #9eabb8;
+    font-size: 14px;
+    margin-top: 0;
+}
+
+.article-title {
+    width: 600px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.article-desc {
+    width: 600px;
+    color: #9eabb8;
+    font-size: 14px;
+}
+
+.article-title,
+.article-desc {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.article-buttons-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.article-item-button {
+    padding: 7px 15px;
+    width: 85px;
+    border: 0.5px solid transparent;
+    bottom: 0;
+}
+
+.article-item-button:hover {
+    border: 0.5px solid #293038;
+    background: #121417;
+}
+
+.delete-article-button {
+    background: #b50a0a;
+    border: 2px solid transparent;
+}
+
+.delete-article-button:hover {
+    background: transparent;
+    border: 2px solid #b50a0a;
+}
