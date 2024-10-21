@@ -2,7 +2,7 @@ import './UserFullArticle.css';
 
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { BounceLoader } from 'react-spinners';
 
 import { Footer, Header } from '../../components';
@@ -10,13 +10,6 @@ import { isAuthenticated } from '../../utils/auth';
 import { getUser } from '../../utils/userService';
 
 const UserFullArticle = () => {
-    const { userArticleId } = useParams();
-    const [user, setUser] = useState({
-        nickname: '',
-        email: '',
-        bio: '',
-        profilePic: '',
-    });
     const [article, setArticle] = useState({
         id: null,
         title: '',
@@ -25,8 +18,17 @@ const UserFullArticle = () => {
         content: '',
         author: '',
     });
+    const [user, setUser] = useState({
+        nickname: '',
+        email: '',
+        bio: '',
+        profilePic: '',
+    });
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+
+    const location = useLocation();
+    const userArticleId = location.state;
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -65,6 +67,10 @@ const UserFullArticle = () => {
         window.scrollTo(0, 0);
         fetchUserArticle();
     }, [userArticleId]);
+
+    if (userArticleId.length === 0) {
+        return <p>Error getting article id</p>;
+    }
 
     if (!article) {
         return <p>No article data found</p>;

@@ -3,57 +3,21 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 250px;
+    padding: 0px 280px;
 }
 
 /* Article title and buttons part styles*/
 
 .article-title-button-container {
+    width: 100%;
     height: 100px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
 }
 
-.article-title {
+.article-page-title {
     color: white;
-    width: 630px;
-    max-width: 640px;
+    width: 100%;
     font-weight: bold;
     font-size: 21px;
-}
-
-.article-buttons {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    align-items: center;
-}
-
-.article-reposts-counter {
-    font-size: 18px;
-}
-
-.article-button {
-    background: #293038;
-    color: #ffffff;
-    font-size: 16px;
-    font-family: 'Roboto', sans-serif;
-    width: 90px;
-    height: 35px;
-    border-radius: 8px;
-    border: 1px solid transparent;
-    transition: background 0.5s;
-}
-
-.article-button:hover {
-    border: 2px solid #ffffff;
-}
-
-.article-button-active {
-    background: transparent;
-    border: 2px solid #293038;
 }
 
 /* Article image styles */

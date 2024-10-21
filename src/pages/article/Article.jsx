@@ -54,12 +54,7 @@ const Article = () => {
             <Header />
             <div className="article-container">
                 <div className="article-title-button-container">
-                    <p className="article-title">{article.title}</p>
-                    <div className="article-buttons">
-                        <h2 className="article-reposts-counter">500000 reposts</h2>
-                        <button className="article-button article-repost-button">Repost</button>
-                        <button className="article-button article-like-button">Like</button>
-                    </div>
+                    <p className="article-page-title">{article.title}</p>
                 </div>
 
                 <img className="article-img" src={article.img} alt="" />
