@@ -35,6 +35,22 @@ const UserSchema = new mongoose.Schema(
 );
 
 UserSchema.pre('save', async function (next) {
+    try {
+        const nicknameExists = await mongoose.models.User.findOne({ nickname: this.nickname });
+        if (nicknameExists && nicknameExists._id.toString() !== this._id.toString()) {
+            throw new Error('Nickname already taken');
+        }
+
+        const emailExists = await mongoose.models.User.findOne({ email: this.email });
+        if (emailExists && emailExists._id.toString() !== this._id.toString()) {
+            throw new Error('Email already in use');
+        }
+
+        next();
+    } catch (error) {
+        next(error);
+    }
+
     if (!this.isModified('password')) {
         return next();
     }

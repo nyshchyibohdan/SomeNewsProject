@@ -35,11 +35,16 @@ const Register = () => {
             navigate('/home');
         } catch (error) {
             console.error(error);
-            if (error.response && error.response.status === 500) {
-                setError(['Something went wrong!']);
-            } else if (error.response && Array.isArray(error.response.data.errors)) {
-                const errorMessages = error.response.data.errors.map((error_) => error_.msg);
-                setError(errorMessages);
+
+            if (error.response && error.response.status === 400) {
+                if (error.response.data.errors) {
+                    const errorMessages = error.response.data.errors.map((err) => err.msg);
+                    setError(errorMessages);
+                } else {
+                    setError([error.response.data.message]);
+                }
+            } else if (error.response && error.response.status === 500) {
+                setError(['Something went wrong on the server!']);
             } else {
                 setError(['An unexpected error occurred']);
             }
