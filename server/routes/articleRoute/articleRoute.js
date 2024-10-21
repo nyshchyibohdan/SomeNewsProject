@@ -1,9 +1,6 @@
 const express = require('express');
 const Article = require('../../../src/models/Article');
 const User = require('../../../src/models/User');
-const mongoose = require('mongoose');
-
-const ObjectId = mongoose.Types.ObjectId;
 
 const router = express.Router();
 
@@ -17,6 +14,7 @@ router.post('/save-article', async (req, res) => {
             mainPicture,
             content,
             author,
+            repostsCount: 0,
         });
         const article = await articleDoc.save();
 
@@ -104,6 +102,7 @@ router.get('/user-full-article', async (req, res) => {
                 description: article.description,
                 content: article.content,
                 author: articleAuthor.nickname,
+                repostsCount: article.repostsCount,
             },
             success: true,
             message: 'Article found successfully',
@@ -113,6 +112,79 @@ router.get('/user-full-article', async (req, res) => {
         return res.status(500).json({
             success: false,
             message: 'Error getting user article',
+        });
+    }
+});
+
+router.put('/toggle-repost-article', async (req, res) => {
+    const { articleId, userId } = req.body;
+
+    try {
+        let article = await Article.findById(articleId);
+        if (!article) {
+            return res.status(404).json({
+                success: false,
+                message: 'No article found with this ID',
+            });
+        }
+
+        let user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: 'No user found with this ID',
+            });
+        }
+
+        if (user.reposts.includes(articleId)) {
+            user.reposts = user.reposts.filter((articleIndex) => articleIndex.toString() !== articleId.toString());
+            await user.save();
+            article.repostsCount = article.repostsCount || 0;
+            article.repostsCount -= 1;
+            await article.save();
+
+            console.log('undo repost');
+        } else {
+            user.reposts.push(articleId);
+            await user.save();
+            article.repostsCount = article.repostsCount || 0;
+            article.repostsCount += 1;
+            await article.save();
+
+            console.log('reposted');
+        }
+
+        article = await Article.findById(articleId);
+        user = await User.findById(userId);
+
+        const articleAuthor = await User.findById(article.author);
+
+        return res.status(200).json({
+            user: {
+                id: user.id,
+                nickname: user.nickname,
+                email: user.email,
+                bio: user.bio,
+                profilePic: user.profilePic,
+                reposts: user.reposts,
+            },
+            article: {
+                id: article._id,
+                title: article.title,
+                mainPic: article.mainPicture,
+                description: article.description,
+                content: article.content,
+                author: articleAuthor.nickname,
+                repostsCount: article.repostsCount,
+            },
+            success: true,
+            message: 'Toggle repost done successfully',
+        });
+    } catch (error) {
+        console.error('Error toggle repost article:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Server error',
         });
     }
 });

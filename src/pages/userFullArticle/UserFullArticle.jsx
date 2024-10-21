@@ -17,13 +17,17 @@ const UserFullArticle = () => {
         mainPic: '',
         content: '',
         author: '',
+        repostsCount: 0,
     });
     const [user, setUser] = useState({
         nickname: '',
         email: '',
         bio: '',
         profilePic: '',
+        reposts: [],
     });
+    const [articleReposted, setArticleReposted] = useState(false);
+
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
@@ -35,6 +39,9 @@ const UserFullArticle = () => {
             try {
                 const userData = await getUser();
                 setUser(userData);
+                if (userData.reposts.includes(userArticleId)) {
+                    setArticleReposted(true);
+                }
             } catch (error) {
                 console.log(error.message);
                 setLoading(false);
@@ -68,6 +75,25 @@ const UserFullArticle = () => {
         fetchUserArticle();
     }, [userArticleId]);
 
+    const toggleRepostArticle = async (event) => {
+        event.preventDefault();
+
+        if (!user) return;
+
+        try {
+            const response = await axios.put('http://localhost:5000/api/articles/toggle-repost-article', {
+                articleId: userArticleId,
+                userId: user.id,
+            });
+            setArticleReposted(!articleReposted);
+            setUser(response.data.user);
+            setArticle(response.data.article);
+        } catch (error) {
+            console.log(error.message);
+            setArticleReposted(!articleReposted);
+        }
+    };
+
     if (userArticleId.length === 0) {
         return <p>Error getting article id</p>;
     }
@@ -93,8 +119,15 @@ const UserFullArticle = () => {
                 <div className="article-title-button-container">
                     <p className="article-title">{article.title}</p>
                     <div className="article-buttons">
-                        <h2 className="article-reposts-counter">500000 reposts</h2>
-                        <button className="article-button article-repost-button">Repost</button>
+                        <h2 className="article-reposts-counter">
+                            {article.repostsCount} Repost{article.repostsCount === 1 ? '' : 's'}
+                        </h2>
+                        <button
+                            className={`article-button article-repost-button ${articleReposted ? 'article-button-active' : ''}`}
+                            onClick={toggleRepostArticle}
+                        >
+                            Repost{articleReposted ? 'ed' : ''}
+                        </button>
                         <button className="article-button article-like-button">Like</button>
                     </div>
                 </div>

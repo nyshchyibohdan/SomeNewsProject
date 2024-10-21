@@ -28,6 +28,7 @@ router.get('/profile', async (request, res) => {
                 message: 'User not found',
             });
         }
+        console.log(user.reposts);
         return res.status(200).json({
             user: {
                 id: userId,
@@ -35,6 +36,7 @@ router.get('/profile', async (request, res) => {
                 email: user.email,
                 bio: user.bio,
                 profilePic: user.profilePic,
+                reposts: user.reposts,
             },
         });
     } catch (error) {

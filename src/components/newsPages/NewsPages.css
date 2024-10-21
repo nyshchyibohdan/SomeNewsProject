@@ -14,10 +14,6 @@
     gap: 25px;
 }
 
-.loader {
-    transform: translate(50%, 50%);
-}
-
 /* Main news list item styles */
 
 .main-news-item {

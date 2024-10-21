@@ -38,3 +38,7 @@ body {
     border: 2px solid #293038;
     background: #121417;
 }
+
+.loader {
+    transform: translate(50%, 50%);
+}

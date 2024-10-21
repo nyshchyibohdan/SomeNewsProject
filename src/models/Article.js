@@ -26,6 +26,12 @@ const ArticleSchema = new mongoose.Schema(
             required: true,
             unique: false,
         },
+        repostsCount: {
+            type: Number,
+            required: false,
+            unique: false,
+            default: 0,
+        },
         author: {
             type: Schema.Types.ObjectId,
             ref: 'User',

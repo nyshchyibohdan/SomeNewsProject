@@ -1,6 +1,8 @@
 // import mongoose from 'mongoose';
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const { Schema } = require('mongoose');
+const Article = require('./Article');
 
 const UserSchema = new mongoose.Schema(
     {
@@ -21,6 +23,12 @@ const UserSchema = new mongoose.Schema(
         },
         profilePic: {
             type: String,
+            required: false,
+            unique: false,
+        },
+        reposts: {
+            type: [Schema.Types.ObjectId],
+            ref: 'Article',
             required: false,
             unique: false,
         },
