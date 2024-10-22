@@ -53,8 +53,6 @@ UserSchema.pre('save', async function (next) {
         if (emailExists && emailExists._id.toString() !== this._id.toString()) {
             throw new Error('Email already in use');
         }
-
-        next();
     } catch (error) {
         next(error);
     }

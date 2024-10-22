@@ -2,7 +2,7 @@ import './UserFullArticle.css';
 
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { BounceLoader } from 'react-spinners';
 
 import { Footer, Header } from '../../components';
@@ -131,6 +131,8 @@ const UserFullArticle = () => {
                         <button className="article-button article-like-button">Like</button>
                     </div>
                 </div>
+
+                {!article.mainPic && <hr className={'horizontal-separator'}></hr>}
 
                 <img className="article-img" src={article.mainPic} alt="" />
                 <div className="article-main-text" dangerouslySetInnerHTML={{ __html: article.content }}></div>

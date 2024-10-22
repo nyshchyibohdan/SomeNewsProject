@@ -189,4 +189,36 @@ router.put('/toggle-repost-article', async (req, res) => {
     }
 });
 
+router.get('/community-articles', async (req, res) => {
+    try {
+        const articlesArray = await Article.find().sort({ repostsCount: -1 });
+
+        const articles = await Promise.all(
+            articlesArray.map(async (article) => {
+                const user = await User.findById(article.author);
+                return {
+                    id: article._id,
+                    title: article.title,
+                    description: article.description,
+                    mainPic: article.mainPicture,
+                    content: article.content,
+                    repostsCount: article.repostsCount,
+                    author: user ? user.nickname : 'Unknown',
+                };
+            }),
+        );
+
+        return res.status(200).json({
+            success: true,
+            articles: articles,
+        });
+    } catch (error) {
+        console.error('Error getting articles:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Server error',
+        });
+    }
+});
+
 module.exports = router;

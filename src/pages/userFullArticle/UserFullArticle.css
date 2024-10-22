@@ -58,6 +58,13 @@
     border: 2px solid #293038;
 }
 
+.horizontal-separator {
+    width: 100%;
+    margin-bottom: 35px;
+    border: 1px solid #293038;
+    border-radius: 8px;
+}
+
 /* Article image styles */
 
 .article-img {

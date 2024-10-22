@@ -20,9 +20,7 @@ const toolbarOptions = [
     ['link', 'image'],
 
     [{ header: 1 }, { header: 2 }],
-    [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
-
-    [{ align: [] }],
+    [{ list: 'ordered' }, { list: 'bullet' }],
 
     ['clean'],
 ];
@@ -179,7 +177,7 @@ function NewArticle() {
                 </div>
                 <ReactQuill modules={quill} value={articleContent} onChange={setArticleContent} ref={quillReference} />
                 <div className={'create-article-buttons'}>
-                    <Link className={'cancel-link'} to="/profile">
+                    <Link className={'cancel-link'} to="/user-articles">
                         Cancel
                     </Link>
                     <button onClick={saveArticle} className={'button create-article-button'}>

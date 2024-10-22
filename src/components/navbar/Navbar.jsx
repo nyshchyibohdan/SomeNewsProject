@@ -83,8 +83,8 @@ function Navbar() {
             <Link className={`link ${currentPath === '/science' ? 'link-current' : ''} link-science`} to="/science">
                 Science
             </Link>
-            <Link className={`link ${currentPath === '/reposts' ? 'link-current' : ''} link-reposts`} to="/">
-                Reposts
+            <Link className={`link ${currentPath === '/community' ? 'link-current' : ''} link-reposts`} to="/community">
+                Community
             </Link>
             {checkpath()}
         </div>

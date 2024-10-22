@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Article from './pages/article/Article';
+import Community from './pages/community/Community';
 // import App from './App';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
@@ -66,6 +67,11 @@ const router = createBrowserRouter([
     {
         path: '/user-full-article',
         element: <UserFullArticle />,
+        errorElement: <div>404 Not found</div>,
+    },
+    {
+        path: '/community',
+        element: <Community />,
         errorElement: <div>404 Not found</div>,
     },
     {
