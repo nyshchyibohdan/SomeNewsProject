@@ -9,6 +9,9 @@ import { BounceLoader } from 'react-spinners';
 
 import defaultProfilePic from '../../assets/imgs/logo.png';
 import { Footer, Header } from '../../components';
+import { useAuthContext } from '../../contexts/AuthContext';
+import { useUserArticlesContext } from '../../contexts/UserArticlesContext';
+import { useAuthentication } from '../../hooks/useAuthentication';
 import { isAuthenticated, logout } from '../../utils/auth';
 import { getUser } from '../../utils/userService';
 
@@ -27,17 +30,13 @@ const styleModal = {
 };
 
 function Profile() {
-    const [user, setUser] = useState({
-        nickname: '',
-        email: '',
-        bio: '',
-        profilePic: '',
-    });
-    const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
-    const [error, setError] = useState('');
+    useAuthentication();
 
-    // Password change modal
+    const { user, loading, error, setError, setLoading, removeUser } = useAuthContext();
+    const { removeArticles } = useUserArticlesContext();
+
+    const navigate = useNavigate();
+
     const [openPasswordChangeModal, setOpenPasswordChangeModal] = React.useState(false);
 
     const [oldPassword, setOldPassword] = useState('');
@@ -67,31 +66,10 @@ function Profile() {
         event.target.style.height = `${event.target.scrollHeight}px`;
     };
 
-    useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const userData = await getUser();
-                setUser(userData);
-            } catch (error) {
-                console.log(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        if (isAuthenticated()) {
-            fetchUserData();
-        } else {
-            navigate('/login');
-        }
-    }, [navigate]);
-
-    useEffect(() => {
-        getUser();
-    }, []);
-
     const logoutUser = () => {
         logout();
+        removeUser();
+        removeArticles();
         navigate('/login');
     };
 

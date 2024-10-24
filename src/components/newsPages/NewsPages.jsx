@@ -1,13 +1,14 @@
 import '../../components/newsPages/NewsPages.css';
 
-import axios from 'axios';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { BounceLoader } from 'react-spinners';
 
 import defaultPic from '../../assets/imgs/logo.png';
-import { isAuthenticated } from '../../utils/auth';
+import { useNewsApiContext } from '../../contexts/NewsApiContext';
+import { useAuthentication } from '../../hooks/useAuthentication';
+import useFetchNews from '../../hooks/useFetchNews';
 import { Footer, Header } from '../index';
 
 NewsPages.propTypes = {
@@ -15,34 +16,11 @@ NewsPages.propTypes = {
 };
 
 function NewsPages({ apiRoute }) {
-    const [news, setNews] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const navigate = useNavigate();
+    const { news, loading, error } = useNewsApiContext();
 
-    useEffect(() => {
-        if (!isAuthenticated()) {
-            navigate('/login');
-        }
-    }, [navigate]);
+    useAuthentication();
 
-    useEffect(() => {
-        const fetchNews = async () => {
-            try {
-                const response = await axios.get(apiRoute);
-                localStorage.setItem('news', JSON.stringify(response.data));
-
-                setNews(response.data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error fetching news:', error);
-                setError(error);
-                setLoading(false);
-            }
-        };
-
-        fetchNews();
-    }, [apiRoute]);
+    useFetchNews({ apiRoute });
 
     if (loading) return <BounceLoader className="loader" color="#ffffff" speedMultiplier={1} />;
     if (error) return <p>Error loading news: {error.message}</p>;
@@ -68,7 +46,11 @@ function NewsPages({ apiRoute }) {
                                             <h2 className="main-article-title">{article.title}</h2>
                                             <p className="main-article-desc">{article.description}</p>
                                         </div>
-                                        <Link className="news-item-button main-item-button" to={`/${index}`}>
+                                        <Link
+                                            className="news-item-button main-item-button"
+                                            to={`/${index}`}
+                                            state={article}
+                                        >
                                             Read more
                                         </Link>
                                     </div>

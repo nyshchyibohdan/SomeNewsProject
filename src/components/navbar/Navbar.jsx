@@ -1,20 +1,19 @@
 import './Navbar.css';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import defaultProfilePic from '../../assets/imgs/logo.png';
+import { useAuthContext } from '../../contexts/AuthContext';
+import { useUserArticlesContext } from '../../contexts/UserArticlesContext';
 import { logout } from '../../utils/auth';
-import { getUser } from '../../utils/userService';
 
 function Navbar() {
+    const { user, removeUser } = useAuthContext();
+    const { removeArticles } = useUserArticlesContext();
+
     const [showDropdown, setShowDropdown] = useState(false);
-    const [user, setUser] = useState({
-        nickname: '',
-        email: '',
-        bio: '',
-        profilePic: '',
-    });
+
     const location = useLocation();
     const currentPath = location.pathname;
     const navigate = useNavigate();
@@ -25,27 +24,17 @@ function Navbar() {
 
     const logoutUser = () => {
         logout();
+        removeUser();
+        removeArticles();
         navigate('/login');
     };
-
-    useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const userData = await getUser();
-                setUser(userData);
-            } catch (error) {
-                console.log(error.message);
-            }
-        };
-        fetchUserData();
-    }, []);
 
     function checkpath() {
         if (currentPath !== '/profile') {
             return (
                 <div className="dropdown-container">
                     <button className="dropdown-menu-button" onClick={toggleDropdown}>
-                        <img className="navbar-avatar" src={user.profilePic || defaultProfilePic} />
+                        <img className="navbar-avatar" src={user?.profilePic || defaultProfilePic} />
                     </button>
                     {showDropdown && (
                         <ul className="dropdown-menu">

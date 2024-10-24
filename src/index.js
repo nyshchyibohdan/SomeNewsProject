@@ -4,6 +4,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import { AuthProvider } from './contexts/AuthContext';
+import { CommunityProvider } from './contexts/CommunityContext';
+import { NewsApiProvider } from './contexts/NewsApiContext';
+import { UserArticlesProvider } from './contexts/UserArticlesContext';
 import Article from './pages/article/Article';
 import Community from './pages/community/Community';
 // import App from './App';
@@ -88,6 +92,14 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.querySelector('#root')).render(
     <React.StrictMode>
-        <RouterProvider router={router} />
+        <AuthProvider>
+            <NewsApiProvider>
+                <UserArticlesProvider>
+                    <CommunityProvider>
+                        <RouterProvider router={router} />
+                    </CommunityProvider>
+                </UserArticlesProvider>
+            </NewsApiProvider>
+        </AuthProvider>
     </React.StrictMode>,
 );

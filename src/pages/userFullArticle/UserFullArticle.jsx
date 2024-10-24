@@ -6,10 +6,17 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { BounceLoader } from 'react-spinners';
 
 import { Footer, Header } from '../../components';
+import { useAuthContext } from '../../contexts/AuthContext';
+import { useCommunityContext } from '../../contexts/CommunityContext';
+import { useAuthentication } from '../../hooks/useAuthentication';
 import { isAuthenticated } from '../../utils/auth';
 import { getUser } from '../../utils/userService';
 
 const UserFullArticle = () => {
+    useAuthentication();
+    const { user, setUser } = useAuthContext();
+    const { setArticleModified } = useCommunityContext();
+    const [loading, setLoading] = useState(true);
     const [article, setArticle] = useState({
         id: null,
         title: '',
@@ -19,16 +26,7 @@ const UserFullArticle = () => {
         author: '',
         repostsCount: 0,
     });
-    const [user, setUser] = useState({
-        nickname: '',
-        email: '',
-        bio: '',
-        profilePic: '',
-        reposts: [],
-    });
     const [articleReposted, setArticleReposted] = useState(false);
-
-    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     const location = useLocation();
@@ -37,9 +35,7 @@ const UserFullArticle = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const userData = await getUser();
-                setUser(userData);
-                if (userData.reposts.includes(userArticleId)) {
+                if (user.reposts.includes(userArticleId)) {
                     setArticleReposted(true);
                 }
             } catch (error) {
@@ -48,12 +44,8 @@ const UserFullArticle = () => {
             }
         };
 
-        if (isAuthenticated()) {
-            fetchUserData();
-        } else {
-            navigate('/login');
-        }
-    }, [navigate]);
+        fetchUserData();
+    });
 
     useEffect(() => {
         const fetchUserArticle = async () => {
@@ -88,6 +80,7 @@ const UserFullArticle = () => {
             setArticleReposted(!articleReposted);
             setUser(response.data.user);
             setArticle(response.data.article);
+            setArticleModified(true);
         } catch (error) {
             console.log(error.message);
             setArticleReposted(!articleReposted);

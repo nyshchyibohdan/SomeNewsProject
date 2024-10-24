@@ -9,6 +9,10 @@ import { BounceLoader } from 'react-spinners';
 
 import defaultProfilePic from '../../assets/imgs/logo.png';
 import { Footer, Header } from '../../components/index';
+import { useAuthContext } from '../../contexts/AuthContext';
+import { useCommunityContext } from '../../contexts/CommunityContext';
+import { useUserArticlesContext } from '../../contexts/UserArticlesContext';
+import { useAuthentication } from '../../hooks/useAuthentication';
 import { isAuthenticated } from '../../utils/auth';
 import { getUser } from '../../utils/userService';
 
@@ -30,11 +34,13 @@ const quill = {
 };
 
 function NewArticle() {
-    const [user, setUser] = useState(null);
+    useAuthentication();
+    const { user, loading } = useAuthContext();
+    const { setArticlesModified } = useUserArticlesContext();
+    const { setArticleModified } = useCommunityContext();
     const [articleTitle, setArticleTitle] = useState('');
     const [articleDescription, setArticleDescription] = useState('');
     const [articleMainImage, setArticleMainImage] = useState('');
-    const [loading, setLoading] = useState(true);
     const [articleContent, setArticleContent] = useState('');
     const [error, setError] = useState('');
     const quillReference = useRef(null);
@@ -55,29 +61,6 @@ function NewArticle() {
     };
 
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const userData = await getUser();
-                setUser(userData);
-            } catch (error) {
-                console.log(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        if (isAuthenticated()) {
-            fetchUserData();
-        } else {
-            navigate('/login');
-        }
-    }, [navigate]);
-
-    useEffect(() => {
-        getUser();
-    }, []);
 
     const saveArticle = async (event) => {
         window.scrollTo(0, 0);
@@ -128,7 +111,8 @@ function NewArticle() {
                 content: articleContent,
                 author: user.id,
             });
-
+            setArticlesModified(true);
+            setArticleModified(true);
             if (response.data.success) {
                 setError('');
                 navigate('/user-articles');

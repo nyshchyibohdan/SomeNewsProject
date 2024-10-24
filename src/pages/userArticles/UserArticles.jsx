@@ -1,68 +1,24 @@
 import './UserArticles.css';
 
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { BounceLoader } from 'react-spinners';
 
 import defaultPic from '../../assets/imgs/logo.png';
 import { Footer, Header } from '../../components/index';
-import { isAuthenticated } from '../../utils/auth';
-import { getUser } from '../../utils/userService';
+import { useAuthContext } from '../../contexts/AuthContext';
+import { useCommunityContext } from '../../contexts/CommunityContext';
+import { useUserArticlesContext } from '../../contexts/UserArticlesContext';
+import { useAuthentication } from '../../hooks/useAuthentication';
+import useFetchUserArticles from '../../hooks/useFetchUserArticles';
 
 function UserArticles() {
-    const [user, setUser] = useState({
-        nickname: '',
-        email: '',
-        bio: '',
-        profilePic: '',
-    });
-    const [userArticles, setUserArticles] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const userData = await getUser();
-                setUser(userData);
-            } catch (error) {
-                console.log(error.message);
-            }
-        };
-
-        if (isAuthenticated()) {
-            fetchUserData();
-        } else {
-            navigate('/login');
-        }
-    }, [navigate]);
-
-    useEffect(() => {
-        if (user.id) {
-            getUserArticles();
-        }
-    }, [user.id]);
-
-    const getUserArticles = async () => {
-        try {
-            const response = await axios.get('http://localhost:5000/api/articles/get-articles', {
-                params: { userId: user.id },
-            });
-
-            if (response.data.message === 'No articles found') {
-                setUserArticles([]);
-                console.log(response.data.message);
-            } else {
-                setUserArticles(response.data);
-                console.log(response.data.message);
-            }
-            setLoading(false);
-        } catch (error) {
-            console.log(error.message);
-            setLoading(false);
-        }
-    };
+    useAuthentication();
+    useFetchUserArticles();
+    const { user, loading } = useAuthContext();
+    const { userArticles, setUserArticles } = useUserArticlesContext();
+    const { setArticleModified } = useCommunityContext();
 
     // eslint-disable-next-line unicorn/consistent-function-scoping
     const deleteUserArticle = async (articleId) => {
@@ -76,6 +32,7 @@ function UserArticles() {
                 .then((response) => {
                     if (response.data.success) {
                         setUserArticles((prevArticles) => prevArticles.filter((article) => article._id !== articleId));
+                        setArticleModified(true);
                     } else {
                         console.log(response.data.message);
                     }
@@ -104,37 +61,41 @@ function UserArticles() {
                 </div>
                 <div className={'user-articles-list-container'}>
                     <ul className="user-articles-list">
-                        {userArticles.map((article) => {
-                            const imgSource = article.mainPicture ? article.mainPicture : defaultPic;
-                            return (
-                                <li key={article._id} className="article-item">
-                                    <div className="article-item-container">
-                                        <h2 className="article-title">{article.title}</h2>
-                                        <p className="article-desc">{article.description}</p>
-                                        <div className={'article-buttons-container'}>
-                                            <Link
-                                                className="button link-to-page"
-                                                to={`/user-full-article`}
-                                                state={article._id}
-                                            >
-                                                Read more
-                                            </Link>
-                                            <button
-                                                className={'button delete-article-button'}
-                                                onClick={() => deleteUserArticle(article._id)}
-                                            >
-                                                Delete
-                                            </button>
+                        {userArticles && userArticles.length > 0 ? (
+                            userArticles.map((article) => {
+                                const imgSource = article.mainPicture ? article.mainPicture : defaultPic;
+                                return (
+                                    <li key={article._id} className="article-item">
+                                        <div className="article-item-container">
+                                            <h2 className="article-title">{article.title}</h2>
+                                            <p className="article-desc">{article.description}</p>
+                                            <div className={'article-buttons-container'}>
+                                                <Link
+                                                    className="button link-to-page"
+                                                    to={`/user-full-article`}
+                                                    state={article._id}
+                                                >
+                                                    Read more
+                                                </Link>
+                                                <button
+                                                    className={'button delete-article-button'}
+                                                    onClick={() => deleteUserArticle(article._id)}
+                                                >
+                                                    Delete
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <img
-                                        className={`article-item-img ${imgSource === defaultPic ? 'article-item-img-alt' : ''}`}
-                                        src={imgSource}
-                                        alt={article.title || 'Article Image'}
-                                    />
-                                </li>
-                            );
-                        })}
+                                        <img
+                                            className={`article-item-img ${imgSource === defaultPic ? 'article-item-img-alt' : ''}`}
+                                            src={imgSource}
+                                            alt={article.title || 'Article Image'}
+                                        />
+                                    </li>
+                                );
+                            })
+                        ) : (
+                            <p>No articles found.</p>
+                        )}
                     </ul>
                 </div>
             </div>

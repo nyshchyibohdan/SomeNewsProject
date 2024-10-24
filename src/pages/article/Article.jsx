@@ -1,36 +1,25 @@
 import './Article.css';
 
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { Footer, Header } from '../../components';
-import { isAuthenticated } from '../../utils/auth';
+import useIsAuthenticated from '../../hooks/useIsAuthenticated';
 
 const Article = () => {
-    const { articleId } = useParams();
-    const [article, setArticle] = useState(null);
-    const navigate = useNavigate();
-    // const location = useLocation();
-    // const { news, index } = location.state;
-
-    useEffect(() => {
-        if (!isAuthenticated()) {
-            navigate('/login');
-        }
-    }, [navigate]);
+    useIsAuthenticated();
+    const location = useLocation();
+    const article = location.state;
 
     useEffect(() => {
         window.scrollTo(0, 0);
 
-        const news = JSON.parse(localStorage.getItem('news'));
-
-        if (news && news[articleId]) {
-            console.log('Article retrieved:', news[articleId]);
-            setArticle(news[articleId]);
+        if (article) {
+            console.log('Article retrieved:', article);
         } else {
             console.error('No articles found or invalid ID');
         }
-    }, [articleId]);
+    }, [article]);
 
     if (!article) {
         return <p>No article data found</p>;
