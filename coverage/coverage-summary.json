@@ -1,0 +1,141 @@
+{
+    "total": {
+        "lines": { "total": 256, "covered": 118, "skipped": 0, "pct": 46.09 },
+        "statements": { "total": 268, "covered": 119, "skipped": 0, "pct": 44.4 },
+        "functions": { "total": 59, "covered": 30, "skipped": 0, "pct": 50.84 },
+        "branches": { "total": 89, "covered": 37, "skipped": 0, "pct": 41.57 },
+        "branchesTrue": { "total": 0, "covered": 0, "skipped": 0, "pct": 100 }
+    },
+    "D:\\webproject\\some_news_project\\cypress\\support\\commands.js": {
+        "lines": { "total": 0, "covered": 0, "skipped": 0, "pct": 0 },
+        "functions": { "total": 0, "covered": 0, "skipped": 0, "pct": 0 },
+        "statements": { "total": 0, "covered": 0, "skipped": 0, "pct": 0 },
+        "branches": { "total": 0, "covered": 0, "skipped": 0, "pct": 0 }
+    },
+    "D:\\webproject\\some_news_project\\cypress\\support\\component.js": {
+        "lines": { "total": 1, "covered": 1, "skipped": 0, "pct": 100 },
+        "functions": { "total": 0, "covered": 0, "skipped": 0, "pct": 100 },
+        "statements": { "total": 1, "covered": 1, "skipped": 0, "pct": 100 },
+        "branches": { "total": 0, "covered": 0, "skipped": 0, "pct": 100 }
+    },
+    "D:\\webproject\\some_news_project\\src\\App.js": {
+        "lines": { "total": 2, "covered": 2, "skipped": 0, "pct": 100 },
+        "functions": { "total": 1, "covered": 1, "skipped": 0, "pct": 100 },
+        "statements": { "total": 2, "covered": 2, "skipped": 0, "pct": 100 },
+        "branches": { "total": 0, "covered": 0, "skipped": 0, "pct": 100 }
+    },
+    "D:\\webproject\\some_news_project\\src\\Providers.js": {
+        "lines": { "total": 2, "covered": 2, "skipped": 0, "pct": 100 },
+        "functions": { "total": 1, "covered": 1, "skipped": 0, "pct": 100 },
+        "statements": { "total": 2, "covered": 2, "skipped": 0, "pct": 100 },
+        "branches": { "total": 0, "covered": 0, "skipped": 0, "pct": 100 }
+    },
+    "D:\\webproject\\some_news_project\\src\\index.js": {
+        "lines": { "total": 1, "covered": 1, "skipped": 0, "pct": 100 },
+        "functions": { "total": 0, "covered": 0, "skipped": 0, "pct": 100 },
+        "statements": { "total": 1, "covered": 1, "skipped": 0, "pct": 100 },
+        "branches": { "total": 0, "covered": 0, "skipped": 0, "pct": 100 }
+    },
+    "D:\\webproject\\some_news_project\\src\\components\\index.js": {
+        "lines": { "total": 0, "covered": 0, "skipped": 0, "pct": 0 },
+        "functions": { "total": 0, "covered": 0, "skipped": 0, "pct": 0 },
+        "statements": { "total": 0, "covered": 0, "skipped": 0, "pct": 0 },
+        "branches": { "total": 0, "covered": 0, "skipped": 0, "pct": 0 }
+    },
+    "D:\\webproject\\some_news_project\\src\\components\\footer\\Footer.jsx": {
+        "lines": { "total": 1, "covered": 1, "skipped": 0, "pct": 100 },
+        "functions": { "total": 1, "covered": 1, "skipped": 0, "pct": 100 },
+        "statements": { "total": 1, "covered": 1, "skipped": 0, "pct": 100 },
+        "branches": { "total": 0, "covered": 0, "skipped": 0, "pct": 100 }
+    },
+    "D:\\webproject\\some_news_project\\src\\components\\header\\Header.jsx": {
+        "lines": { "total": 1, "covered": 1, "skipped": 0, "pct": 100 },
+        "functions": { "total": 1, "covered": 1, "skipped": 0, "pct": 100 },
+        "statements": { "total": 1, "covered": 1, "skipped": 0, "pct": 100 },
+        "branches": { "total": 0, "covered": 0, "skipped": 0, "pct": 100 }
+    },
+    "D:\\webproject\\some_news_project\\src\\components\\navbar\\Navbar.jsx": {
+        "lines": { "total": 16, "covered": 16, "skipped": 0, "pct": 100 },
+        "functions": { "total": 4, "covered": 4, "skipped": 0, "pct": 100 },
+        "statements": { "total": 16, "covered": 16, "skipped": 0, "pct": 100 },
+        "branches": { "total": 18, "covered": 18, "skipped": 0, "pct": 100 }
+    },
+    "D:\\webproject\\some_news_project\\src\\components\\newsPages\\NewsPages.jsx": {
+        "lines": { "total": 9, "covered": 9, "skipped": 0, "pct": 100 },
+        "functions": { "total": 2, "covered": 2, "skipped": 0, "pct": 100 },
+        "statements": { "total": 11, "covered": 10, "skipped": 0, "pct": 90.9 },
+        "branches": { "total": 16, "covered": 10, "skipped": 0, "pct": 62.5 }
+    },
+    "D:\\webproject\\some_news_project\\src\\contexts\\AuthContext.js": {
+        "lines": { "total": 13, "covered": 13, "skipped": 0, "pct": 100 },
+        "functions": { "total": 3, "covered": 3, "skipped": 0, "pct": 100 },
+        "statements": { "total": 13, "covered": 13, "skipped": 0, "pct": 100 },
+        "branches": { "total": 0, "covered": 0, "skipped": 0, "pct": 100 }
+    },
+    "D:\\webproject\\some_news_project\\src\\contexts\\CommunityContext.js": {
+        "lines": { "total": 10, "covered": 9, "skipped": 0, "pct": 90 },
+        "functions": { "total": 2, "covered": 1, "skipped": 0, "pct": 50 },
+        "statements": { "total": 10, "covered": 9, "skipped": 0, "pct": 90 },
+        "branches": { "total": 0, "covered": 0, "skipped": 0, "pct": 100 }
+    },
+    "D:\\webproject\\some_news_project\\src\\contexts\\NewsApiContext.js": {
+        "lines": { "total": 10, "covered": 10, "skipped": 0, "pct": 100 },
+        "functions": { "total": 2, "covered": 2, "skipped": 0, "pct": 100 },
+        "statements": { "total": 10, "covered": 10, "skipped": 0, "pct": 100 },
+        "branches": { "total": 0, "covered": 0, "skipped": 0, "pct": 100 }
+    },
+    "D:\\webproject\\some_news_project\\src\\contexts\\UserArticlesContext.js": {
+        "lines": { "total": 13, "covered": 13, "skipped": 0, "pct": 100 },
+        "functions": { "total": 3, "covered": 3, "skipped": 0, "pct": 100 },
+        "statements": { "total": 13, "covered": 13, "skipped": 0, "pct": 100 },
+        "branches": { "total": 0, "covered": 0, "skipped": 0, "pct": 100 }
+    },
+    "D:\\webproject\\some_news_project\\src\\hooks\\useAuthentication.js": {
+        "lines": { "total": 15, "covered": 13, "skipped": 0, "pct": 86.66 },
+        "functions": { "total": 3, "covered": 3, "skipped": 0, "pct": 100 },
+        "statements": { "total": 15, "covered": 13, "skipped": 0, "pct": 86.66 },
+        "branches": { "total": 4, "covered": 3, "skipped": 0, "pct": 75 }
+    },
+    "D:\\webproject\\some_news_project\\src\\hooks\\useFetchCommunityArticles.js": {
+        "lines": { "total": 14, "covered": 0, "skipped": 0, "pct": 0 },
+        "functions": { "total": 3, "covered": 0, "skipped": 0, "pct": 0 },
+        "statements": { "total": 14, "covered": 0, "skipped": 0, "pct": 0 },
+        "branches": { "total": 4, "covered": 0, "skipped": 0, "pct": 0 }
+    },
+    "D:\\webproject\\some_news_project\\src\\hooks\\useFetchNews.js": {
+        "lines": { "total": 14, "covered": 11, "skipped": 0, "pct": 78.57 },
+        "functions": { "total": 3, "covered": 3, "skipped": 0, "pct": 100 },
+        "statements": { "total": 14, "covered": 11, "skipped": 0, "pct": 78.57 },
+        "branches": { "total": 4, "covered": 4, "skipped": 0, "pct": 100 }
+    },
+    "D:\\webproject\\some_news_project\\src\\hooks\\useFetchUserArticles.js": {
+        "lines": { "total": 18, "covered": 0, "skipped": 0, "pct": 0 },
+        "functions": { "total": 3, "covered": 0, "skipped": 0, "pct": 0 },
+        "statements": { "total": 18, "covered": 0, "skipped": 0, "pct": 0 },
+        "branches": { "total": 7, "covered": 0, "skipped": 0, "pct": 0 }
+    },
+    "D:\\webproject\\some_news_project\\src\\hooks\\useIsAuthenticated.js": {
+        "lines": { "total": 4, "covered": 4, "skipped": 0, "pct": 100 },
+        "functions": { "total": 2, "covered": 2, "skipped": 0, "pct": 100 },
+        "statements": { "total": 4, "covered": 4, "skipped": 0, "pct": 100 },
+        "branches": { "total": 2, "covered": 1, "skipped": 0, "pct": 50 }
+    },
+    "D:\\webproject\\some_news_project\\src\\pages\\profile\\Profile.jsx": {
+        "lines": { "total": 91, "covered": 1, "skipped": 0, "pct": 1.09 },
+        "functions": { "total": 22, "covered": 0, "skipped": 0, "pct": 0 },
+        "statements": { "total": 101, "covered": 1, "skipped": 0, "pct": 0.99 },
+        "branches": { "total": 30, "covered": 0, "skipped": 0, "pct": 0 }
+    },
+    "D:\\webproject\\some_news_project\\src\\utils\\auth.js": {
+        "lines": { "total": 15, "covered": 6, "skipped": 0, "pct": 40 },
+        "functions": { "total": 2, "covered": 2, "skipped": 0, "pct": 100 },
+        "statements": { "total": 15, "covered": 6, "skipped": 0, "pct": 40 },
+        "branches": { "total": 4, "covered": 1, "skipped": 0, "pct": 25 }
+    },
+    "D:\\webproject\\some_news_project\\src\\utils\\userService.js": {
+        "lines": { "total": 6, "covered": 5, "skipped": 0, "pct": 83.33 },
+        "functions": { "total": 1, "covered": 1, "skipped": 0, "pct": 100 },
+        "statements": { "total": 6, "covered": 5, "skipped": 0, "pct": 83.33 },
+        "branches": { "total": 0, "covered": 0, "skipped": 0, "pct": 100 }
+    }
+}

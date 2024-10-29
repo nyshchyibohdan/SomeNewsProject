@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useCallback, useEffect } from 'react';
 
 import { useAuthContext } from '../contexts/AuthContext';
 import { getUser } from '../utils/userService';
@@ -7,10 +6,9 @@ import useIsAuthenticated from './useIsAuthenticated';
 
 export const useAuthentication = () => {
     useIsAuthenticated();
-    const navigate = useNavigate();
     const { user, setUser, setLoading } = useAuthContext();
 
-    const fetchUserData = async () => {
+    const fetchUserData = useCallback(async () => {
         if (!user || user.nickname.length === 0) {
             setLoading(true);
             try {
@@ -23,9 +21,10 @@ export const useAuthentication = () => {
                 setLoading(false);
             }
         }
-    };
+    }, [user, setUser, setLoading]);
 
     useEffect(() => {
         fetchUserData();
-    }, [user, navigate, setUser, setLoading]);
+        window.scrollTo(0, 0);
+    }, [fetchUserData]);
 };

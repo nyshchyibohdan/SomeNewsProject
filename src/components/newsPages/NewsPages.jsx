@@ -16,11 +16,11 @@ NewsPages.propTypes = {
 };
 
 function NewsPages({ apiRoute }) {
-    const { news, loading, error } = useNewsApiContext();
-
     useAuthentication();
 
     useFetchNews({ apiRoute });
+
+    const { news, loading, error } = useNewsApiContext();
 
     if (loading) return <BounceLoader className="loader" color="#ffffff" speedMultiplier={1} />;
     if (error) return <p>Error loading news: {error.message}</p>;
@@ -29,7 +29,7 @@ function NewsPages({ apiRoute }) {
         <div>
             <Header />
             <div className="container">
-                <ul className={'news-list'}>
+                <ul className="news-list">
                     {news.map((article, index) => {
                         const imgSource = article.img ? article.img : defaultPic;
 

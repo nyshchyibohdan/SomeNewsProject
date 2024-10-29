@@ -3,7 +3,7 @@ import './Profile.css';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BounceLoader } from 'react-spinners';
 
@@ -12,8 +12,7 @@ import { Footer, Header } from '../../components';
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useUserArticlesContext } from '../../contexts/UserArticlesContext';
 import { useAuthentication } from '../../hooks/useAuthentication';
-import { isAuthenticated, logout } from '../../utils/auth';
-import { getUser } from '../../utils/userService';
+import { logout } from '../../utils/auth';
 
 const styleModal = {
     color: 'white',

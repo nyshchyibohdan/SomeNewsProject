@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { useNewsApiContext } from '../contexts/NewsApiContext';
 
 export default function useFetchNews({ apiRoute }) {
     const { news, setNews, setLoading, setError, route, setRoute } = useNewsApiContext();
 
-    const fetchNews = async () => {
+    const fetchNews = useCallback(async () => {
         if (news.length === 0 || !apiRoute.includes(route)) {
             setLoading(true);
             try {
@@ -21,9 +21,9 @@ export default function useFetchNews({ apiRoute }) {
                 setLoading(false);
             }
         }
-    };
+    }, [news, apiRoute, route, setNews, setLoading, setError, setRoute]);
 
     useEffect(() => {
         fetchNews();
-    }, [apiRoute]);
+    }, [fetchNews, apiRoute]);
 }

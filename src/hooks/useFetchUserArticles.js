@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { useAuthContext } from '../contexts/AuthContext';
 import { useUserArticlesContext } from '../contexts/UserArticlesContext';
@@ -9,7 +9,7 @@ export default function useFetchUserArticles() {
         useUserArticlesContext();
     const { user } = useAuthContext();
 
-    const getUserArticles = async () => {
+    const getUserArticles = useCallback(async () => {
         setLoading(true);
         try {
             const response = await axios.get('http://localhost:5000/api/articles/get-articles', {
@@ -29,11 +29,11 @@ export default function useFetchUserArticles() {
             setLoading(false);
         }
         setArticlesModified(false);
-    };
+    }, [setArticlesModified, setLoading, setUserArticles, user]);
 
     useEffect(() => {
         if ((user.id && userArticles.length === 0) || articlesModified) {
             getUserArticles();
         }
-    }, [user]);
+    }, [getUserArticles, user, userArticles, articlesModified]);
 }

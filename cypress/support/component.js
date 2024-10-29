@@ -14,6 +14,7 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
+import '@cypress/code-coverage/support';
 import './commands';
 
 // Alternatively you can use CommonJS syntax:
@@ -21,6 +22,7 @@ import './commands';
 import { mount } from 'cypress/react18';
 
 Cypress.Commands.add('mount', mount);
+// Cypress.Commands.add('myCustomMount', mount);
 
 // Example use:
 // cy.mount(<MyComponent />)

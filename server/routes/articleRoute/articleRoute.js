@@ -30,7 +30,7 @@ router.get('/get-articles', async (req, res) => {
     const userId = req.query.userId;
 
     try {
-        const articles = await Article.find({ author: userId }).sort({ createdAt: -1 }).limit(10);
+        const articles = await Article.find({ author: userId }).sort({ createdAt: -1 });
 
         if (articles.length === 0) {
             return res.status(200).json({
