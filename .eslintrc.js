@@ -51,6 +51,7 @@ const config = {
                 },
             },
         ],
+        'unicorn/no-abusive-eslint-disable': 'off',
         'no-unused-vars': 'off',
         'unicorn/prefer-logical-operator-over-ternary': 'off',
         'unicorn/no-null': 'off',
