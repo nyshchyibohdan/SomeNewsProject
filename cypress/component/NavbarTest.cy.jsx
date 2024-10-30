@@ -91,7 +91,7 @@ describe('Navbar Component Test', () => {
         cy.url().should('include', '/community');
 
         cy.get('.link-home').click();
-        cy.url().should('include', '/');
+        cy.url().should('include', '8081/');
     });
 
     it('checks if profile avatar disappears when in profile', () => {
