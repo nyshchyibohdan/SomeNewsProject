@@ -51,6 +51,7 @@ const config = {
                 },
             },
         ],
+        'cypress/unsafe-to-chain-command': 'off',
         'unicorn/no-abusive-eslint-disable': 'off',
         'no-unused-vars': 'off',
         'unicorn/prefer-logical-operator-over-ternary': 'off',
