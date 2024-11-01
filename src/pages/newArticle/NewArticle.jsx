@@ -68,7 +68,7 @@ function NewArticle() {
         event.preventDefault();
 
         if (articleTitle.length < 5) {
-            setError('Article length should be more than 5');
+            setError('Article title should be more than 5');
             return;
         }
         if (articleTitle.length > 70) {
@@ -82,6 +82,11 @@ function NewArticle() {
 
         if (articleDescription.length < 10) {
             setError('Article description should be more that 10');
+            return;
+        }
+
+        if (articleContent.length < 20) {
+            setError('Article content length should be more than 20');
             return;
         }
 
@@ -159,7 +164,13 @@ function NewArticle() {
                         Set article&apos;s main picture (optional)
                     </label>
                 </div>
-                <ReactQuill modules={quill} value={articleContent} onChange={setArticleContent} ref={quillReference} />
+                <ReactQuill
+                    modules={quill}
+                    value={articleContent}
+                    onChange={setArticleContent}
+                    ref={quillReference}
+                    className={'new-article-content-field'}
+                />
                 <div className={'create-article-buttons'}>
                     <Link className={'cancel-link'} to="/user-articles">
                         Cancel

@@ -55,7 +55,7 @@ function UserArticles() {
                 <div className={'user-articles-page-title'}>
                     <p className={'user-articles-page-title-h1'}>Articles written by yourself</p>
                     <hr className={'horizontal-rule user-articles-page-title-rule'} />
-                    <Link to="/new-article" className={'button link-to-page'}>
+                    <Link to="/new-article" className={'button link-to-page link-to-new-article'}>
                         New
                     </Link>
                 </div>

@@ -3,7 +3,9 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 280px;
+    padding: 0 280px;
+    min-height: 740px;
+    height: 100%;
 }
 
 /* Article title and buttons part styles*/

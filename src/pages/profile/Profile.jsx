@@ -165,6 +165,7 @@ function Profile() {
 
         if (passwordToDeleteAccount.length < 8) {
             setError('Password length is less that 8 symbols');
+            return;
         }
 
         try {
@@ -180,13 +181,15 @@ function Profile() {
                 .then((response) => {
                     if (response.data.success) {
                         logoutUser();
-                    } else {
-                        setError('Error deleting account');
                     }
                 });
         } catch (error_) {
-            console.error(error_);
-            setError('Server error while deleting account');
+            if (error_.response) {
+                setError(error_.response.data.message);
+            } else {
+                setError('Server error');
+                console.error('Error:', error_.message);
+            }
         }
     };
 
@@ -225,7 +228,7 @@ function Profile() {
                             <Link to="" className={'button link-to-page'}>
                                 Likes
                             </Link>
-                            <Link to="/user-articles" className={'button link-to-page'}>
+                            <Link to="/user-articles" className={'button link-to-page link-to-user-articles'}>
                                 Articles
                             </Link>
                         </div>
@@ -339,7 +342,11 @@ function Profile() {
                                     required
                                 />
                             </div>
-                            {error && <p style={{ color: 'red' }}>{error}</p>}
+                            {error && (
+                                <p style={{ color: 'red' }} className={'modal-error-stack'}>
+                                    {error}
+                                </p>
+                            )}
                             <div className={'form-buttons-container'}>
                                 <button onClick={passChangeModalToggle} className={'button cancel-pass-change-button'}>
                                     Cancel
@@ -360,7 +367,7 @@ function Profile() {
                     aria-describedby="modal-modal-description"
                 >
                     <Box sx={styleModal}>
-                        <form onSubmit={deleteAccount} className={'password-change-form'}>
+                        <form onSubmit={deleteAccount} className={'delete-account-form'}>
                             <div className={'password-field old-password-field'}>
                                 <label htmlFor="confirm-pass-to-delete" className={'password-label old-password-label'}>
                                     Confirm password to delete account
@@ -374,7 +381,11 @@ function Profile() {
                                     required
                                 />
                             </div>
-                            {error && <p style={{ color: 'red' }}>{error}</p>}
+                            {error && (
+                                <p style={{ color: 'red' }} className={'modal-error-stack'}>
+                                    {error}
+                                </p>
+                            )}
                             <div className={'form-buttons-container'}>
                                 <button
                                     onClick={deleteAccountModalToggle}

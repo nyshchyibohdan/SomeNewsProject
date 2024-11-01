@@ -280,3 +280,21 @@
     background: transparent;
     border: 2px solid #810a0a;
 }
+
+.delete-account-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.cancel-account-delete-button {
+    background: #810a0a;
+    border: 2px solid transparent;
+}
+
+.cancel-account-delete-button:hover {
+    background: transparent;
+    border: 2px solid #810a0a;
+}

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { useAuthContext } from '../contexts/AuthContext';
 import { useUserArticlesContext } from '../contexts/UserArticlesContext';
@@ -8,6 +8,7 @@ export default function useFetchUserArticles() {
     const { userArticles, setUserArticles, setLoading, articlesModified, setArticlesModified } =
         useUserArticlesContext();
     const { user } = useAuthContext();
+    const [noArticlesFound, setNoArticlesFound] = useState(false);
 
     const getUserArticles = useCallback(async () => {
         setLoading(true);
@@ -18,9 +19,11 @@ export default function useFetchUserArticles() {
 
             if (response.data.message === 'No articles found') {
                 setUserArticles([]);
+                setNoArticlesFound(true);
                 console.log(response.data.message);
             } else {
                 setUserArticles(response.data);
+                setNoArticlesFound(false);
                 console.log('Articles found');
             }
             setLoading(false);
@@ -32,8 +35,8 @@ export default function useFetchUserArticles() {
     }, [setArticlesModified, setLoading, setUserArticles, user]);
 
     useEffect(() => {
-        if ((user.id && userArticles.length === 0) || articlesModified) {
+        if (user.id && (userArticles.length === 0 || articlesModified) && !noArticlesFound) {
             getUserArticles();
         }
-    }, [getUserArticles, user, userArticles, articlesModified]);
+    }, [getUserArticles, user, userArticles, articlesModified, noArticlesFound]);
 }

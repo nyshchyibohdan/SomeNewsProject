@@ -9,8 +9,6 @@ import { Footer, Header } from '../../components';
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useCommunityContext } from '../../contexts/CommunityContext';
 import { useAuthentication } from '../../hooks/useAuthentication';
-import { isAuthenticated } from '../../utils/auth';
-import { getUser } from '../../utils/userService';
 
 const UserFullArticle = () => {
     useAuthentication();
@@ -27,7 +25,6 @@ const UserFullArticle = () => {
         repostsCount: 0,
     });
     const [articleReposted, setArticleReposted] = useState(false);
-    const navigate = useNavigate();
 
     const location = useLocation();
     const userArticleId = location.state;
@@ -108,27 +105,29 @@ const UserFullArticle = () => {
     return (
         <div>
             <Header />
-            <div className="article-container">
-                <div className="article-title-button-container">
-                    <p className="article-title">{article.title}</p>
-                    <div className="article-buttons">
-                        <h2 className="article-reposts-counter">
-                            {article.repostsCount} Repost{article.repostsCount === 1 ? '' : 's'}
-                        </h2>
-                        <button
-                            className={`article-button article-repost-button ${articleReposted ? 'article-button-active' : ''}`}
-                            onClick={toggleRepostArticle}
-                        >
-                            Repost{articleReposted ? 'ed' : ''}
-                        </button>
-                        <button className="article-button article-like-button">Like</button>
+            <div className="user-article-container">
+                <div className={'user-article-content'}>
+                    <div className="article-title-button-container">
+                        <p className="article-title">{article.title}</p>
+                        <div className="article-buttons">
+                            <h2 className="article-reposts-counter">
+                                {article.repostsCount} Repost{article.repostsCount === 1 ? '' : 's'}
+                            </h2>
+                            <button
+                                className={`article-button article-repost-button ${articleReposted ? 'article-button-active' : ''}`}
+                                onClick={toggleRepostArticle}
+                            >
+                                Repost{articleReposted ? 'ed' : ''}
+                            </button>
+                            <button className="article-button article-like-button">Like</button>
+                        </div>
                     </div>
+
+                    {!article.mainPic && <hr className={'horizontal-separator'}></hr>}
+
+                    <img className="article-img" src={article.mainPic} alt="" />
+                    <div className="article-main-text" dangerouslySetInnerHTML={{ __html: article.content }}></div>
                 </div>
-
-                {!article.mainPic && <hr className={'horizontal-separator'}></hr>}
-
-                <img className="article-img" src={article.mainPic} alt="" />
-                <div className="article-main-text" dangerouslySetInnerHTML={{ __html: article.content }}></div>
                 <div className="article-author-place">
                     <hr className="article-author-rule" />
                     <p className="article-author">{article.author}</p>
