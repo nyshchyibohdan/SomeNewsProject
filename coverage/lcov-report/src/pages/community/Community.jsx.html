@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">90.9% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>10/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>16/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -160,24 +160,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">132x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">132x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -244,30 +244,30 @@ import { useCommunityContext } from '../../contexts/CommunityContext';
 import { useAuthentication } from '../../hooks/useAuthentication';
 import useFetchCommunityArticles from '../../hooks/useFetchCommunityArticles';
 &nbsp;
-function <span class="fstat-no" title="function not covered" >Community(</span>) {
-<span class="cstat-no" title="statement not covered" >    useAuthentication();</span>
-<span class="cstat-no" title="statement not covered" >    useFetchCommunityArticles();</span>
-    const { error } = <span class="cstat-no" title="statement not covered" >useAuthContext();</span>
-    const { communityArticles, loading } = <span class="cstat-no" title="statement not covered" >useCommunityContext();</span>
+function Community() {
+    useAuthentication();
+    useFetchCommunityArticles();
+    const { error } = useAuthContext();
+    const { communityArticles, loading } = useCommunityContext();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (loading) <span class="cstat-no" title="statement not covered" >return &lt;BounceLoader className="loader" color="#ffffff" speedMultiplier={1} /&gt;;</span></span>
-<span class="cstat-no" title="statement not covered" >    if (error) <span class="cstat-no" title="statement not covered" >return &lt;p&gt;Error loading news: {error.message}&lt;/p&gt;;</span></span>
+    if (loading) return &lt;BounceLoader className="loader" color="#ffffff" speedMultiplier={1} /&gt;;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (error) <span class="cstat-no" title="statement not covered" >return &lt;p&gt;Error loading news: {error.message}&lt;/p&gt;;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return (</span>
+    return (
         &lt;div&gt;
             &lt;Header /&gt;
             &lt;div className="container"&gt;
                 &lt;ul className={'news-list'}&gt;
                     {communityArticles &amp;&amp; communityArticles.length &gt; 0 ? (
-                        communityArticles.map(<span class="fstat-no" title="function not covered" >(a</span>rticle, index) =&gt; {
-                            const imgSource = <span class="cstat-no" title="statement not covered" >article.mainPic ? article.mainPic : defaultPic;</span>
+                        communityArticles.map((article, index) =&gt; {
+                            const imgSource = article.mainPic ? article.mainPic : defaultPic;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >                            return index === 0 ? (</span>
+                            return index === 0 ? (
                                 &lt;li key={index} className="main-news-item"&gt;
                                     &lt;div className="main-news-item-container"&gt;
                                         &lt;img
-                                            className={`main-news-img ${imgSource === defaultPic ? 'main-news-img-alt' : ''}`}
-                                            src={article.mainPic ?? defaultPic}
+                                            className={`main-news-img ${imgSource === defaultPic ? <span class="branch-0 cbranch-no" title="branch not covered" >'main-news-img-alt' </span>: ''}`}
+                                            src={article.mainPic ?? <span class="branch-1 cbranch-no" title="branch not covered" >defaultPic}</span>
                                             alt=""
                                         /&gt;
                                         &lt;div className="main-text-button"&gt;
@@ -302,7 +302,7 @@ function <span class="fstat-no" title="function not covered" >Community(</span>)
                                     &lt;img
                                         className={`article-item-img ${imgSource === defaultPic ? 'article-item-img-alt' : ''}`}
                                         src={imgSource}
-                                        alt={article.title || 'Article Image'}
+                                        alt={article.title || <span class="branch-1 cbranch-no" title="branch not covered" >'Article Image'}</span>
                                     /&gt;
                                 &lt;/li&gt;
                             );
@@ -325,7 +325,7 @@ export default Community;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-10-30T13:16:53.887Z
+                at 2024-11-01T22:36:53.136Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

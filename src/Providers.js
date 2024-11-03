@@ -5,13 +5,16 @@ import { AuthProvider } from './contexts/AuthContext';
 import { CommunityProvider } from './contexts/CommunityContext';
 import { NewsApiProvider } from './contexts/NewsApiContext';
 import { UserArticlesProvider } from './contexts/UserArticlesContext';
+import { UserRepostsContextProvider } from './contexts/UserRepostsContext';
 
 export function Providers({ children }) {
     return (
         <AuthProvider>
             <NewsApiProvider>
                 <UserArticlesProvider>
-                    <CommunityProvider>{children}</CommunityProvider>
+                    <CommunityProvider>
+                        <UserRepostsContextProvider>{children}</UserRepostsContextProvider>
+                    </CommunityProvider>
                 </UserArticlesProvider>
             </NewsApiProvider>
         </AuthProvider>

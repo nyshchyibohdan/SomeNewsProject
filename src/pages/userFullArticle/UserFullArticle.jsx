@@ -8,12 +8,14 @@ import { BounceLoader } from 'react-spinners';
 import { Footer, Header } from '../../components';
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useCommunityContext } from '../../contexts/CommunityContext';
+import useUserRepostsContext from '../../contexts/UserRepostsContext';
 import { useAuthentication } from '../../hooks/useAuthentication';
 
 const UserFullArticle = () => {
     useAuthentication();
     const { user, setUser } = useAuthContext();
     const { setArticleModified } = useCommunityContext();
+    const { setRepostsModified } = useUserRepostsContext();
     const [loading, setLoading] = useState(true);
     const [article, setArticle] = useState({
         id: null,
@@ -78,6 +80,7 @@ const UserFullArticle = () => {
             setUser(response.data.user);
             setArticle(response.data.article);
             setArticleModified(true);
+            setRepostsModified(true);
         } catch (error) {
             console.log(error.message);
             setArticleReposted(!articleReposted);

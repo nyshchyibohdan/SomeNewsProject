@@ -222,7 +222,7 @@ function Profile() {
                     <div className={'profile-nickname-buttons'}>
                         <h1 className={'profile-nickname'}>{user.nickname}</h1>
                         <div className={'profile-buttons'}>
-                            <Link to="" className={'button link-to-page'}>
+                            <Link to="/user-reposts" className={'button link-to-page'}>
                                 Reposts
                             </Link>
                             <Link to="" className={'button link-to-page'}>

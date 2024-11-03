@@ -221,4 +221,37 @@ router.get('/community-articles', async (req, res) => {
     }
 });
 
+router.get('/user-reposts', async (req, res) => {
+    const userId = req.query.userId;
+
+    try {
+        const user = await User.findById(userId);
+
+        if (!user || !user.reposts || user.reposts.length === 0) {
+            return res.status(200).json({
+                message: 'No articles found',
+                articles: [],
+            });
+        }
+
+        const userReposts = await Promise.all(user.reposts.map((repostId) => Article.findById(repostId)));
+
+        const filteredReposts = userReposts.filter((article) => article !== null);
+
+        if (filteredReposts.length === 0) {
+            return res.status(200).json({
+                message: 'No articles found',
+                articles: [],
+            });
+        }
+
+        return res.status(200).json(filteredReposts);
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({
+            message: 'Failed to get articles from the database',
+        });
+    }
+});
+
 module.exports = router;

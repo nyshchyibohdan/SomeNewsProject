@@ -176,7 +176,7 @@ describe('Profile page test', () => {
         cy.get('.password-change-form').should('not.exist');
     });
 
-    it('Checks if errors appear when needed while password deleting', () => {
+    it('Checks if errors appear when needed while account deleting', () => {
         cy.visit('http://localhost:8080/login');
 
         cy.get('[data-testid="cypress-email-input"]').type('e2e@gmail.com');
