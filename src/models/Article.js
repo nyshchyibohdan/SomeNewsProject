@@ -32,6 +32,12 @@ const ArticleSchema = new mongoose.Schema(
             unique: false,
             default: 0,
         },
+        likesCount: {
+            type: Number,
+            required: false,
+            unique: false,
+            default: 0,
+        },
         author: {
             type: Schema.Types.ObjectId,
             ref: 'User',

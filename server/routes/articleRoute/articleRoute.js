@@ -167,6 +167,7 @@ router.put('/toggle-repost-article', async (req, res) => {
                 bio: user.bio,
                 profilePic: user.profilePic,
                 reposts: user.reposts,
+                likes: user.likes,
             },
             article: {
                 id: article._id,
@@ -176,12 +177,88 @@ router.put('/toggle-repost-article', async (req, res) => {
                 content: article.content,
                 author: articleAuthor.nickname,
                 repostsCount: article.repostsCount,
+                likesCount: article.likesCount,
             },
             success: true,
             message: 'Toggle repost done successfully',
         });
     } catch (error) {
         console.error('Error toggle repost article:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Server error',
+        });
+    }
+});
+
+router.put('/toggle-like-article', async (req, res) => {
+    const { articleId, userId } = req.body;
+
+    try {
+        let article = await Article.findById(articleId);
+        if (!article) {
+            return res.status(404).json({
+                success: false,
+                message: 'No article found with this ID',
+            });
+        }
+
+        let user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: 'No user found with this ID',
+            });
+        }
+
+        if (user.likes.includes(articleId)) {
+            user.likes = user.likes.filter((articleIndex) => articleIndex.toString() !== articleId.toString());
+            await user.save();
+            article.likesCount = article.likesCount || 0;
+            article.likesCount -= 1;
+            await article.save();
+
+            console.log('undo like');
+        } else {
+            user.likes.push(articleId);
+            await user.save();
+            article.likesCount = article.likesCount || 0;
+            article.likesCount += 1;
+            await article.save();
+
+            console.log('liked');
+        }
+
+        article = await Article.findById(articleId);
+        user = await User.findById(userId);
+
+        const articleAuthor = await User.findById(article.author);
+
+        return res.status(200).json({
+            user: {
+                id: user.id,
+                nickname: user.nickname,
+                email: user.email,
+                bio: user.bio,
+                profilePic: user.profilePic,
+                reposts: user.reposts,
+                likes: user.likes,
+            },
+            article: {
+                id: article._id,
+                title: article.title,
+                mainPic: article.mainPicture,
+                description: article.description,
+                content: article.content,
+                author: articleAuthor.nickname,
+                repostsCount: article.repostsCount,
+                likesCount: article.likesCount,
+            },
+            success: true,
+            message: 'Toggle like done successfully',
+        });
+    } catch (error) {
+        console.error('Error toggle like article:', error);
         return res.status(500).json({
             success: false,
             message: 'Server error',

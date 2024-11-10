@@ -15,6 +15,11 @@ export const UserRepostsContextProvider = ({ children }) => {
     const [error, setError] = useState('');
     const [repostsModified, setRepostsModified] = useState(false);
 
+    const removeReposts = () => {
+        setUserReposts([]);
+        setError('');
+    };
+
     return (
         <userRepostsContext.Provider
             value={{
@@ -26,6 +31,7 @@ export const UserRepostsContextProvider = ({ children }) => {
                 setError,
                 repostsModified,
                 setRepostsModified,
+                removeReposts,
             }}
         >
             {children}

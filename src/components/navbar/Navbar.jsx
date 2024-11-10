@@ -6,11 +6,15 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import defaultProfilePic from '../../assets/imgs/logo.png';
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useUserArticlesContext } from '../../contexts/UserArticlesContext';
+import useUserLikesContext from '../../contexts/UserLikesContext';
+import useUserRepostsContext from '../../contexts/UserRepostsContext';
 import { logout } from '../../utils/auth';
 
 function Navbar() {
     const { user, removeUser } = useAuthContext();
     const { removeArticles } = useUserArticlesContext();
+    const { removeReposts } = useUserRepostsContext();
+    const { removeLikes } = useUserLikesContext();
 
     const [showDropdown, setShowDropdown] = useState(false);
 
@@ -26,6 +30,8 @@ function Navbar() {
         logout();
         removeUser();
         removeArticles();
+        removeReposts();
+        removeLikes();
         navigate('/login');
     };
 

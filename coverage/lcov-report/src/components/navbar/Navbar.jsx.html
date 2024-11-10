@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">68.75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>11/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>15/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">68.75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>11/16</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -157,31 +157,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3174x</span>
-<span class="cline-any cline-yes">3174x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3174x</span>
+<span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3174x</span>
-<span class="cline-any cline-yes">3174x</span>
-<span class="cline-any cline-yes">3174x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3174x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3174x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3174x</span>
-<span class="cline-any cline-yes">2758x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -203,7 +201,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3174x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -249,26 +249,26 @@ function Navbar() {
     const currentPath = location.pathname;
     const navigate = useNavigate();
 &nbsp;
-    const toggleDropdown = () =&gt; {
-        setShowDropdown(!showDropdown);
+    const toggleDropdown = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >        setShowDropdown(!showDropdown);</span>
     };
 &nbsp;
-    const logoutUser = () =&gt; {
-        logout();
-        removeUser();
-        removeArticles();
-        navigate('/login');
+    const logoutUser = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >        logout();</span>
+<span class="cstat-no" title="statement not covered" >        removeUser();</span>
+<span class="cstat-no" title="statement not covered" >        removeArticles();</span>
+<span class="cstat-no" title="statement not covered" >        navigate('/login');</span>
     };
 &nbsp;
     function checkpath() {
-        if (currentPath !== '/profile') {
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (currentPath !== '/profile') {
             return (
                 &lt;div className="dropdown-container"&gt;
                     &lt;button className="dropdown-menu-button" onClick={toggleDropdown}&gt;
                         &lt;img className="navbar-avatar" src={user?.profilePic || defaultProfilePic} /&gt;
                     &lt;/button&gt;
                     {showDropdown &amp;&amp; (
-                        &lt;ul className="dropdown-menu"&gt;
+<span class="branch-1 cbranch-no" title="branch not covered" >                        &lt;ul className="dropdown-menu"&gt;</span>
                             &lt;li&gt;
                                 &lt;Link className="link profile-link" to="/profile"&gt;
                                     Profile
@@ -303,7 +303,7 @@ function Navbar() {
             &lt;Link className={`link ${currentPath === '/science' ? 'link-current' : ''} link-science`} to="/science"&gt;
                 Science
             &lt;/Link&gt;
-            &lt;Link className={`link ${currentPath === '/community' ? 'link-current' : ''} link-reposts`} to="/community"&gt;
+            &lt;Link className={`link ${currentPath === '/community' ? <span class="branch-0 cbranch-no" title="branch not covered" >'link-current' </span>: ''} link-reposts`} to="/community"&gt;
                 Community
             &lt;/Link&gt;
             {checkpath()}
@@ -319,7 +319,7 @@ export default Navbar;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-11-01T22:36:53.136Z
+                at 2024-11-04T07:36:04.267Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

@@ -37,6 +37,7 @@ router.get('/profile', async (request, res) => {
                 bio: user.bio,
                 profilePic: user.profilePic,
                 reposts: user.reposts,
+                likes: user.likes,
             },
         });
     } catch (error) {

@@ -32,6 +32,12 @@ const UserSchema = new mongoose.Schema(
             required: false,
             unique: false,
         },
+        likes: {
+            type: [Schema.Types.ObjectId],
+            ref: 'Article',
+            required: false,
+            unique: false,
+        },
         password: {
             type: String,
             required: true,

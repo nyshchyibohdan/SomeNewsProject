@@ -11,6 +11,8 @@ import defaultProfilePic from '../../assets/imgs/logo.png';
 import { Footer, Header } from '../../components';
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useUserArticlesContext } from '../../contexts/UserArticlesContext';
+import useUserLikesContext from '../../contexts/UserLikesContext';
+import useUserRepostsContext from '../../contexts/UserRepostsContext';
 import { useAuthentication } from '../../hooks/useAuthentication';
 import { logout } from '../../utils/auth';
 
@@ -33,6 +35,8 @@ function Profile() {
 
     const { user, loading, error, setError, setLoading, removeUser } = useAuthContext();
     const { removeArticles } = useUserArticlesContext();
+    const { removeReposts } = useUserRepostsContext();
+    const { removeLikes } = useUserLikesContext();
 
     const navigate = useNavigate();
 
@@ -69,6 +73,8 @@ function Profile() {
         logout();
         removeUser();
         removeArticles();
+        removeReposts();
+        removeLikes();
         navigate('/login');
     };
 

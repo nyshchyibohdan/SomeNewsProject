@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.19% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/21</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/8</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.19% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/21</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -113,37 +113,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">46x</span>
-<span class="cline-any cline-yes">46x</span>
-<span class="cline-any cline-yes">46x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">46x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">46x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -153,39 +153,39 @@ import { useCallback, useEffect, useState } from 'react';
 import { useAuthContext } from '../contexts/AuthContext';
 import { useUserArticlesContext } from '../contexts/UserArticlesContext';
 &nbsp;
-export default function useFetchUserArticles() {
+export default function <span class="fstat-no" title="function not covered" >useFetchUserArticles(</span>) {
     const { userArticles, setUserArticles, setLoading, articlesModified, setArticlesModified } =
-        useUserArticlesContext();
-    const { user } = useAuthContext();
-    const [noArticlesFound, setNoArticlesFound] = useState(false);
+<span class="cstat-no" title="statement not covered" >        useUserArticlesContext();</span>
+    const { user } = <span class="cstat-no" title="statement not covered" >useAuthContext();</span>
+    const [noArticlesFound, setNoArticlesFound] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
 &nbsp;
-    const getUserArticles = useCallback(async () =&gt; {
-        setLoading(true);
-        try {
-            const response = await axios.get('http://localhost:5000/api/articles/get-articles', {
+    const getUserArticles = <span class="cstat-no" title="statement not covered" >useCallback(<span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        setLoading(true);</span>
+<span class="cstat-no" title="statement not covered" >        try {</span>
+            const response = <span class="cstat-no" title="statement not covered" >await axios.get('http://localhost:5000/api/articles/get-articles', {</span>
                 params: { userId: user.id },
             });
 &nbsp;
-            <span class="missing-if-branch" title="if path not taken" >I</span>if (response.data.message === 'No articles found') {
+<span class="cstat-no" title="statement not covered" >            if (response.data.message === 'No articles found') {</span>
 <span class="cstat-no" title="statement not covered" >                setUserArticles([]);</span>
 <span class="cstat-no" title="statement not covered" >                setNoArticlesFound(true);</span>
 <span class="cstat-no" title="statement not covered" >                console.log(response.data.message);</span>
             } else {
-                setUserArticles(response.data);
-                setNoArticlesFound(false);
-                console.log('Articles found');
+<span class="cstat-no" title="statement not covered" >                setUserArticles(response.data);</span>
+<span class="cstat-no" title="statement not covered" >                setNoArticlesFound(false);</span>
+<span class="cstat-no" title="statement not covered" >                console.log('Articles found');</span>
             }
-            setLoading(false);
+<span class="cstat-no" title="statement not covered" >            setLoading(false);</span>
         } catch (error) {
 <span class="cstat-no" title="statement not covered" >            console.log(error.message);</span>
 <span class="cstat-no" title="statement not covered" >            setLoading(false);</span>
         }
-        setArticlesModified(false);
+<span class="cstat-no" title="statement not covered" >        setArticlesModified(false);</span>
     }, [setArticlesModified, setLoading, setUserArticles, user]);
 &nbsp;
-    useEffect(() =&gt; {
-        if (user.id &amp;&amp; (userArticles.length === 0 || articlesModified) &amp;&amp; !noArticlesFound) {
-            getUserArticles();
+<span class="cstat-no" title="statement not covered" >    useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        if (user.id &amp;&amp; (userArticles.length === 0 || articlesModified) &amp;&amp; !noArticlesFound) {</span>
+<span class="cstat-no" title="statement not covered" >            getUserArticles();</span>
         }
     }, [getUserArticles, user, userArticles, articlesModified, noArticlesFound]);
 }
@@ -196,7 +196,7 @@ export default function useFetchUserArticles() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-11-01T22:36:53.136Z
+                at 2024-11-04T07:36:04.267Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

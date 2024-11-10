@@ -8,6 +8,7 @@ import { BounceLoader } from 'react-spinners';
 import { Footer, Header } from '../../components';
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useCommunityContext } from '../../contexts/CommunityContext';
+import useUserLikesContext from '../../contexts/UserLikesContext';
 import useUserRepostsContext from '../../contexts/UserRepostsContext';
 import { useAuthentication } from '../../hooks/useAuthentication';
 
@@ -16,6 +17,7 @@ const UserFullArticle = () => {
     const { user, setUser } = useAuthContext();
     const { setArticleModified } = useCommunityContext();
     const { setRepostsModified } = useUserRepostsContext();
+    const { setLikesModified } = useUserLikesContext();
     const [loading, setLoading] = useState(true);
     const [article, setArticle] = useState({
         id: null,
@@ -25,8 +27,10 @@ const UserFullArticle = () => {
         content: '',
         author: '',
         repostsCount: 0,
+        likesCount: 0,
     });
     const [articleReposted, setArticleReposted] = useState(false);
+    const [articleLiked, setArticleLiked] = useState(false);
 
     const location = useLocation();
     const userArticleId = location.state;
@@ -37,8 +41,11 @@ const UserFullArticle = () => {
                 if (user.reposts.includes(userArticleId)) {
                     setArticleReposted(true);
                 }
+                if (user.likes.includes(userArticleId)) {
+                    setArticleLiked(true);
+                }
             } catch (error) {
-                console.log(error.message);
+                console.log(error);
                 setLoading(false);
             }
         };
@@ -57,7 +64,7 @@ const UserFullArticle = () => {
                 setArticle(articleData.data.article);
                 setLoading(false);
             } catch (error) {
-                console.log(error.message);
+                console.log(error);
                 setLoading(false);
             }
         };
@@ -84,6 +91,27 @@ const UserFullArticle = () => {
         } catch (error) {
             console.log(error.message);
             setArticleReposted(!articleReposted);
+        }
+    };
+
+    const toggleLikeArticle = async (event) => {
+        event.preventDefault();
+
+        if (!user) return;
+
+        try {
+            const response = await axios.put('http://localhost:5000/api/articles/toggle-like-article', {
+                articleId: userArticleId,
+                userId: user.id,
+            });
+            setArticleLiked(!articleLiked);
+            setUser(response.data.user);
+            setArticle(response.data.article);
+            setArticleModified(true);
+            setLikesModified(true);
+        } catch (error) {
+            console.log(error.message);
+            setArticleLiked(!articleLiked);
         }
     };
 
@@ -122,7 +150,12 @@ const UserFullArticle = () => {
                             >
                                 Repost{articleReposted ? 'ed' : ''}
                             </button>
-                            <button className="article-button article-like-button">Like</button>
+                            <button
+                                className={`article-button article-like-button ${articleLiked ? 'article-button-active' : ''}`}
+                                onClick={toggleLikeArticle}
+                            >
+                                Like{articleLiked ? 'd' : ''}
+                            </button>
                         </div>
                     </div>
 
