@@ -13,6 +13,7 @@ import Sport from './pages/sport/Sport';
 import Technology from './pages/technology/Technology';
 import UserArticles from './pages/userArticles/UserArticles';
 import UserFullArticle from './pages/userFullArticle/UserFullArticle';
+import UserLikes from './pages/userLikes/UserLikes';
 import UserReposts from './pages/userReposts/UserReposts';
 import { Providers } from './Providers';
 
@@ -75,6 +76,11 @@ const router = createBrowserRouter([
     {
         path: '/user-reposts',
         element: <UserReposts />,
+        errorElement: <div>404 Not found</div>,
+    },
+    {
+        path: '/user-likes',
+        element: <UserLikes />,
         errorElement: <div>404 Not found</div>,
     },
     {

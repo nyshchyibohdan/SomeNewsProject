@@ -1,0 +1,34 @@
+.user-reposts-page-container {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px 280px;
+    width: 960px;
+    min-height: 740px;
+    height: 100%;
+}
+
+.user-reposts-page-title {
+    width: 960px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-reposts-page-title-rule {
+    width: 600px;
+    flex-grow: 1;
+    margin-right: 10px;
+    border: none;
+    border-bottom: 2px solid #293038;
+}
+
+.user-reposts-page-count {
+    min-width: 150px;
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: right;
+}

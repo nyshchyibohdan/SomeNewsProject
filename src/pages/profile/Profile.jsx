@@ -231,7 +231,7 @@ function Profile() {
                             <Link to="/user-reposts" className={'button link-to-page'}>
                                 Reposts
                             </Link>
-                            <Link to="" className={'button link-to-page'}>
+                            <Link to="/user-likes" className={'button link-to-page'}>
                                 Likes
                             </Link>
                             <Link to="/user-articles" className={'button link-to-page link-to-user-articles'}>

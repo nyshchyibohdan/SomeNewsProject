@@ -331,4 +331,37 @@ router.get('/user-reposts', async (req, res) => {
     }
 });
 
+router.get('/user-likes', async (req, res) => {
+    const userId = req.query.userId;
+
+    try {
+        const user = await User.findById(userId);
+
+        if (!user || !user.likes || user.likes.length === 0) {
+            return res.status(200).json({
+                message: 'No articles found',
+                articles: [],
+            });
+        }
+
+        const userLikes = await Promise.all(user.likes.map((likeId) => Article.findById(likeId)));
+
+        const filteredLikes = userLikes.filter((article) => article !== null);
+
+        if (filteredLikes.length === 0) {
+            return res.status(200).json({
+                message: 'No articles found',
+                articles: [],
+            });
+        }
+
+        return res.status(200).json(filteredLikes);
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({
+            message: 'Failed to get articles from the database',
+        });
+    }
+});
+
 module.exports = router;

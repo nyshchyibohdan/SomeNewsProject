@@ -1,20 +1,20 @@
-import './UserReposts.css';
+import './UserLikes.css';
 
 import React from 'react';
 import { BounceLoader } from 'react-spinners';
 
 import { Footer, Header, RepostsAndLikes } from '../../components/index';
 import { useAuthContext } from '../../contexts/AuthContext';
-import useUserRepostsContext from '../../contexts/UserRepostsContext';
+import useUserLikesContext from '../../contexts/UserLikesContext';
 import { useAuthentication } from '../../hooks/useAuthentication';
-import useFetchUserReposts from '../../hooks/useFetchUserReposts';
+import useFetchUserLikes from '../../hooks/useFetchUserLikes';
 
-function UserReposts() {
+function UserLikes() {
     useAuthentication();
     const { user, loading } = useAuthContext();
 
-    useFetchUserReposts();
-    const { userReposts } = useUserRepostsContext();
+    useFetchUserLikes();
+    const { userLikes } = useUserLikesContext();
 
     if (loading) return <BounceLoader className="loader" color="#ffffff" speedMultiplier={1} />;
 
@@ -28,14 +28,14 @@ function UserReposts() {
                 <div className={'user-reposts-page-title'}>
                     <hr className={'horizontal-rule user-reposts-page-title-rule'} />
                     <p className={'user-reposts-page-count'}>
-                        {userReposts.length} repost{`${userReposts.length > 1 ? 's' : ''}`}
+                        {userLikes.length} like{`${userLikes.length > 1 ? 's' : ''}`}
                     </p>
                 </div>
-                <RepostsAndLikes articles={userReposts} />
+                <RepostsAndLikes articles={userLikes} />
             </div>
             <Footer />
         </div>
     );
 }
 
-export default UserReposts;
+export default UserLikes;
