@@ -33,10 +33,7 @@ router.get('/get-articles', async (req, res) => {
         const articles = await Article.find({ author: userId }).sort({ createdAt: -1 });
 
         if (articles.length === 0) {
-            return res.status(200).json({
-                message: 'No articles found',
-                articles: [],
-            });
+            return res.status(204).json({});
         }
         return res.status(200).json(articles);
     } catch (error) {
@@ -285,6 +282,10 @@ router.get('/community-articles', async (req, res) => {
             }),
         );
 
+        if (articles.length === 0) {
+            return res.status(204).json({});
+        }
+
         return res.status(200).json({
             success: true,
             articles: articles,
@@ -314,6 +315,14 @@ router.get('/user-reposts', async (req, res) => {
         const userReposts = await Promise.all(user.reposts.map((repostId) => Article.findById(repostId)));
 
         const filteredReposts = userReposts.filter((article) => article !== null);
+
+        const filteredRepostIds = filteredReposts.map((article) => article._id.toString());
+        const removedRepostIds = user.reposts.filter((repostId) => !filteredRepostIds.includes(repostId.toString()));
+
+        if (removedRepostIds.length > 0) {
+            user.reposts = filteredRepostIds;
+            await user.save();
+        }
 
         if (filteredReposts.length === 0) {
             return res.status(200).json({
@@ -347,6 +356,14 @@ router.get('/user-likes', async (req, res) => {
         const userLikes = await Promise.all(user.likes.map((likeId) => Article.findById(likeId)));
 
         const filteredLikes = userLikes.filter((article) => article !== null);
+
+        const filteredLikesIds = filteredLikes.map((article) => article._id.toString());
+        const removedLikesIds = user.reposts.filter((likeId) => !filteredLikesIds.includes(likeId.toString()));
+
+        if (removedLikesIds.length > 0) {
+            user.likes = filteredLikesIds;
+            await user.save();
+        }
 
         if (filteredLikes.length === 0) {
             return res.status(200).json({

@@ -17,10 +17,10 @@ export default function useFetchUserArticles() {
                 params: { userId: user.id },
             });
 
-            if (response.data.message === 'No articles found') {
+            if (response.status === 204) {
                 setUserArticles([]);
                 setNoArticlesFound(true);
-                console.log(response.data.message);
+                console.log(response.status + ' No articles found');
             } else {
                 setUserArticles(response.data);
                 setNoArticlesFound(false);

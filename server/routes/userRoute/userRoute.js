@@ -3,6 +3,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const User = require('../../../src/models/User');
 const bcrypt = require('bcryptjs');
+const Article = require('../../../src/models/Article');
 
 const router = express.Router();
 require('dotenv').config();
@@ -138,13 +139,23 @@ router.delete('/delete-account', async (request, res) => {
                 return res.status(500).send('Server error');
             }
             if (result) {
-                const deletedUser = await User.findByIdAndDelete(userId);
+                try {
+                    const articlesDeleted = await deleteUserArticles(userId);
+                    if (articlesDeleted) {
+                        const deletedUser = await User.findByIdAndDelete(userId);
 
-                if (!deletedUser) {
-                    return res.status(404).json({ success: false, message: 'User not found' });
+                        if (!deletedUser) {
+                            return res.status(404).json({ success: false, message: 'User not found' });
+                        }
+
+                        return res.status(200).json({ success: true, message: 'Account deleted successfully' });
+                    } else {
+                        return res.status(400).json({ success: false, message: 'Error deleting user articles' });
+                    }
+                } catch (error) {
+                    console.error('Error during deletion:', error);
+                    return res.status(500).json({ success: false, message: 'Server error during deletion' });
                 }
-
-                return res.status(200).json({ success: true, message: 'Account deleted successfully' });
             } else {
                 console.log('Invalid password');
                 return res.status(400).json({ success: false, message: 'Invalid password' });
@@ -155,5 +166,25 @@ router.delete('/delete-account', async (request, res) => {
         res.status(500).json({ success: false, message: 'Server error' });
     }
 });
+
+async function deleteUserArticles(userId) {
+    try {
+        const userArticles = await Article.find({ author: userId });
+        if (userArticles.length === 0) {
+            console.log('No articles is there');
+            return true;
+        }
+        const deletedArticles = await Article.deleteMany({ author: userId });
+        if (deletedArticles.deletedCount === 0) {
+            console.log('No articles deleted here');
+            return false;
+        }
+        console.log('Deleted articles:', deletedArticles.deletedCount);
+    } catch (error) {
+        console.error('Error deleting articles:', error);
+        return false;
+    }
+    return true;
+}
 
 module.exports = router;
