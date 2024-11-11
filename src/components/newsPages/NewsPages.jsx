@@ -38,7 +38,7 @@ function NewsPages({ apiRoute }) {
                                 <div className="main-news-item-container">
                                     <img
                                         className={`main-news-img ${imgSource === defaultPic ? 'main-news-img-alt' : ''}`}
-                                        src={article.img ?? defaultPic}
+                                        src={imgSource}
                                         alt=""
                                     />
                                     <div className="main-text-button">
@@ -68,7 +68,7 @@ function NewsPages({ apiRoute }) {
                                 </div>
                                 <img
                                     className={`news-item-img ${imgSource === defaultPic ? 'news-item-img-alt' : ''}`}
-                                    src={article.img ?? defaultPic}
+                                    src={imgSource}
                                     alt=""
                                 />
                             </li>

@@ -10,6 +10,8 @@ import { Footer, Header } from '../../components/index';
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useCommunityContext } from '../../contexts/CommunityContext';
 import { useUserArticlesContext } from '../../contexts/UserArticlesContext';
+import useUserLikesContext from '../../contexts/UserLikesContext';
+import useUserRepostsContext from '../../contexts/UserRepostsContext';
 import { useAuthentication } from '../../hooks/useAuthentication';
 import useFetchUserArticles from '../../hooks/useFetchUserArticles';
 
@@ -19,6 +21,8 @@ function UserArticles() {
     const { user, loading } = useAuthContext();
     const { userArticles, setUserArticles } = useUserArticlesContext();
     const { setArticleModified } = useCommunityContext();
+    const { setRepostsModified } = useUserRepostsContext();
+    const { setLikesModified } = useUserLikesContext();
 
     // eslint-disable-next-line unicorn/consistent-function-scoping
     const deleteUserArticle = async (articleId) => {
@@ -33,6 +37,8 @@ function UserArticles() {
                     if (response.data.success) {
                         setUserArticles((prevArticles) => prevArticles.filter((article) => article._id !== articleId));
                         setArticleModified(true);
+                        setRepostsModified(true);
+                        setLikesModified(true);
                     } else {
                         console.log(response.data.message);
                     }

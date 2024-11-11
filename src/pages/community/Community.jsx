@@ -1,3 +1,5 @@
+import './Community.css';
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BounceLoader } from 'react-spinners';
@@ -21,7 +23,7 @@ function Community() {
     return (
         <div>
             <Header />
-            <div className="container">
+            <div className="container community-container">
                 <ul className={'news-list'}>
                     {communityArticles && communityArticles.length > 0 ? (
                         communityArticles.map((article, index) => {
@@ -32,7 +34,7 @@ function Community() {
                                     <div className="main-news-item-container">
                                         <img
                                             className={`main-news-img ${imgSource === defaultPic ? 'main-news-img-alt' : ''}`}
-                                            src={article.mainPic ?? defaultPic}
+                                            src={imgSource}
                                             alt=""
                                         />
                                         <div className="main-text-button">
