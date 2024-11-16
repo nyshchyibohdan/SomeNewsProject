@@ -2,7 +2,7 @@ import './UserFullArticle.css';
 
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { BounceLoader } from 'react-spinners';
 
 import { Footer, Header } from '../../components';

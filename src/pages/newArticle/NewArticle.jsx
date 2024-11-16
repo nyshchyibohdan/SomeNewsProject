@@ -2,7 +2,7 @@ import 'react-quill/dist/quill.snow.css';
 import './NewArticle.css';
 
 import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import ReactQuill from 'react-quill';
 import { Link, useNavigate } from 'react-router-dom';
 import { BounceLoader } from 'react-spinners';
@@ -13,8 +13,6 @@ import { useAuthContext } from '../../contexts/AuthContext';
 import { useCommunityContext } from '../../contexts/CommunityContext';
 import { useUserArticlesContext } from '../../contexts/UserArticlesContext';
 import { useAuthentication } from '../../hooks/useAuthentication';
-import { isAuthenticated } from '../../utils/auth';
-import { getUser } from '../../utils/userService';
 
 const toolbarOptions = [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
