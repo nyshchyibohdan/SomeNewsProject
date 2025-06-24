@@ -38,12 +38,16 @@ function Navbar() {
     function checkpath() {
         if (currentPath !== '/profile') {
             return (
-                <div className="dropdown-container">
-                    <button className="dropdown-menu-button" onClick={toggleDropdown}>
+                <div className="dropdown-container" data-testid="dropdown-container-test">
+                    <button
+                        className="dropdown-menu-button"
+                        onClick={toggleDropdown}
+                        data-testid="dropdown-container-button"
+                    >
                         <img className="navbar-avatar" src={user?.profilePic || defaultProfilePic} />
                     </button>
                     {showDropdown && (
-                        <ul className="dropdown-menu">
+                        <ul className="dropdown-menu" data-testid="drop-menu">
                             <li>
                                 <Link className="link profile-link" to="/profile">
                                     Profile
@@ -62,23 +66,39 @@ function Navbar() {
     }
 
     return (
-        <div className="navbar">
+        <div className="navbar" data-testid="nav-container">
             <Link
                 className={`link ${currentPath === '/' || currentPath === '/home' ? 'link-current' : ''} link-home`}
                 to="/"
             >
                 Home
             </Link>
-            <Link className={`link ${currentPath === '/tech' ? 'link-current' : ''} link-tech`} to="/tech">
+            <Link
+                className={`link ${currentPath === '/tech' ? 'link-current' : ''} link-tech`}
+                to="/tech"
+                name="Technology"
+            >
                 Technology
             </Link>
-            <Link className={`link ${currentPath === '/sport' ? 'link-current' : ''} link-sport`} to="/sport">
+            <Link
+                className={`link ${currentPath === '/sport' ? 'link-current' : ''} link-sport`}
+                to="/sport"
+                name="Sport"
+            >
                 Sport
             </Link>
-            <Link className={`link ${currentPath === '/science' ? 'link-current' : ''} link-science`} to="/science">
+            <Link
+                className={`link ${currentPath === '/science' ? 'link-current' : ''} link-science`}
+                to="/science"
+                name="Science"
+            >
                 Science
             </Link>
-            <Link className={`link ${currentPath === '/community' ? 'link-current' : ''} link-reposts`} to="/community">
+            <Link
+                className={`link ${currentPath === '/community' ? 'link-current' : ''} link-reposts`}
+                to="/community"
+                name="Community"
+            >
                 Community
             </Link>
             {checkpath()}

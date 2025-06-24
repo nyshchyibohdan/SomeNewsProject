@@ -24,7 +24,7 @@ function UserLikes() {
     return (
         <div>
             <Header />
-            <div className={'user-reposts-page-container'}>
+            <div className={'user-reposts-page-container'} data-testid="Likes-page">
                 <div className={'user-reposts-page-title'}>
                     <hr className={'horizontal-rule user-reposts-page-title-rule'} />
                     <p className={'user-reposts-page-count'}>

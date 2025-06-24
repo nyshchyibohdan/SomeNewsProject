@@ -37,14 +37,14 @@ const Login = () => {
 
     return (
         <div className="login-container">
-            <h2 data-testid="cypress-login-title" className="login-title">
+            <h2 data-testid="login-title" className="login-title">
                 Login
             </h2>
             <form onSubmit={loginSubmitted} className="login-form">
                 <div className="field email-field">
                     <label className="field-label email-field-title">Email</label>
                     <input
-                        data-testid="cypress-email-input"
+                        data-testid="email-input"
                         className="input email-input"
                         type="email"
                         value={email}
@@ -55,7 +55,7 @@ const Login = () => {
                 <div className="field password-field">
                     <label className="field-label password-field-label">Password</label>
                     <input
-                        data-testid="cypress-password-input"
+                        data-testid="password-input"
                         className="input password-input"
                         type="password"
                         value={password}
@@ -63,9 +63,15 @@ const Login = () => {
                         required
                     />
                 </div>
-                <div className="error-stack">{error && <p className="error">{error}</p>}</div>
+                <div className="error-stack">
+                    {error && (
+                        <p className="error" data-testid="error-msg">
+                            {error}
+                        </p>
+                    )}
+                </div>
                 <div className="login-button-link">
-                    <Link className="link-to" to="/register">
+                    <Link className="link-to" to="/register" data-testid="link-to">
                         Don&apos;t have account?
                     </Link>
                     <button type="submit" className="login-button">

@@ -41,9 +41,11 @@ const Article = () => {
     return (
         <div>
             <Header />
-            <div className="article-container">
+            <div className="article-container" data-testid="article-container">
                 <div className="article-title-button-container">
-                    <p className="article-page-title">{article.title}</p>
+                    <p className="article-page-title" data-testid="article-page-title">
+                        {article.title}
+                    </p>
                 </div>
 
                 <img className="article-img" src={article.img} alt="" />

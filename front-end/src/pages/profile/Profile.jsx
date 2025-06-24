@@ -33,7 +33,7 @@ const styleModal = {
 function Profile() {
     useAuthentication();
 
-    const { user, loading, error, setError, setLoading, removeUser } = useAuthContext();
+    const { user, loading, error, setError, setLoading, removeUser, setUser } = useAuthContext();
     const { removeArticles } = useUserArticlesContext();
     const { removeReposts } = useUserRepostsContext();
     const { removeLikes } = useUserLikesContext();
@@ -112,14 +112,17 @@ function Profile() {
                 userId: user.id,
                 bio: biography,
             });
+
+            setUser((prev) => ({
+                ...prev,
+                bio: biography,
+            }));
+
+            setBioInput(false);
         } catch (error) {
             console.log(error);
             setLoading(false);
         }
-        setBioInput(false);
-        const timer = setTimeout(() => {
-            window.location.reload();
-        }, 500);
         return () => clearTimeout(timer);
     };
 
@@ -199,7 +202,8 @@ function Profile() {
         }
     };
 
-    if (loading) return <BounceLoader className="loader" color="#ffffff" speedMultiplier={1} />;
+    if (loading)
+        return <BounceLoader className="loader" color="#ffffff" speedMultiplier={1} data-testid="profile-loader" />;
 
     if (!user) {
         return <div>Error fetching user data</div>;
@@ -208,7 +212,7 @@ function Profile() {
     return (
         <div>
             <Header />
-            <div className="profile-container">
+            <div className="profile-container" data-testid="profile-container">
                 <div className={'main-profile-info'}>
                     <div className={'profile-image-block'}>
                         <img className={'profile-image'} src={user.profilePic || defaultProfilePic} alt="Profile" />
@@ -225,7 +229,7 @@ function Profile() {
                         </div>
                     </div>
 
-                    <div className={'profile-nickname-buttons'}>
+                    <div className={'profile-nickname-buttons'} data-testid="nickname-btns">
                         <h1 className={'profile-nickname'}>{user.nickname}</h1>
                         <div className={'profile-buttons'}>
                             <Link to="/user-reposts" className={'button link-to-page'}>
@@ -234,7 +238,11 @@ function Profile() {
                             <Link to="/user-likes" className={'button link-to-page'}>
                                 Likes
                             </Link>
-                            <Link to="/user-articles" className={'button link-to-page link-to-user-articles'}>
+                            <Link
+                                to="/user-articles"
+                                className={'button link-to-page link-to-user-articles'}
+                                data-testid="articles-link"
+                            >
                                 Articles
                             </Link>
                         </div>
@@ -242,27 +250,36 @@ function Profile() {
                 </div>
                 <hr className={'horizontal-rule'}></hr>
                 <div className={'profile-bio'}>
-                    <div className={'bio-main-parts'}>
+                    <div className={'bio-main-parts'} data-testid="bio-main">
                         <h1 className={'bio-title'}>Biography</h1>
                         <button
                             className={`button bio-edit-button ${bioInput ? 'bio-edit-button-active' : ''}`}
                             onClick={bioFieldToggle}
+                            data-testid="edit-bio-button"
                         >
                             {bioInput ? 'Cancel' : 'Edit Bio'}
                         </button>
                     </div>
                     {bioInput ? (
-                        <div className={'bio-input'}>
-                            <textarea className={'bio-input-field'} value={biography} onChange={bioChange} rows={2} />
+                        <div className={'bio-input'} data-testid="bio-input-container">
+                            <textarea
+                                className={'bio-input-field'}
+                                value={biography}
+                                onChange={bioChange}
+                                rows={2}
+                                data-testid="bio-input"
+                            />
                             <button className={'button save-bio-button'} onClick={changeBio}>
                                 Save
                             </button>
                         </div>
                     ) : (
-                        <p className={'bio-input-text'}>{user.bio}</p>
+                        <p className={'bio-input-text'} data-testid="bio-desc">
+                            {user.bio}
+                        </p>
                     )}
                 </div>
-                <div className={'account-activities'}>
+                <div className={'account-activities'} data-testid="acc-activities">
                     <div className={'activities-title-block'}>
                         <h1 className={'activities-title'}>Account activities</h1>
                         <hr className={'horizontal-rule activities-title-rule'}></hr>
@@ -270,7 +287,7 @@ function Profile() {
                     <button className={'button profile-logout-button'} onClick={logoutUser}>
                         Logout
                     </button>
-                    <div className={'activity-block change-password-block'}>
+                    <div className={'activity-block change-password-block'} data-testid="change-pass">
                         <h3 className={'activity-title'}>Change password</h3>
                         <hr className={'horizontal-rule activities-rule'}></hr>
                         <p className={'activity-desc'}>Change your account password. Old password required</p>
@@ -285,7 +302,7 @@ function Profile() {
                         </button>
                     </div>
                     <hr className={'horizontal-rule'}></hr>
-                    <div className={'activity-block delete-account-block'}>
+                    <div className={'activity-block delete-account-block'} data-testid="delete-block">
                         <h3 className={'activity-title delete-acc-title'}>Delete account</h3>
                         <hr className={'horizontal-rule activities-rule'}></hr>
                         <p className={'activity-desc delete-acc-desc'}>Delete your account. Password required</p>
@@ -295,6 +312,7 @@ function Profile() {
                             onClick={() => {
                                 deleteAccountModalToggle();
                             }}
+                            data-testid="delete-acc-btn"
                         >
                             Delete
                         </button>
@@ -306,9 +324,14 @@ function Profile() {
                     onClose={passChangeModalToggle}
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
+                    data-testid="change-pass-modal"
                 >
                     <Box sx={styleModal}>
-                        <form onSubmit={changePassword} className={'password-change-form'}>
+                        <form
+                            onSubmit={changePassword}
+                            className={'password-change-form'}
+                            data-testid="change-pass-form"
+                        >
                             <div className={'password-field old-password-field'}>
                                 <label htmlFor="oldPassword" className={'password-label old-password-label'}>
                                     Old Password:
@@ -349,15 +372,27 @@ function Profile() {
                                 />
                             </div>
                             {error && (
-                                <p style={{ color: 'red' }} className={'modal-error-stack'}>
+                                <p
+                                    style={{ color: 'red' }}
+                                    className={'modal-error-stack'}
+                                    data-testid="change-pass-error"
+                                >
                                     {error}
                                 </p>
                             )}
                             <div className={'form-buttons-container'}>
-                                <button onClick={passChangeModalToggle} className={'button cancel-pass-change-button'}>
+                                <button
+                                    onClick={passChangeModalToggle}
+                                    className={'button cancel-pass-change-button'}
+                                    data-testid="change-pass-cancel-btn"
+                                >
                                     Cancel
                                 </button>
-                                <button type="submit" className={'button submit-pass-change-button'}>
+                                <button
+                                    type="submit"
+                                    className={'button submit-pass-change-button'}
+                                    data-testid="change-pass-sub-btn"
+                                >
                                     Submit
                                 </button>
                             </div>
@@ -371,6 +406,7 @@ function Profile() {
                     onClose={deleteAccountModalToggle}
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
+                    data-testid="delete-acc-modal"
                 >
                     <Box sx={styleModal}>
                         <form onSubmit={deleteAccount} className={'delete-account-form'}>
@@ -385,10 +421,15 @@ function Profile() {
                                     value={passwordToDeleteAccount}
                                     onChange={passwordToDeleteAccountChange}
                                     required
+                                    data-testid="delete-old-pass"
                                 />
                             </div>
                             {error && (
-                                <p style={{ color: 'red' }} className={'modal-error-stack'}>
+                                <p
+                                    style={{ color: 'red' }}
+                                    className={'modal-error-stack'}
+                                    data-testid="delete-acc-err"
+                                >
                                     {error}
                                 </p>
                             )}
@@ -399,7 +440,11 @@ function Profile() {
                                 >
                                     Cancel
                                 </button>
-                                <button type="submit" className={'button submit-account-delete-button'}>
+                                <button
+                                    type="submit"
+                                    className={'button submit-account-delete-button'}
+                                    name="delete-btn"
+                                >
                                     Submit
                                 </button>
                             </div>

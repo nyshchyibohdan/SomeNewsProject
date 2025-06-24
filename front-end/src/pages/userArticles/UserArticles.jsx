@@ -57,11 +57,17 @@ function UserArticles() {
     return (
         <div>
             <Header />
-            <div className={'user-articles-page-container'}>
-                <div className={'user-articles-page-title'}>
-                    <p className={'user-articles-page-title-h1'}>Articles written by yourself</p>
+            <div className={'user-articles-page-container'} data-testid="Articles-page">
+                <div className={'user-articles-page-title'} data-testid="Articles-page-title">
+                    <p className={'user-articles-page-title-h1'} data-testid="user-articles-paragraph">
+                        Articles written by yourself
+                    </p>
                     <hr className={'horizontal-rule user-articles-page-title-rule'} />
-                    <Link to="/new-article" className={'button link-to-page link-to-new-article'}>
+                    <Link
+                        to="/new-article"
+                        className={'button link-to-page link-to-new-article'}
+                        data-testid="link-to-new-article"
+                    >
                         New
                     </Link>
                 </div>

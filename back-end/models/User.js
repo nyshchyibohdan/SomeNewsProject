@@ -53,7 +53,6 @@ UserSchema.pre('save', async function (next) {
         if (nicknameExists && nicknameExists._id.toString() !== this._id.toString()) {
             throw new Error('Nickname already taken');
         }
-
         const emailExists = await mongoose.models.User.findOne({ email: this.email });
         if (emailExists && emailExists._id.toString() !== this._id.toString()) {
             throw new Error('Email already in use');

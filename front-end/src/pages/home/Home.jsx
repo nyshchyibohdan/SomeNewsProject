@@ -5,10 +5,10 @@ import React from 'react';
 import { NewsPages } from '../../components/index';
 
 function Home() {
-    const apiRoute = 'http://localhost:5000/api/newsapi/general';
+    const apiRoute = 'http://localhost:5000/api/newsapi/?topic=general';
 
     return (
-        <div>
+        <div data-testid="home-page">
             <NewsPages apiRoute={apiRoute} />
         </div>
     );

@@ -23,7 +23,7 @@ function Community() {
     return (
         <div>
             <Header />
-            <div className="container community-container">
+            <div className="container community-container" data-testid="community-page">
                 <ul className={'news-list'}>
                     {communityArticles && communityArticles.length > 0 ? (
                         communityArticles.map((article, index) => {

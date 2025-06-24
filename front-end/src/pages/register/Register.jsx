@@ -53,12 +53,14 @@ const Register = () => {
 
     return (
         <div className="register-container">
-            <h2 className="register-title">Create account</h2>
+            <h2 className="register-title" data-testid="create-acc-title">
+                Create account
+            </h2>
             <form onSubmit={registerSubmitted} className={`register-form ${error.length > 0 ? 'form-error' : ''}`}>
                 <div className="field">
                     <label className="field-label">Nickname</label>
                     <input
-                        data-testid="cypress-reg-nickname-input"
+                        data-testid="reg-nickname-input"
                         className="input"
                         type="text"
                         value={nickname}
@@ -68,7 +70,7 @@ const Register = () => {
                 <div className="field">
                     <label className="field-label">Email</label>
                     <input
-                        data-testid="cypress-reg-email-input"
+                        data-testid="reg-email-input"
                         className="input"
                         type="email"
                         value={email}
@@ -79,7 +81,7 @@ const Register = () => {
                 <div className="field">
                     <label className="field-label">Password</label>
                     <input
-                        data-testid="cypress-reg-password-input"
+                        data-testid="reg-password-input"
                         className="input"
                         type="password"
                         value={password}
@@ -90,7 +92,7 @@ const Register = () => {
                 <div className="field">
                     <label className="field-label">Confirm password</label>
                     <input
-                        data-testid="cypress-reg-confirm-password-input"
+                        data-testid="reg-confirm-password-input"
                         className="input"
                         type="password"
                         value={confirmPassword}
@@ -102,7 +104,9 @@ const Register = () => {
                     {error.length > 0 && (
                         <ul className="error">
                             {error.map((error_, index) => (
-                                <li key={index}>{error_}</li>
+                                <li key={index} data-testid={`${index}-error`}>
+                                    {error_}
+                                </li>
                             ))}
                         </ul>
                     )}

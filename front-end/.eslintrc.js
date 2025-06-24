@@ -40,7 +40,7 @@ const config = {
     plugins: ['simple-import-sort', 'react', 'prettier'],
     ignorePatterns: ['node_modules', '*.json', '*.css'],
     rules: {
-        'prettier/prettier': 'error',
+        'prettier/prettier': 'off',
         semi: ['warn', 'always'],
         'unicorn/filename-case': [
             'error',
@@ -51,6 +51,7 @@ const config = {
                 },
             },
         ],
+        'no-undef': 'off',
         'cypress/unsafe-to-chain-command': 'off',
         'unicorn/no-abusive-eslint-disable': 'off',
         'no-unused-vars': 'off',
@@ -64,6 +65,7 @@ const config = {
         'import/namespace': [2, { allowComputed: true }],
         'import/first': 'error',
         'import/newline-after-import': 'error',
+        'import/namespaces': 'off',
     },
     overrides: [
         {

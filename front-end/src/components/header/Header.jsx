@@ -8,13 +8,13 @@ import { Navbar } from '../../components';
 
 function Header() {
     return (
-        <section className="header">
+        <section className="header" data-testid="header_">
             <section className="header-logo">
                 <Link className="header-logo-link" to="/home">
-                    <img src={logo} className="header-logo-img" alt="logo" />
+                    <img src={logo} className="header-logo-img" alt="logo" data-testid="header-logo-img-1" />
                 </Link>
             </section>
-            <section className="header-navbar">
+            <section className="header-navbar" data-testid="navbar-section">
                 <Navbar />
             </section>
         </section>

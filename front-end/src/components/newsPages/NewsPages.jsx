@@ -29,27 +29,31 @@ function NewsPages({ apiRoute }) {
         <div>
             <Header />
             <div className="container">
-                <ul className="news-list">
+                <ul className="news-list" data-testid="news-list">
                     {news.map((article, index) => {
                         const imgSource = article.img ? article.img : defaultPic;
 
                         return index === 0 ? (
                             <li key={index} className="main-news-item">
-                                <div className="main-news-item-container">
+                                <div className="main-news-item-container" data-testid="main-news-item">
                                     <img
                                         className={`main-news-img ${imgSource === defaultPic ? 'main-news-img-alt' : ''}`}
                                         src={imgSource}
-                                        alt=""
+                                        alt="img"
+                                        data-testid="test-image"
                                     />
                                     <div className="main-text-button">
                                         <div className="main-item-text">
-                                            <h2 className="main-article-title">{article.title}</h2>
+                                            <h2 className="main-article-title" data-testid="main-article-title">
+                                                {article.title}
+                                            </h2>
                                             <p className="main-article-desc">{article.description}</p>
                                         </div>
                                         <Link
                                             className="news-item-button main-item-button"
                                             to={`/${index}`}
                                             state={article}
+                                            data-testid="test-item-link"
                                         >
                                             Read more
                                         </Link>
@@ -57,19 +61,27 @@ function NewsPages({ apiRoute }) {
                                 </div>
                             </li>
                         ) : (
-                            <li key={index} className="news-item">
-                                <div className="news-item-container">
+                            <li key={index} className="other-news-item" data-testid="other-news-item">
+                                <div className="news-item-container" data-testid="news-item">
                                     <p className="home-article-author">{article.author}</p>
-                                    <h2 className="home-article-title">{article.title}</h2>
+                                    <h2 className="home-article-title" data-testid="home-article-title">
+                                        {article.title}
+                                    </h2>
                                     <p className="article-desc">{article.description}</p>
-                                    <Link className="news-item-button item-button" to={`/${index}`} state={article}>
+                                    <Link
+                                        className="news-item-button item-button"
+                                        to={`/${index}`}
+                                        state={article}
+                                        data-testid="test-item-link"
+                                    >
                                         Read more
                                     </Link>
                                 </div>
                                 <img
                                     className={`news-item-img ${imgSource === defaultPic ? 'news-item-img-alt' : ''}`}
                                     src={imgSource}
-                                    alt=""
+                                    alt="img"
+                                    data-testid="test-image"
                                 />
                             </li>
                         );

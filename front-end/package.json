@@ -13,14 +13,11 @@
         "test:ct": "cypress run --component --config video=false",
         "coverage:html": "npx nyc report --reporter=html",
         "coverage": "npx nyc report",
-        "prepare": "husky install",
         "prettier": "prettier --write .",
-        "lint": "eslint . --fix"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
+        "lint": "eslint . --fix",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage"
     },
     "lint-staged": {
         "*.{js,jsx,ts,tsx}": [
@@ -60,15 +57,23 @@
         "@babel/preset-env": "^7.25.4",
         "@babel/preset-react": "^7.24.7",
         "@cypress/code-coverage": "^3.13.4",
+        "@testing-library/dom": "^10.4.0",
+        "@testing-library/jest-dom": "^6.6.3",
+        "@testing-library/react": "^16.3.0",
+        "@testing-library/user-event": "^14.6.1",
         "babel-loader": "^9.2.1",
         "babel-plugin-istanbul": "^7.0.0",
         "cypress": "^13.15.1",
         "eslint": "^8.57.1",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-prettier": "^5.2.1",
+        "history": "^5.3.0",
         "html-webpack-plugin": "^5.6.0",
-        "husky": "^8.0.0",
+        "identity-obj-proxy": "^3.0.0",
         "istanbul": "^0.4.5",
+        "jest": "^30.0.1",
+        "jest-environment-jsdom": "^30.0.1",
+        "jest-transform-stub": "^2.0.0",
         "lint-staged": "^15.2.10",
         "nyc": "^17.1.0",
         "prettier": "^3.3.3",
