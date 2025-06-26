@@ -59,7 +59,7 @@ describe("Інтеграційні тести для функціоналу ро
         await mongoose.disconnect();
     });
 
-    it("GET /api/users/profile --- помилка 403 --- Отримання запиту на дані користувача без токена авторизації", async () => {
+    it("T_010 GET /api/users/profile --- помилка 403 --- Отримання запиту на дані користувача без токена авторизації", async () => {
         const { body, statusCode } =
             await request(app).get("/api/users/profile");
 
@@ -68,7 +68,7 @@ describe("Інтеграційні тести для функціоналу ро
             message: "Token is missing",
         });
     });
-    it("GET /api/users/profile --- успіх 200 --- Виконання запиту на отримання даних авторизованого користувача", async () => {
+    it("T_011 GET /api/users/profile --- успіх 200 --- Виконання запиту на отримання даних авторизованого користувача", async () => {
         const { body, statusCode } = await request(app)
             .get("/api/users/profile")
             .set("auth", token);
@@ -88,7 +88,7 @@ describe("Інтеграційні тести для функціоналу ро
         });
         _id = body.user.id;
     });
-    it("POST /api/users/upload-pic --- успіх 200 --- Зміна зображення профілю користувача", async () => {
+    it("T_014 POST /api/users/upload-pic --- успіх 200 --- Зміна зображення профілю користувача", async () => {
         const { body, statusCode } = await request(app)
             .post("/api/users/upload-pic")
             .send({
@@ -102,12 +102,12 @@ describe("Інтеграційні тести для функціоналу ро
             message: "Profile picture uploaded successfully!",
         });
     });
-    it("POST /api/users/update-bio --- успіх 200 --- Зміна інформації про профіль користувача", async () => {
+    it("T_015 POST /api/users/update-bio --- успіх 200 --- Зміна інформації про профіль користувача", async () => {
         const { body, statusCode } = await request(app)
             .post("/api/users/update-bio")
             .send({
                 userId: _id,
-                bio: "May the force be with you",
+                bio: "Текст біографії",
             });
 
         console.log(body);
@@ -116,7 +116,7 @@ describe("Інтеграційні тести для функціоналу ро
             message: "Bio updated successfully!",
         });
     });
-    it("POST /api/users/change-password --- помилка 400 --- Відсутність токена доступу для зміни паролю", async () => {
+    it("T_016 POST /api/users/change-password --- помилка 400 --- Відсутність токена доступу для зміни паролю", async () => {
         const { body, statusCode } = await request(app)
             .post("/api/users/change-password")
             .send({
@@ -130,22 +130,7 @@ describe("Інтеграційні тести для функціоналу ро
             message: "No token, authorization denied",
         });
     });
-
-    it("POST /api/users/change-password --- помилка 400 --- Відсутність токена доступу для зміни паролю", async () => {
-        const { body, statusCode } = await request(app)
-            .post("/api/users/change-password")
-            .send({
-                oldPassword: "12345678",
-                newPassword: "123456789", // різниця у один символ
-            });
-
-        console.log(body);
-        expect(statusCode).toEqual(403);
-        expect(body).toEqual({
-            message: "No token, authorization denied",
-        });
-    });
-    it("POST /api/users/change-password --- помилка 400 --- Невірний старий пароль від акаунта", async () => {
+    it("T_017 POST /api/users/change-password --- помилка 400 --- Невірний старий пароль від акаунта", async () => {
         const { body, statusCode } = await changePassword(
             "87654321",
             "123456789"
@@ -158,7 +143,7 @@ describe("Інтеграційні тести для функціоналу ро
             message: "Invalid password",
         });
     });
-    it("POST /api/users/change-password --- успіх 400 --- Успішна зміна паролю", async () => {
+    it("T_018 POST /api/users/change-password --- успіх 400 --- Успішна зміна паролю", async () => {
         const { body, statusCode } = await changePassword(
             "12345678",
             "123456789"
@@ -191,7 +176,7 @@ describe("Інтеграційні тести для функціоналу ро
         await changePassword("123456789", "12345678");
     });
 
-    it("DELETE /api/users/delete-account --- помилка 403 --- Відсутність токена доступу", async () => {
+    it("T_019 DELETE /api/users/delete-account --- помилка 403 --- Відсутність токена доступу", async () => {
         const { body, statusCode } = await request(app)
             .delete("/api/users/delete-account")
             .send({
@@ -201,18 +186,18 @@ describe("Інтеграційні тести для функціоналу ро
         expect(statusCode).toBe(403);
         expect(body).toEqual({ message: "No token, authorization denied" });
     });
-    it("DELETE /api/users/delete-account --- помилка 400 --- Невірний пароль від акаунта", async () => {
+    it("T_020 DELETE /api/users/delete-account --- помилка 400 --- Невірний пароль від акаунта", async () => {
         const { body, statusCode } = await request(app)
             .delete("/api/users/delete-account")
             .set("auth", token)
             .send({
-                password: "123456789",
+                password: "невірнийпароль",
             });
 
         expect(statusCode).toBe(400);
         expect(body).toEqual({ success: false, message: "Invalid password" });
     });
-    it("DELETE /api/users/delete-account --- успіх 200 --- Видалення акаунта успішне", async () => {
+    it("T_021 DELETE /api/users/delete-account --- успіх 200 --- Видалення акаунта успішне", async () => {
         const { body, statusCode } = await request(app)
             .delete("/api/users/delete-account")
             .set("auth", token)

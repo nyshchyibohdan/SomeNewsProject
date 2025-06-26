@@ -23,7 +23,7 @@ describe("Інтеграційні тести для функціоналу ре
         await mongoose.disconnect();
     });
 
-    it("POST /api/auth/register --- помилка 400 --- Отримання даних для реєстрації без поля nickname", async () => {
+    it("T_001 POST /api/auth/register --- помилка 400 --- Отримання даних для реєстрації без поля nickname", async () => {
         const { body, statusCode } = await request(app)
             .post("/api/auth/register")
             .send({
@@ -44,7 +44,7 @@ describe("Інтеграційні тести для функціоналу ре
             ],
         });
     });
-    it("POST /api/auth/register --- помилка 400 --- Реєстрація email, що вже існує", async () => {
+    it("T_002 POST /api/auth/register --- помилка 400 --- Реєстрація email, що вже існує", async () => {
         const { body, statusCode } = await request(app)
             .post("/api/auth/register")
             .send({
@@ -59,7 +59,7 @@ describe("Інтеграційні тести для функціоналу ре
             message: "Email already in use",
         });
     });
-    it("POST /api/auth/register --- успіх 200 --- Отримання валідних даних для реєстрації та збереження нового користувача", async () => {
+    it("T_003 POST /api/auth/register --- успіх 200 --- Отримання валідних даних для реєстрації та збереження нового користувача", async () => {
         const { body, statusCode } = await request(app)
             .post("/api/auth/register")
             .send({
@@ -79,7 +79,7 @@ describe("Інтеграційні тести для функціоналу ре
 
         await deleteUser("testEmail@gmail.com");
     });
-    it("POST /api/auth/login --- помилка 400 --- Отримання запиту на авторизацію неіснуючого користувача", async () => {
+    it("T_005 POST /api/auth/login --- помилка 400 --- Отримання запиту на авторизацію неіснуючого користувача", async () => {
         const { body, statusCode } = await request(app)
             .post("/api/auth/login")
             .send({
@@ -92,12 +92,12 @@ describe("Інтеграційні тести для функціоналу ре
             msg: "Invalid credentials",
         });
     });
-    it("POST /api/auth/login --- помилка 400 --- Отримання запиту з невірним паролем від акаунта", async () => {
+    it("T_006 POST /api/auth/login --- помилка 400 --- Отримання запиту з невірним паролем від акаунта", async () => {
         const { body, statusCode } = await request(app)
             .post("/api/auth/login")
             .send({
                 email: "integration.test@gmail.com",
-                password: "невірний пароль",
+                password: "невірнийпароль",
             });
 
         expect(statusCode).toBe(400);
@@ -106,7 +106,7 @@ describe("Інтеграційні тести для функціоналу ре
             message: "Invalid credentials",
         });
     });
-    it("POST /api/auth/login --- успіх 200 --- Отримання запиту з вірними даними для авторизації", async () => {
+    it("T_007 POST /api/auth/login --- успіх 200 --- Отримання запиту з вірними даними для авторизації", async () => {
         const { token } = await loginUser(app);
         expect(token).toEqual(expect.any(String));
     });

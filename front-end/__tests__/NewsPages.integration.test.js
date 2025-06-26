@@ -5,7 +5,6 @@ import React from 'react';
 import Article from '../src/pages/article/Article';
 import Community from '../src/pages/community/Community';
 import Home from '../src/pages/home/Home';
-import Login from '../src/pages/login/Login';
 import Science from '../src/pages/science/Science';
 import Sport from '../src/pages/sport/Sport';
 import Technology from '../src/pages/technology/Technology';
@@ -31,7 +30,7 @@ describe('Інтеграційні тести для сторінки новин
         cleanup();
     });
 
-    test('Перевірка коректності рендеру сторінки', async () => {
+    test('T_032 Перевірка коректності рендеру сторінки', async () => {
         renderReusable(['/home'], [{ path: '/home', element: <Home /> }]);
 
         const elements = await screen.findAllByTestId('home-page');
@@ -58,7 +57,7 @@ describe('Інтеграційні тести для сторінки новин
             expect(item).toContainElement(images[i]);
         }
     });
-    test('Перевірка можливості перейти на сторінку головної новини', async () => {
+    test('T_033 Перевірка можливості перейти на сторінку головної новини', async () => {
         renderReusable(
             ['/home'],
             [
@@ -91,7 +90,7 @@ describe('Інтеграційні тести для сторінки новин
         expect(pageTitle.textContent).toBe(articleTitle.textContent);
     });
 
-    test('Перевірка можливості перейти на сторінку інших новин', async () => {
+    test('T_034 Перевірка можливості перейти на сторінку інших новин', async () => {
         renderReusable(
             ['/home'],
             [
@@ -126,7 +125,7 @@ describe('Інтеграційні тести для сторінки новин
 
         expect(pageTitle.textContent).toBe(articleTitles[0].textContent);
     });
-    test('Перевірка можливості перейти на сторінку категорії Technology', async () => {
+    test('T_035 Перевірка можливості перейти на сторінку категорії Technology', async () => {
         renderReusable(
             ['/home'],
             [
@@ -137,7 +136,7 @@ describe('Інтеграційні тести для сторінки новин
 
         await linkToPage('Technology');
     });
-    test('Перевірка можливості перейти на сторінку категорії Sport', async () => {
+    test('T_036 Перевірка можливості перейти на сторінку категорії Sport', async () => {
         renderReusable(
             ['/home'],
             [
@@ -148,7 +147,7 @@ describe('Інтеграційні тести для сторінки новин
 
         await linkToPage('Sport', 'sport-page');
     });
-    test('Перевірка можливості перейти на сторінку категорії Science', async () => {
+    test('T_037 Перевірка можливості перейти на сторінку категорії Science', async () => {
         renderReusable(
             ['/home'],
             [
@@ -159,7 +158,7 @@ describe('Інтеграційні тести для сторінки новин
 
         await linkToPage('Science');
     });
-    test('Перевірка можливості перейти на сторінку категорії Community', async () => {
+    test('T_038 Перевірка можливості перейти на сторінку категорії Community', async () => {
         renderReusable(
             ['/home'],
             [

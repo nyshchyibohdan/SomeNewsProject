@@ -20,7 +20,7 @@ describe("Інтеграційні тести для функціоналу от
         await mongoose.disconnect();
     });
 
-    it("GET /api/newsapi/:topic --- помилка 400 --- відсутня категорія новин :topic", async () => {
+    it("T_008 GET /api/newsapi/:topic --- помилка 400 --- відсутня категорія новин :topic", async () => {
         const { body, statusCode } = await request(app).get("/api/newsapi/");
 
         expect(statusCode).toBe(400);
@@ -29,7 +29,7 @@ describe("Інтеграційні тести для функціоналу от
             message: "No valid category provided",
         });
     });
-    it("GET /api/newsapi/:topic --- успіх 200 --- :topic введено коректно ([general, technology, sport, science])", async () => {
+    it("T_009 GET /api/newsapi/:topic --- успіх 200 --- :topic введено коректно ([general, technology, sport, science])", async () => {
         for (const topic of topicsArray) {
             const { body, statusCode } = await request(app).get(
                 `/api/newsapi?topic=${topic}`

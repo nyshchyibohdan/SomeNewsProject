@@ -78,7 +78,7 @@ describe("Інтеграційні тести для функціоналу ро
         await mongoose.disconnect();
     });
 
-    it("GET /api/articles/get-articles --- успіх 204 --- Отримання статей користувача (користувач ще не створював статті)", async () => {
+    it("T_022 GET /api/articles/get-articles --- успіх 204 --- Отримання статей користувача (користувач ще не створював статті)", async () => {
         const { statusCode } = await request(app).get(
             `/api/articles/get-articles?userId=${user._id}`
         );
