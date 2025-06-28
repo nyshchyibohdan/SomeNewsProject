@@ -7,7 +7,7 @@ import Login from '../src/pages/login/Login';
 import Register from '../src/pages/register/Register';
 
 describe('Інтеграційні тести для сторінки авторизації користувача веб-додатку', () => {
-    test('T_028 Перевірка коректності рендеру сторінки', async () => {
+    test('T_024 Перевірка коректності рендеру сторінки', async () => {
         renderReusable(['/login'], [{ path: '/login', element: <Login /> }]);
 
         expect(await screen.findByTestId('login-title')).toBeInTheDocument();
@@ -16,7 +16,7 @@ describe('Інтеграційні тести для сторінки автор
         expect(await screen.findByTestId('link-to')).toBeInTheDocument();
         expect(await screen.findByRole('button')).toBeInTheDocument();
     });
-    test('T_029 Перевірка можливості перейти на сторінку реєстрації', async () => {
+    test('T_025 Перевірка можливості перейти на сторінку реєстрації', async () => {
         renderReusable(
             ['/login'],
             [
@@ -32,7 +32,7 @@ describe('Інтеграційні тести для сторінки автор
         expect(await screen.findByTestId('create-acc-title')).toBeInTheDocument();
     });
 
-    test('T_030 НЕВДАЛЕ надсилання запиту на авторизацію зі сторінки /login', async () => {
+    test('T_026 НЕВДАЛЕ надсилання запиту на авторизацію зі сторінки /login', async () => {
         renderReusable(
             ['/login'],
             [
@@ -55,7 +55,7 @@ describe('Інтеграційні тести для сторінки автор
         expect(errMessage).toBeVisible();
         expect(errMessage.textContent).toBe('Invalid credentials, please try again.');
     });
-    test('T_031 УСПІШНЕ надсилання запиту на авторизацію зі сторінки /login', async () => {
+    test('T_027 УСПІШНЕ надсилання запиту на авторизацію зі сторінки /login', async () => {
         renderReusable(
             ['/login'],
             [

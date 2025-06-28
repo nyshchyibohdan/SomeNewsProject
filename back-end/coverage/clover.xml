@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1750770221259" clover="3.2.0">
-  <project timestamp="1750770221259" name="All files">
+<coverage generated="1751109581631" clover="3.2.0">
+  <project timestamp="1751109581631" name="All files">
     <metrics statements="385" coveredstatements="321" conditionals="120" coveredconditionals="98" methods="39" coveredmethods="38" elements="544" coveredelements="457" complexity="0" loc="385" ncloc="385" packages="7" files="8" classes="8"/>
     <package name="__tests__.testUtils">
       <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
@@ -350,10 +350,10 @@
         <line num="77" count="0" type="stmt"/>
         <line num="78" count="0" type="stmt"/>
         <line num="82" count="2" type="stmt"/>
-        <line num="83" count="5" type="stmt"/>
-        <line num="85" count="5" type="stmt"/>
-        <line num="87" count="5" type="cond" truecount="2" falsecount="0"/>
-        <line num="88" count="2" type="stmt"/>
+        <line num="83" count="4" type="stmt"/>
+        <line num="85" count="4" type="stmt"/>
+        <line num="87" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="88" count="1" type="stmt"/>
         <line num="93" count="3" type="stmt"/>
         <line num="94" count="3" type="stmt"/>
         <line num="95" count="3" type="stmt"/>

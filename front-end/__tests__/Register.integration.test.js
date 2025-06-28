@@ -9,7 +9,7 @@ import Register from '../src/pages/register/Register';
 import { registerAccount } from './utils/utils.helper';
 
 describe('Інтеграційні тести для сторінки реєстрації користувача веб-додатку', () => {
-    test('T_022 Перевірка коректності рендеру сторінки', async () => {
+    test('T_019 Перевірка коректності рендеру сторінки', async () => {
         renderReusable(['/register'], [{ path: '/register', element: <Register /> }]);
 
         expect(await screen.findByTestId('create-acc-title')).toBeVisible();
@@ -20,7 +20,7 @@ describe('Інтеграційні тести для сторінки реєст
         expect(await screen.findByText('Already have account?')).toBeVisible();
         expect(await screen.findByRole('button')).toBeVisible();
     });
-    test('T_023 Перевірка можливості перейти на сторінку авторизації', async () => {
+    test('T_020 Перевірка можливості перейти на сторінку авторизації', async () => {
         renderReusable(
             ['/register'],
             [
@@ -36,7 +36,7 @@ describe('Інтеграційні тести для сторінки реєст
         expect(await screen.findByTestId('login-title')).toBeVisible();
     });
 
-    test('T_024 НЕВДАЛЕ надсилання запиту на реєстрацію зі сторінки /register', async () => {
+    test('T_021 НЕВДАЛЕ надсилання запиту на реєстрацію зі сторінки /register', async () => {
         renderReusable(['/register'], [{ path: '/register', element: <Register /> }]);
 
         await userEvent.type(screen.getByTestId('reg-nickname-input'), 'integration_test');
@@ -54,7 +54,7 @@ describe('Інтеграційні тести для сторінки реєст
         expect(await screen.findByTestId('1-error')).toBeVisible();
         expect(await screen.findByText('Nickname length must be from 3 to 15')).toBeVisible();
     });
-    test('T_025 УСПІШНЕ надсилання запиту на реєстрацію зі сторінки /register', async () => {
+    test('T_022 УСПІШНЕ надсилання запиту на реєстрацію зі сторінки /register', async () => {
         renderReusable(
             ['/register'],
             [
@@ -66,7 +66,7 @@ describe('Інтеграційні тести для сторінки реєст
         await registerAccount('integration', 'test.integration@gmail.com', '12345678');
     });
 
-    test('T_027 УСПІШНА спроба видалити акаунт', async () => {
+    test('T_023 УСПІШНА спроба видалити акаунт', async () => {
         localStorage.clear();
         sessionStorage.clear();
 

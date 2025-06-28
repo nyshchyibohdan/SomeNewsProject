@@ -79,7 +79,7 @@ describe("Інтеграційні тести для функціоналу ре
 
         await deleteUser("testEmail@gmail.com");
     });
-    it("T_005 POST /api/auth/login --- помилка 400 --- Отримання запиту на авторизацію неіснуючого користувача", async () => {
+    it("T_004 POST /api/auth/login --- помилка 400 --- Отримання запиту на авторизацію неіснуючого користувача", async () => {
         const { body, statusCode } = await request(app)
             .post("/api/auth/login")
             .send({
@@ -92,7 +92,7 @@ describe("Інтеграційні тести для функціоналу ре
             msg: "Invalid credentials",
         });
     });
-    it("T_006 POST /api/auth/login --- помилка 400 --- Отримання запиту з невірним паролем від акаунта", async () => {
+    it("T_005 POST /api/auth/login --- помилка 400 --- Отримання запиту з невірним паролем від акаунта", async () => {
         const { body, statusCode } = await request(app)
             .post("/api/auth/login")
             .send({
@@ -106,7 +106,7 @@ describe("Інтеграційні тести для функціоналу ре
             message: "Invalid credentials",
         });
     });
-    it("T_007 POST /api/auth/login --- успіх 200 --- Отримання запиту з вірними даними для авторизації", async () => {
+    it("T_006 POST /api/auth/login --- успіх 200 --- Отримання запиту з вірними даними для авторизації", async () => {
         const { token } = await loginUser(app);
         expect(token).toEqual(expect.any(String));
     });
