@@ -1,12 +1,13 @@
-const express = require("express");
-const axios = require("axios");
+import express, { Request, Response } from "express";
+import axios from "axios";
+import { Article } from "../../types/types";
 
 const router = express.Router();
 require("dotenv").config();
 
 const NEWS_API = process.env.NEWS_API;
 
-router.get("/", async (request, res) => {
+router.get("/", async (request: Request, res: Response) => {
     const { topic } = request.query;
 
     if (
@@ -15,7 +16,8 @@ router.get("/", async (request, res) => {
         topic != "sport" &&
         topic != "science"
     ) {
-        return res.status(400).send({ message: "No valid category provided" });
+        res.status(400).send({ message: "No valid category provided" });
+        return;
     }
 
     try {
@@ -30,7 +32,7 @@ router.get("/", async (request, res) => {
         );
 
         const articles = response.data.articles
-            .map((article) => ({
+            .map((article: Article) => ({
                 title: article.title,
                 description: article.description,
                 content: article.content,
@@ -40,7 +42,7 @@ router.get("/", async (request, res) => {
                 author: article.author,
                 img: article.urlToImage,
             }))
-            .filter((article) => {
+            .filter((article: Article) => {
                 return (
                     article.title &&
                     article.description &&
@@ -53,7 +55,9 @@ router.get("/", async (request, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Error fetching news articles" });
+        return;
     }
 });
 
-module.exports = router;
+// module.exports = router;
+export default router;

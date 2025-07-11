@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
@@ -38,15 +38,17 @@ const ArticleSchema = new mongoose.Schema(
         },
         author: {
             type: Schema.Types.ObjectId,
-            ref: 'User',
+            ref: "User",
             required: true,
         },
     },
     {
         timestamps: true,
-    },
+    }
 );
 
-const Article = mongoose.models.Article || mongoose.model('Article', ArticleSchema);
+const Article =
+    mongoose.models.Article || mongoose.model("Article", ArticleSchema);
 
-module.exports = Article;
+// module.exports = Article;
+export default Article;

@@ -1,7 +1,7 @@
 // import mongoose from 'mongoose';
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const { Schema } = require('mongoose');
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
+import { Schema } from "mongoose";
 
 const UserSchema = new mongoose.Schema(
     {
@@ -27,13 +27,13 @@ const UserSchema = new mongoose.Schema(
         },
         reposts: {
             type: [Schema.Types.ObjectId],
-            ref: 'Article',
+            ref: "Article",
             required: false,
             unique: false,
         },
         likes: {
             type: [Schema.Types.ObjectId],
-            ref: 'Article',
+            ref: "Article",
             required: false,
             unique: false,
         },
@@ -44,24 +44,31 @@ const UserSchema = new mongoose.Schema(
     },
     {
         timestamps: true,
-    },
+    }
 );
 
-UserSchema.pre('save', async function (next) {
+UserSchema.pre("save", async function (next) {
     try {
-        const nicknameExists = await mongoose.models.User.findOne({ nickname: this.nickname });
-        if (nicknameExists && nicknameExists._id.toString() !== this._id.toString()) {
-            throw new Error('Nickname already taken');
+        const nicknameExists = await mongoose.models.User.findOne({
+            nickname: this.nickname,
+        });
+        if (
+            nicknameExists &&
+            nicknameExists._id.toString() !== this._id.toString()
+        ) {
+            throw new Error("Nickname already taken");
         }
-        const emailExists = await mongoose.models.User.findOne({ email: this.email });
+        const emailExists = await mongoose.models.User.findOne({
+            email: this.email,
+        });
         if (emailExists && emailExists._id.toString() !== this._id.toString()) {
-            throw new Error('Email already in use');
+            throw new Error("Email already in use");
         }
-    } catch (error) {
+    } catch (error: any) {
         next(error);
     }
 
-    if (!this.isModified('password')) {
+    if (!this.isModified("password")) {
         return next();
     }
 
@@ -70,7 +77,7 @@ UserSchema.pre('save', async function (next) {
     next();
 });
 
-const User = mongoose.models.User || mongoose.model('User', UserSchema);
+const User = mongoose.models.User || mongoose.model("User", UserSchema);
 
-module.exports = User;
-// export default mongoose.model('User', UserSchema);
+// module.exports = User;
+export default mongoose.model("User", UserSchema);
