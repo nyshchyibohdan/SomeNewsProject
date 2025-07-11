@@ -3,8 +3,7 @@ import Article from "../models/Article";
 import createHttpError from "http-errors";
 import {
     SaveArticleDTO,
-    ToggleLikeArticleDTO,
-    ToggleRepostArticleDTO,
+    ToggleActionArticleDTO,
 } from "../DTOs/articlesRouteDTO";
 import User from "../models/User";
 import { ArticleDocument, UserDocument } from "../types/types";
@@ -127,11 +126,17 @@ export async function getUserFullArticle(
     });
 }
 
-export async function toggleRepostArticle(
-    req: Request<{}, {}, ToggleRepostArticleDTO>,
+export type ArticleAction = "reposts" | "likes";
+
+export async function toggleActionArticle(
+    req: Request<{}, {}, ToggleActionArticleDTO>,
     res: Response
 ) {
     const { articleId, userId } = req.body;
+
+    const actionType: ArticleAction = req.url.includes("repost")
+        ? "reposts"
+        : "likes";
 
     let article = await Article.findById(articleId);
     if (!article) {
@@ -152,29 +157,28 @@ export async function toggleRepostArticle(
     }
 
     let type;
-
-    if (user.reposts.includes(articleId)) {
-        user.reposts = user.reposts.filter(
+    if (user[actionType].includes(articleId)) {
+        user[actionType] = user[actionType].filter(
             (articleIndex) => articleIndex.toString() !== articleId.toString()
         );
         await user.save();
-        article.repostsCount = article.repostsCount || 0;
-        article.repostsCount -= 1;
+        article[`${actionType}Count`] = article[`${actionType}Count`] || 0;
+        article[`${actionType}Count`] -= 1;
         await article.save();
 
         type = "undo";
 
-        console.log("undo repost");
+        console.log(`undo ${actionType}`);
     } else {
-        user.reposts.push(articleId);
+        user[actionType].push(articleId);
         await user.save();
-        article.repostsCount = article.repostsCount || 0;
-        article.repostsCount += 1;
+        article[`${actionType}Count`] = article[`${actionType}Count`] || 0;
+        article[`${actionType}Count`] += 1;
         await article.save();
 
-        type = "repost";
+        type = `${actionType}`;
 
-        console.log("reposted");
+        console.log(type);
     }
 
     article = await Article.findById(articleId);
@@ -212,98 +216,7 @@ export async function toggleRepostArticle(
             likesCount: article.likesCount,
         },
         success: true,
-        message: "Toggle repost done successfully",
-    };
-
-    res.status(200).json(returnObj);
-}
-
-export async function toggleLikeArticle(
-    req: Request<{}, {}, ToggleLikeArticleDTO>,
-    res: Response
-) {
-    const { articleId, userId } = req.body;
-
-    let article = await Article.findById(articleId);
-    if (!article) {
-        res.status(404).json({
-            success: false,
-            message: "No article found with this ID",
-        });
-        return;
-    }
-
-    let user: UserDocument | null = await User.findById(userId);
-    if (!user) {
-        res.status(404).json({
-            success: false,
-            message: "No user found with this ID",
-        });
-        return;
-    }
-
-    let type;
-
-    if (user.likes.includes(articleId)) {
-        user.likes = user.likes.filter(
-            (articleIndex) => articleIndex.toString() !== articleId.toString()
-        );
-        await user.save();
-        article.likesCount = article.likesCount || 0;
-        article.likesCount -= 1;
-        await article.save();
-
-        type = "undo";
-
-        console.log("undo like");
-    } else {
-        user.likes.push(articleId);
-        await user.save();
-        article.likesCount = article.likesCount || 0;
-        article.likesCount += 1;
-        await article.save();
-
-        type = "like";
-
-        console.log("liked");
-    }
-
-    article = await Article.findById(articleId);
-    user = await User.findById(userId);
-
-    if (!user) {
-        res.status(404).json({
-            success: false,
-            message: "No user found with this ID",
-        });
-        return;
-    }
-
-    const articleAuthor = await User.findById(article.author);
-
-    const returnObj = {
-        type,
-        user: {
-            id: user.id,
-            nickname: user.nickname,
-            email: user.email,
-            bio: user.bio,
-            profilePic: user.profilePic,
-            reposts: user.reposts,
-            likes: user.likes,
-        },
-        article: {
-            id: article._id,
-            title: article.title,
-            mainPic: article.mainPicture,
-            description: article.description,
-            content: article.content,
-            author: articleAuthor?.nickname,
-            repostsCount: article.repostsCount,
-            likesCount: article.likesCount,
-        },
-        success: true,
-        message: "Toggle like done successfully",
+        message: `Toggle ${actionType.slice(0, -1)} done successfully`,
     };
 
     res.status(200).json(returnObj);
@@ -340,7 +253,7 @@ export async function getCommunityArticles(req: Request, res: Response) {
     });
 }
 
-export async function getUserReposts(
+export async function getUserFavourites(
     req: Request<{}, {}, {}, { userId: string }>,
     res: Response
 ) {
@@ -348,7 +261,11 @@ export async function getUserReposts(
 
     const user = await User.findById(userId);
 
-    if (!user || !user.reposts || user.reposts.length === 0) {
+    const actionType: ArticleAction = req.url.includes("reposts")
+        ? "reposts"
+        : "likes";
+
+    if (!user || !user[actionType] || user[actionType]?.length === 0) {
         res.status(200).json({
             message: "No articles found",
             articles: [],
@@ -356,25 +273,27 @@ export async function getUserReposts(
         return;
     }
 
-    const userReposts = await Promise.all(
-        user.reposts.map((repostId) => Article.findById(repostId))
+    const userFavourites = await Promise.all(
+        user[actionType]!.map((articleId) => Article.findById(articleId))
     );
 
-    const filteredReposts = userReposts.filter((article) => article !== null);
-
-    const filteredRepostIds = filteredReposts.map((article) =>
-        article._id.toString()
-    );
-    const removedRepostIds = user.reposts.filter(
-        (repostId) => !filteredRepostIds.includes(repostId.toString())
+    const filteredFavourites = userFavourites.filter(
+        (article) => article !== null
     );
 
-    if (removedRepostIds.length > 0) {
-        user.reposts = filteredRepostIds;
+    const filteredFavouritesIds = filteredFavourites.map(
+        (article: ArticleDocument) => article.id.toString()
+    );
+    const removedFavouritesIds = user[actionType]!.filter(
+        (favouriteId) => !filteredFavouritesIds.includes(favouriteId.toString())
+    );
+
+    if (removedFavouritesIds.length > 0) {
+        user[actionType] = filteredFavouritesIds;
         await user.save();
     }
 
-    if (filteredReposts.length === 0) {
+    if (filteredFavourites.length === 0) {
         res.status(200).json({
             message: "No articles found",
             articles: [],
@@ -382,50 +301,5 @@ export async function getUserReposts(
         return;
     }
 
-    res.status(200).json(filteredReposts);
-}
-
-export async function getUserLikes(
-    req: Request<{}, {}, {}, { userId: string }>,
-    res: Response
-) {
-    const userId = req.query.userId;
-
-    const user: UserDocument | null = await User.findById(userId);
-
-    if (!user || !user.likes || user.likes.length === 0) {
-        res.status(200).json({
-            message: "No articles found",
-            articles: [],
-        });
-        return;
-    }
-
-    const userLikes = await Promise.all(
-        user.likes.map((likeId) => Article.findById(likeId))
-    );
-
-    const filteredLikes = userLikes.filter((article) => article !== null);
-
-    const filteredLikesIds = filteredLikes.map((article) =>
-        article._id.toString()
-    );
-    const removedLikesIds = user.reposts.filter(
-        (likeId) => !filteredLikesIds.includes(likeId.toString())
-    );
-
-    if (removedLikesIds.length > 0) {
-        user.likes = filteredLikesIds;
-        await user.save();
-    }
-
-    if (filteredLikes.length === 0) {
-        res.status(200).json({
-            message: "No articles found",
-            articles: [],
-        });
-        return;
-    }
-
-    res.status(200).json(filteredLikes);
+    res.status(200).json(filteredFavourites);
 }

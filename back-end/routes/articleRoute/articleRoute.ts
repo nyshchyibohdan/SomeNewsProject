@@ -3,12 +3,10 @@ import {
     deleteArticle,
     getCommunityArticles,
     getUserArticles,
+    getUserFavourites,
     getUserFullArticle,
-    getUserLikes,
-    getUserReposts,
     saveArticle,
-    toggleLikeArticle,
-    toggleRepostArticle,
+    toggleActionArticle,
 } from "../../handlers/articles";
 
 const router = express.Router();
@@ -21,15 +19,15 @@ router.delete("/delete-article", deleteArticle);
 
 router.get("/user-full-article", getUserFullArticle);
 
-router.put("/toggle-repost-article", toggleRepostArticle);
+router.put("/toggle-repost-article", toggleActionArticle);
 
-router.put("/toggle-like-article", toggleLikeArticle);
+router.put("/toggle-like-article", toggleActionArticle);
 
 router.get("/community-articles", getCommunityArticles);
 
-router.get("/user-reposts", getUserReposts);
+router.get("/user-reposts", getUserFavourites);
 
-router.get("/user-likes", getUserLikes);
+router.get("/user-likes", getUserFavourites);
 
 // module.exports = router;
 export default router;

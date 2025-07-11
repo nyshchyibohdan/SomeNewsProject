@@ -6,11 +6,7 @@ export interface SaveArticleDTO {
     author: string;
 }
 
-export interface ToggleRepostArticleDTO {
-    articleId: string;
-    userId: string;
-}
-export interface ToggleLikeArticleDTO {
+export interface ToggleActionArticleDTO {
     articleId: string;
     userId: string;
 }
