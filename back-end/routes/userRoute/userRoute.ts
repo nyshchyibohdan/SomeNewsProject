@@ -15,9 +15,9 @@ router.get("/profile", getProfile);
 
 router.post("/upload-pic", updateProfilePic);
 
-router.post("/update-bio", updateBio);
+router.patch("/update-bio", updateBio);
 
-router.post("/change-password", changePassword);
+router.patch("/change-password", changePassword);
 
 router.delete("/delete-account", deleteAccount);
 

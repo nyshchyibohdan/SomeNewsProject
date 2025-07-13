@@ -1,5 +1,4 @@
 import { body } from "express-validator";
-// const { body } = require('express-validator');
 
 const registerValid = [
     body("nickname", "Nickname length must be from 3 to 15").isLength({
@@ -16,5 +15,4 @@ const registerValid = [
     }),
 ];
 
-// module.exports = registerValid;
 export default registerValid;

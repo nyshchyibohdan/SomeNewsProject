@@ -1,13 +1,14 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import axios from "axios";
 import { Article } from "../../types/types";
+import createHttpError from "http-errors";
 
 const router = express.Router();
 require("dotenv").config();
 
 const NEWS_API = process.env.NEWS_API;
 
-router.get("/", async (request: Request, res: Response) => {
+router.get("/", async (request: Request, res: Response, next: NextFunction) => {
     const { topic } = request.query;
 
     if (
@@ -16,8 +17,7 @@ router.get("/", async (request: Request, res: Response) => {
         topic != "sport" &&
         topic != "science"
     ) {
-        res.status(400).send({ message: "No valid category provided" });
-        return;
+        return next(createHttpError(400, "No valid category provided"));
     }
 
     try {
@@ -53,9 +53,7 @@ router.get("/", async (request: Request, res: Response) => {
 
         res.json(articles);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Error fetching news articles" });
-        return;
+        return next(createHttpError(500, "Error fetching news articles"));
     }
 });
 

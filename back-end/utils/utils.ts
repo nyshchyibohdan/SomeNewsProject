@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { HttpError } from "http-errors";
+import createHttpError, { HttpError } from "http-errors";
 import Article from "../models/Article";
 
 export function isHttpError(
@@ -41,4 +41,15 @@ export async function deleteUserArticles(userId: string) {
         return false;
     }
     return true;
+}
+
+export async function checkAuth(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
+    if (!req.user) {
+        return next(createHttpError(401, "You need to authorize first"));
+    }
+    return next();
 }

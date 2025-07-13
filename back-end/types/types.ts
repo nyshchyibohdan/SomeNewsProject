@@ -3,13 +3,27 @@ import { Document } from "mongoose";
 export interface User {
     nickname: string;
     email: string;
-    bio: string;
+    bio: string | null | undefined;
     profilePic: string;
     reposts: string[];
     likes: string[];
+    password: string;
 }
 
-export interface UserDocument extends User, Document {}
+export interface UserDocument extends Omit<User, "password">, Document {}
+
+export interface UserPassportDocument
+    extends Pick<
+            UserDocument,
+            | "id"
+            | "nickname"
+            | "email"
+            | "bio"
+            | "profilePic"
+            | "reposts"
+            | "likes"
+        >,
+        Pick<User, "password"> {}
 
 export interface Article {
     title: string;

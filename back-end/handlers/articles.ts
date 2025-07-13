@@ -6,24 +6,28 @@ import {
     ToggleActionArticleDTO,
 } from "../DTOs/articlesRouteDTO";
 import User from "../models/User";
-import { ArticleDocument, UserDocument } from "../types/types";
+import {
+    ArticleDocument,
+    UserArticle,
+    UserDocument,
+    UserPassportDocument,
+} from "../types/types";
 
 export async function saveArticle(
     req: Request<{}, {}, SaveArticleDTO>,
     res: Response,
     next: NextFunction
 ) {
-    const { title, description, mainPicture, content, author } = req.body;
+    const { title, description, mainPicture, content } = req.body;
 
-    console.log(
-        "IN ARTICLE ROUTE",
-        title,
-        description,
-        mainPicture,
-        content,
-        author
-    );
-    if (!title || !description || !content || !author) {
+    const user = req.user as UserPassportDocument;
+
+    if (!user) {
+        return next(createHttpError(400, "Invalid credentials"));
+    }
+
+    console.log("IN ARTICLE ROUTE", title, description, mainPicture, content);
+    if (!title || !description || !content || !user.id) {
         return next(createHttpError(400, "All required data must be provided"));
     }
 
@@ -32,7 +36,7 @@ export async function saveArticle(
         description,
         mainPicture,
         content,
-        author,
+        author: user.id,
         repostsCount: 0,
         likesCount: 0,
     });
@@ -41,19 +45,14 @@ export async function saveArticle(
     console.log(article);
     console.log("All done!");
     res.status(200).json({
-        success: true,
         message: "Article saved successfully",
     });
     return;
 }
 
-export async function getUserArticles(
-    req: Request<{}, {}, {}, { userId: string }>,
-    res: Response
-) {
-    const userId = req.query.userId;
-
-    const articles = await Article.find({ author: userId }).sort({
+export async function getUserArticles(req: Request, res: Response) {
+    const user = req.user as UserPassportDocument;
+    const articles = await Article.find({ author: user.id }).sort({
         createdAt: -1,
     });
 
@@ -66,37 +65,40 @@ export async function getUserArticles(
 
 export async function deleteArticle(
     req: Request<{}, {}, { articleId: string }>,
-    res: Response
+    res: Response,
+    next: NextFunction
 ) {
     const { articleId } = req.body;
 
-    const article = await Article.findByIdAndDelete(articleId);
+    const user = req.user as UserPassportDocument;
+
+    const article: UserArticle | null = await Article.findById(articleId);
+
     if (!article) {
-        res.status(404).json({
-            success: false,
-            message: "No article found with this ID",
-        });
-        return;
+        return next(createHttpError(404, "No article found with this ID"));
     }
+
+    if (article.author != user.id) {
+        return next(createHttpError(403, "No rights to delete this article"));
+    }
+
+    await Article.deleteOne(article);
     console.log("deleted");
     res.status(200).json({
-        success: true,
         message: "Article deleted successfully",
     });
+    return;
 }
 
 export async function getUserFullArticle(
     req: Request<{}, {}, { articleId: string }>,
-    res: Response
+    res: Response,
+    next: NextFunction
 ) {
     const articleId = req.query.articleId;
     const article: ArticleDocument | null = await Article.findById(articleId);
     if (!article) {
-        res.status(404).json({
-            success: false,
-            message: "Article not found",
-        });
-        return;
+        return next(createHttpError(404, "No article found"));
     }
 
     console.log("Article found");
@@ -104,16 +106,12 @@ export async function getUserFullArticle(
     const articleAuthor = await User.findById(article.author);
     if (!articleAuthor) {
         console.log("no user found for article");
-        res.status(404).json({
-            success: false,
-            message: "No author found with this ID",
-        });
-        return;
+        return next(createHttpError(404, "No author found with this ID"));
     }
 
     res.status(200).json({
         article: {
-            id: article._id,
+            id: article.id,
             title: article.title,
             mainPic: article.mainPicture,
             description: article.description,
@@ -121,7 +119,6 @@ export async function getUserFullArticle(
             author: articleAuthor.nickname,
             repostsCount: article.repostsCount,
         },
-        success: true,
         message: "Article found successfully",
     });
 }
@@ -130,9 +127,12 @@ export type ArticleAction = "reposts" | "likes";
 
 export async function toggleActionArticle(
     req: Request<{}, {}, ToggleActionArticleDTO>,
-    res: Response
+    res: Response,
+    next: NextFunction
 ) {
-    const { articleId, userId } = req.body;
+    const { articleId } = req.body;
+
+    const { id: userId } = req.user as UserPassportDocument;
 
     const actionType: ArticleAction = req.url.includes("repost")
         ? "reposts"
@@ -140,20 +140,12 @@ export async function toggleActionArticle(
 
     let article = await Article.findById(articleId);
     if (!article) {
-        res.status(404).json({
-            success: false,
-            message: "No article found with this ID",
-        });
-        return;
+        return next(createHttpError(404, "No article found with this ID"));
     }
 
     let user: UserDocument | null = await User.findById(userId);
     if (!user) {
-        res.status(404).json({
-            success: false,
-            message: "No user found with this ID",
-        });
-        return;
+        return next(createHttpError(404, "No user found with this ID"));
     }
 
     let type;
@@ -185,26 +177,13 @@ export async function toggleActionArticle(
     user = await User.findById(userId);
 
     if (!user) {
-        res.status(404).json({
-            success: false,
-            message: "No user found with this ID",
-        });
-        return;
+        return next(createHttpError(404, "No user found with this ID"));
     }
 
     const articleAuthor = await User.findById(article.author);
 
     const returnObj = {
         type,
-        user: {
-            id: user.id,
-            nickname: user.nickname,
-            email: user.email,
-            bio: user.bio,
-            profilePic: user.profilePic,
-            reposts: user.reposts,
-            likes: user.likes,
-        },
         article: {
             id: article._id,
             title: article.title,
@@ -215,7 +194,6 @@ export async function toggleActionArticle(
             repostsCount: article.repostsCount,
             likesCount: article.likesCount,
         },
-        success: true,
         message: `Toggle ${actionType.slice(0, -1)} done successfully`,
     };
 
@@ -248,16 +226,12 @@ export async function getCommunityArticles(req: Request, res: Response) {
     }
 
     res.status(200).json({
-        success: true,
-        articles: articles,
+        articles,
     });
 }
 
-export async function getUserFavourites(
-    req: Request<{}, {}, {}, { userId: string }>,
-    res: Response
-) {
-    const userId = req.query.userId;
+export async function getUserFavourites(req: Request, res: Response) {
+    const { id: userId } = req.user as UserPassportDocument;
 
     const user = await User.findById(userId);
 

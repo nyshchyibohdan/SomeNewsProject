@@ -1,44 +1,44 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import User from "../models/User";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import { LoginDataDTO, RegisterDataDTO } from "../DTOs/authDTO";
 import { validationResult } from "express-validator";
-
-const JWT_SECRET = process.env.SECRET_KEY;
+import { passport } from "../passport/strategies/local-strategy";
+import createHttpError from "http-errors";
 
 export async function loginUser(
     req: Request<{}, {}, LoginDataDTO>,
-    res: Response
+    res: Response,
+    next: NextFunction
 ) {
-    const { email, password } = req.body;
-
-    try {
-        const user = await User.findOne({ email });
+    passport.authenticate("local", (err: any, user: any, info: any) => {
         if (!user) {
-            res.status(400).json({ msg: "Invalid credentials" });
-            return;
+            req.logout(function (err) {
+                if (err) {
+                    return next(err);
+                }
+                res.sendStatus(201);
+            });
+            return next(createHttpError(400, "Invalid credentials"));
         }
 
-        const match = await bcrypt.compare(password, user.password);
-        if (!match) {
-            res.status(400).json({ msg: "Invalid credentials" });
-            return;
+        if (err) {
+            return next(createHttpError(500, "Server error during login"));
         }
 
-        if (!JWT_SECRET) {
-            res.status(500).json({ msg: "JWT secret not configured" });
-            return;
-        }
+        req.logIn(user, (err) => {
+            if (err) {
+                return next(createHttpError(500, "Error logging in user"));
+            }
 
-        const token = jwt.sign({ id: user._id }, JWT_SECRET, {
-            expiresIn: "1h",
+            const returnUser = {
+                id: user.id,
+                email: user.email,
+            };
+
+            console.log("USER LOGGED IN ---------------");
+            return res.status(200).send(returnUser);
         });
-        res.json({ token });
-    } catch (err: any) {
-        res.status(500).send("Server error");
-        return;
-    }
+    })(req, res, next);
 }
 
 export async function registerUser(
@@ -68,10 +68,7 @@ export async function registerUser(
         bio: "",
         profilePic: "",
     });
-    const user = await registerDocument.save();
-    const token = jwt.sign({ id: user._id.toString() }, JWT_SECRET!, {
-        expiresIn: "1h",
-    });
-    res.json({ token, user });
+    await registerDocument.save();
+    res.status(201).send({ message: "User was registered" });
     return;
 }

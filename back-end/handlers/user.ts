@@ -1,6 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { JwtPayload } from "jsonwebtoken";
-import jwt from "jsonwebtoken";
 import User from "../models/User";
 import createHttpError from "http-errors";
 import {
@@ -10,49 +8,37 @@ import {
 } from "../DTOs/userRouteDTO";
 import bcrypt from "bcrypt";
 import { deleteUserArticles } from "../utils/utils";
+import { UserPassportDocument } from "../types/types";
 
-const JWT_SECRET = process.env.SECRET_KEY;
-
-export async function getProfile(
-    req: Request,
-    res: Response,
-    next: NextFunction
-) {
-    const token = req.get("auth");
-
-    if (!token) return next(createHttpError(403, "Token is missing"));
-
-    const decoded = jwt.verify(token, JWT_SECRET!) as JwtPayload;
-    const userId = decoded.id;
-
-    const user = await User.findById(userId);
-
-    if (!user) {
-        return next(createHttpError(400, "User not found"));
-    }
-    console.log(user.reposts);
+export async function getProfile(req: Request, res: Response) {
+    const user = req.user as UserPassportDocument;
     res.status(200).json({
-        user: {
-            id: userId,
-            nickname: user.nickname,
-            email: user.email,
-            bio: user.bio,
-            profilePic: user.profilePic,
-            reposts: user.reposts,
-            likes: user.likes,
-        },
+        id: user.id,
+        nickname: user.nickname,
+        email: user.email,
+        bio: user.bio,
+        profilePic: user.profilePic,
+        reposts: user.reposts,
+        likes: user.likes,
     });
 }
 
 export async function updateProfilePic(
     req: Request<{}, {}, UploadPicDataDTO>,
-    res: Response
+    res: Response,
+    next: NextFunction
 ) {
-    const { userId, profilePic } = req.body;
+    const { profilePic } = req.body;
 
-    console.log("IN USER PROFILE PIC ---", userId, profilePic);
+    const user = req.user as UserPassportDocument;
 
-    await User.findByIdAndUpdate(userId, { profilePic });
+    if (!profilePic) {
+        return next(createHttpError(400, "No profile picture provided"));
+    }
+
+    console.log("IN USER PROFILE PIC ---", user.id, profilePic);
+
+    await User.findByIdAndUpdate(user.id, { profilePic });
 
     res.status(200).json({
         message: "Profile picture uploaded successfully!",
@@ -61,11 +47,18 @@ export async function updateProfilePic(
 
 export async function updateBio(
     req: Request<{}, {}, UpdateBioDTO>,
-    res: Response
+    res: Response,
+    next: NextFunction
 ) {
-    const { userId, bio } = req.body;
+    const { bio } = req.body;
 
-    await User.findByIdAndUpdate(userId, { bio });
+    const user = req.user as UserPassportDocument;
+
+    if (!bio) {
+        return next(createHttpError(400, "No bio provided"));
+    }
+
+    await User.findByIdAndUpdate(user.id, { bio });
 
     res.status(200).json({ message: "Bio updated successfully!" });
 }
@@ -77,22 +70,14 @@ export async function changePassword(
 ) {
     const { oldPassword, newPassword } = req.body;
 
-    const token = req.header("auth");
-
-    if (!token) {
-        return next(createHttpError(403, "No token, authorization denied"));
-    }
-
-    const decoded = jwt.verify(token, JWT_SECRET!) as JwtPayload;
-    const userId = decoded.id;
-    const user = await User.findById(userId);
+    const user = req.user as UserPassportDocument;
 
     if (!user) {
-        res.status(400).json({
-            success: false,
-            msg: "Invalid credentials",
-        });
-        return;
+        return next(createHttpError(400, "Invalid credentials"));
+    }
+
+    if (!oldPassword || !newPassword) {
+        return next(createHttpError(400, "No passwords provided"));
     }
 
     bcrypt.compare(oldPassword, user.password, async function (error, result) {
@@ -103,22 +88,16 @@ export async function changePassword(
         if (result) {
             const salt = await bcrypt.genSalt(12);
             const newHashedPassword = await bcrypt.hash(newPassword, salt);
-            await User.findByIdAndUpdate(user._id, {
+            await User.findByIdAndUpdate(user.id, {
                 password: newHashedPassword,
             });
             console.log("Password updated successfully");
             res.status(200).json({
-                success: true,
                 message: "Password updated successfully",
             });
             return;
         } else {
-            console.log("Invalid password");
-            res.status(400).json({
-                success: false,
-                message: "Invalid password",
-            });
-            return;
+            return next(createHttpError(400, "Invalid credentials"));
         }
     });
 }
@@ -130,15 +109,7 @@ export async function deleteAccount(
 ) {
     const { password } = req.body;
 
-    const token = req.header("auth");
-
-    if (!token) {
-        return next(createHttpError(403, "No token, authorization denied"));
-    }
-
-    const decoded = jwt.verify(token, JWT_SECRET!) as JwtPayload;
-    const userId = decoded.id;
-    const user = await User.findById(userId);
+    const user = req.user as UserPassportDocument;
 
     if (!user) {
         return next(createHttpError(400, "Invalid credentials"));
@@ -150,37 +121,25 @@ export async function deleteAccount(
             return next(createHttpError(500, "Server error"));
         }
         if (result) {
-            const articlesDeleted = await deleteUserArticles(userId);
+            const articlesDeleted = await deleteUserArticles(user.id);
             if (articlesDeleted) {
-                const deletedUser = await User.findByIdAndDelete(userId);
+                const deletedUser = await User.findByIdAndDelete(user.id);
 
                 if (!deletedUser) {
-                    res.status(404).json({
-                        success: false,
-                        message: "User not found",
-                    });
-                    return;
+                    return next(createHttpError(404, "User not found"));
                 }
 
                 res.status(200).json({
-                    success: true,
                     message: "Account deleted successfully",
                 });
                 return;
             } else {
-                res.status(400).json({
-                    success: false,
-                    message: "Error deleting user articles",
-                });
-                return;
+                return next(
+                    createHttpError(400, "Error deleting user articles")
+                );
             }
         } else {
-            console.log("Invalid password");
-            res.status(400).json({
-                success: false,
-                message: "Invalid password",
-            });
-            return;
+            return next(createHttpError(400, "Invalid password"));
         }
     });
 }
