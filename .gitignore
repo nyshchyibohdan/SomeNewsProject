@@ -8,3 +8,5 @@ front-end/.nyc_output
 /back-end/node_modules
 /back-end/package-lock.json
 /back-end/dist
+
+front-end2

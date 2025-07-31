@@ -43,7 +43,8 @@ export async function loginUser(
 
 export async function registerUser(
     req: Request<{}, {}, RegisterDataDTO>,
-    res: Response
+    res: Response,
+    next: NextFunction
 ) {
     const { nickname, email, password } = req.body;
     let errors = validationResult(req);
@@ -61,14 +62,19 @@ export async function registerUser(
         });
         return;
     }
-    const registerDocument = await User.create({
-        nickname: nickname,
-        email: email,
-        password: password,
-        bio: "",
-        profilePic: "",
-    });
-    await registerDocument.save();
-    res.status(201).send({ message: "User was registered" });
-    return;
+    try {
+        const registerDocument = await User.create({
+            nickname: nickname,
+            email: email,
+            password: password,
+            bio: "",
+            profilePic: "",
+        });
+        await registerDocument.save();
+        res.status(201).send({ message: "User was registered" });
+        return;
+    } catch (error) {
+        const err = error as Error;
+        return next(createHttpError(400, err.message));
+    }
 }

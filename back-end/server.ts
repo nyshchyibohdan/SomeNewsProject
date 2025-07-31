@@ -67,8 +67,8 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/api/auth", authRoutes);
 
-app.use(checkAuth);
 app.use("/api/newsapi", newsApiRoutes);
+app.use(checkAuth);
 app.use("/api/users", userRoutes);
 app.use("/api/articles", articleRoutes);
 

@@ -2,6 +2,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import { Schema } from "mongoose";
+import createHttpError from "http-errors";
 
 const UserSchema = new mongoose.Schema(
     {
@@ -56,25 +57,25 @@ UserSchema.pre("save", async function (next) {
             nicknameExists &&
             nicknameExists._id.toString() !== this._id.toString()
         ) {
-            throw new Error("Nickname already taken");
+            return next(createHttpError(400, "Nickname already taken"));
         }
         const emailExists = await mongoose.models.User.findOne({
             email: this.email,
         });
         if (emailExists && emailExists._id.toString() !== this._id.toString()) {
-            throw new Error("Email already in use");
+            return next(createHttpError(400, "Email already in use"));
         }
+
+        if (!this.isModified("password")) {
+            return next();
+        }
+
+        const salt = await bcrypt.genSalt(12);
+        this.password = await bcrypt.hash(this.password, salt);
+        next();
     } catch (error: any) {
-        next(error);
+        return next(error);
     }
-
-    if (!this.isModified("password")) {
-        return next();
-    }
-
-    const salt = await bcrypt.genSalt(12);
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
 });
 
 const User = mongoose.models.User || mongoose.model("User", UserSchema);

@@ -1,16 +1,3 @@
-.navbar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 35px;
-}
-.navbar-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: none;
-}
 .link {
     text-decoration: none;
     color: white;
@@ -27,7 +14,7 @@
 .link:hover {
     color: #9eabb8;
 }
-
+/* 
 .link-reposts {
     font-weight: bold;
 }
@@ -83,4 +70,4 @@
 
 .logout-button:hover {
     color: #a3372b;
-}
+} */
