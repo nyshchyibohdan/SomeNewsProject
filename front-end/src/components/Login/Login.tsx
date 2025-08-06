@@ -14,12 +14,6 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     if (isAuthenticated()) {
-    //         navigate('/');
-    //     }
-    // }, [navigate]);
-
     useEffect(() => {
         if (showSuccess) {
             const timeout = setTimeout(() => {
@@ -28,7 +22,7 @@ const Login = () => {
 
             return () => clearTimeout(timeout)
         }
-    }, [showSuccess])
+    }, [showSuccess]);
 
     const loginSubmitted = async (e: FormEvent) => {
         e.preventDefault();
@@ -62,7 +56,7 @@ const Login = () => {
             <h2 data-testid="login-title" className="text-center text-5xl font-bold m-5 mt-0">
                 Login
             </h2>
-            <form onSubmit={loginSubmitted} className="w-xl h-80 flex flex-col justify-center items-center border-2 border-[#293038] border-solid rounded-2xl pl-8 pr-8" >
+            <form onSubmit={loginSubmitted} className="w-11/12 md:w-xl h-7/12 md:h-80 flex flex-col justify-center items-center border-2 border-[#293038] border-solid rounded-2xl pl-3 pr-3 md:pl-8 md:pr-8" >
                 <div className="field email-field">
                     <label className="field-label email-field-title">Email</label>
                     <input
@@ -87,12 +81,12 @@ const Login = () => {
                 </div>
                 <div className="w-full flex flex-col">
                     {error && (
-                        <p className="text-[#e74c3c] text-[18px] font-bold" data-testid="error-msg">
+                        <p className="text-[#e74c3c] !text-[18px] font-bold pl-0" data-testid="error-msg">
                             {error}
                         </p>
                     )}
                 </div>
-                <div className="w-full h-auto pl-[80px] pr-[80px] flex flex-row justify-center items-center gap-[80px] mt-[20px]">
+                <div className="w-full h-auto pl-3 pr-3 md:pl-[80px] md:pr-[80px] flex flex-row justify-center items-center gap-[80px] md:mt-[20px] mt-[10px]">
                     <Link className="link-to" to="/register" data-testid="link-to">
                         Don&apos;t have account?
                     </Link>

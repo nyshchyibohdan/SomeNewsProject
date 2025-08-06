@@ -49,11 +49,11 @@ const Register = () => {
     };
 
     return (
-        <div className="h-dvh flex flex-col gap-4 justify-center items-center bg-[#121417]">
-            <h2 className="text-center text-5xl font-bold m-5 mt-0" data-testid="create-acc-title">
+        <div className="h-dvh flex flex-col gap-3 justify-center items-center bg-[#121417]">
+            <h2 className="text-center md:text-4xl text-2xl font-bold m-5 mt-0" data-testid="create-acc-title">
                 Create account
             </h2>
-            <form onSubmit={registerSubmitted} className={`w-xl h-[500px] flex flex-col justify-center items-center border-2 border-[#293038] rounded-2xl pl-8 pr-8 ${error.length > 0 ? 'h-[600px]' : ''}`}>
+            <form onSubmit={registerSubmitted} className={`w-11/12 md:w-xl h-11/12 md:h-9/12 flex flex-col justify-center items-center border-2 border-[#293038] rounded-2xl pl-3 pr-3 md:pl-8 md:pr-8 pt-3 pb-3`}>
                 <div className="field">
                     <label className="field-label">Nickname</label>
                     <input
@@ -109,10 +109,10 @@ const Register = () => {
                     )}
                 </div>
                 <div className="w-full flex flex-row justify-center items-center gap-[60px] mt-[20px]">
-                    <Link className="link-to w-44" to="/login">
+                    <Link className="link-to w-1/2" to="/login">
                         Already have account?
                     </Link>
-                    <button type="submit" className="w-48 h-12" data-testid="cypress-reg-button">
+                    <button type="submit" className="w-1/2 h-auto md:h-12" data-testid="cypress-reg-button">
                         Create account
                     </button>
                 </div>

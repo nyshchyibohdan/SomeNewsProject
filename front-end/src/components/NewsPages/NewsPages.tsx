@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import defaultPic from '../../assets/imgs/logo.png';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import type { Category, NewsApiInitialState } from '../../types/stateTypes';
@@ -10,11 +11,15 @@ type NewsPagesType = {
 function NewsPages({ topic = "general" }: NewsPagesType) {
     const newsState = useAppSelector((state) => state.newsApi);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <div>
-            <div className="flex flex-col size-full justify-between p-4">
+            <div className="flex flex-col size-full justify-between pt-4">
                 <ul className="list-none pl-0 flex flex-col justify-center items-center gap-6" data-testid="news-list">
-                    {Array.isArray(newsState[topic]) ? (newsState[topic as keyof NewsApiInitialState].map((article, index) => {
+                    {Array.isArray(newsState[topic]) ? (newsState[topic as keyof Omit<NewsApiInitialState, 'error' | "errorMessage">].map((article, index) => {
                         const imgSource = article.img ? article.img : defaultPic;
 
                         return index === 0 ? (
@@ -26,8 +31,8 @@ function NewsPages({ topic = "general" }: NewsPagesType) {
                                         alt="img"
                                         data-testid="test-image"
                                     />
-                                    <div className="ml-7 mr-7 md:ml-14 md:mr-14 absolute flex flex-col bottom-7 md:bottom-14 gap-10">
-                                        <div className="flex flex-col h-28 text-white gap-2.5">
+                                    <div className="ml-7 mr-7 md:ml-14 md:mr-14 absolute flex flex-col bottom-7 md:bottom-14 md:gap-10 gap-5">
+                                        <div className="flex flex-col md:h-28 h-14 text-white gap-2.5">
                                             <h2 className='font-bold text-[12px] md:text-[18px]' data-testid="main-article-title">
                                                 {article.title}
                                             </h2>
@@ -47,20 +52,20 @@ function NewsPages({ topic = "general" }: NewsPagesType) {
                         ) : (
                             <li key={article.title} className="w-11/12 h-28 md:h-52 flex flex-col gap-4 justify-center items-center" data-testid="other-news-item">
                                 <Link
-                                    className="w-full flex flex-row justify-between items-center cursor-pointer"
+                                    className="w-full flex flex-row justify-between items-center cursor-pointer gap-2"
                                     to={'/$articleTitle'}
                                     data-testid="test-item-link"
                                     params={{ articleTitle: `${topic}/${article.title}` }}
                                 >
-                                    <div className="" data-testid="news-item">
-                                        <p className="w-full text-[#9eabb8] text-[14px] mt-0">{article.author}</p>
+                                    <div className="flex-1 min-w-0" data-testid="news-item">
+                                        <p className="text-[#9eabb8] text-[14px] mt-0">{article.author}</p>
                                         <h2 className="text-white font-bold text-[14px] md:text-[16px]" data-testid="home-article-title">
                                             {article.title}
                                         </h2>
                                         <p className="md:text-base lg:text-lg xl:text-xl text-[#9eabb8] text-[14px]">{article.description}</p>
                                     </div>
                                     <img
-                                        className={`hidden md:block rounded-[8px] object-cover w-80 h-full ${imgSource === defaultPic ? 'object-contain' : 'object-cover'}`}
+                                        className={`hidden md:block rounded-[8px] object-cover w-[320px] h-[192px] ${imgSource === defaultPic ? 'object-contain' : 'object-cover'}`}
                                         src={imgSource}
                                         alt="img"
                                         data-testid="test-image"

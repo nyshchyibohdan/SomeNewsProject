@@ -39,17 +39,17 @@ export const Route: RootRoute = createRootRoute({
             <>
                 {!hideHeader && (
                     <header
-                        className="w-full sticky top-0 bg-black/70 backdrop-blur-3xl h-36 flex flex-row justify-between items-center z-[1000] md:pl-28 md:pr-28"
+                        className="w-full sticky top-0 bg-black/70 backdrop-blur-3xl md:h-36 h-16 flex flex-row justify-between items-center z-[1000] md:pl-28 md:pr-28 pl-10 pr-10"
                         data-testid="header_"
                     >
-                        <div className="text-2xl">
+                        <div className="md:text-2xl text-xs">
                             <Link
                                 className="no-underline text-[#9eabb8] font-sans text-2xl font-bold"
                                 to="/"
                             >
                                 <img
                                     src={logo}
-                                    className="w-40"
+                                    className="md:w-40 w-20"
                                     alt="logo"
                                     data-testid="header-logo-img-1"
                                 />

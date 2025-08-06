@@ -3,8 +3,10 @@ import Loader from '../components/Loader/Loader'
 import Article from '../components/Article/Article'
 import type { Category, NewsApiArticle } from '../types/stateTypes'
 import { store } from '../store'
+import { beforeLoadPage } from '../utils/utils'
 
 export const Route = createFileRoute('/$articleTitle')({
+  beforeLoad: () => beforeLoadPage(),
   component: Article,
   loader: async ({ params }) => {
     const newsState = store.getState().newsApi;

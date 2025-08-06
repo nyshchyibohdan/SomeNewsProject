@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/')({
+    beforeLoad: () => beforeLoadPage(),
     component: Home,
     loader: async () => {
         const state = store.getState();
@@ -19,6 +20,7 @@ import NewsPages from '../components/NewsPages/NewsPages';
 import { getNews } from '../state/newsApiSlice';
 import { store } from '../store';
 import Loader from '../components/Loader/Loader';
+import { beforeLoadPage } from '../utils/utils';
 
 function Home() {
     return (

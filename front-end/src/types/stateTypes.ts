@@ -50,3 +50,15 @@ export interface NewsApiInitialState {
 }
 
 export type Category = "general" | "sport" | "science" | "technology";
+
+// User slice types
+
+export interface User {
+    id: string;
+    nickname: string;
+    email: string;
+    bio: string | null | undefined;
+    profilePic: string;
+    reposts: string[];
+    likes: string[];
+}
