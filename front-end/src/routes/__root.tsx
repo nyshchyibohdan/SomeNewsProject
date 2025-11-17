@@ -42,7 +42,7 @@ export const Route: RootRoute = createRootRoute({
                         className="w-full sticky top-0 bg-black/70 backdrop-blur-3xl md:h-36 h-16 flex flex-row justify-between items-center z-[1000] md:pl-28 md:pr-28 pl-10 pr-10"
                         data-testid="header_"
                     >
-                        <div className="md:text-2xl text-xs">
+                        <div className="hidden sm:block md:text-2xl text-xs ">
                             <Link
                                 className="no-underline text-[#9eabb8] font-sans text-2xl font-bold"
                                 to="/"
@@ -68,6 +68,34 @@ export const Route: RootRoute = createRootRoute({
                 <main className="main-outlet">
                     <Outlet />
                 </main>
+
+                {!hideHeader &&
+                    <footer className="h-10 pl-1.5 pr-1.5 flex flex-row justify-center items-center lg:pb-[50px] lg:pt-[50px] lg:pl-[160px] lg:pr-[160px] bg-[#15171a]">
+                        <div className="w-11/12 flex flex-row justify-between items-center">
+                            <section className="text-[12px] self-center md:text-2xl">
+                                <Link className="no-underline" to="/">
+                                    Some news
+                                </Link>
+                            </section>
+                            <div className='flex flex-row gap-8'>
+                                <a
+                                    className="text-[12px] no-underline text-[#9eabb8] md:text-[18px] font-bold footer-git-link"
+                                    href="https://github.com/nyshchyibohdan/SomeNewsProject"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    GitHub
+                                </a>
+                                <a
+                                    className={'text-[12px] no-underline text-[#9eabb8] md:text-[18px] font-bold footer-mail-to-link '}
+                                    href="mailto:nyshchyi.bohdan@student.uzhnu.edu.ua?subject=Mail topic&body=Mail text"
+                                >
+                                    Report problem
+                                </a>
+                            </div>
+                        </div>
+                    </footer>
+                }
             </>
         )
 
