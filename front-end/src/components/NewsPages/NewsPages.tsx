@@ -35,7 +35,7 @@ function NewsPages({ topic = "general" }: NewsPagesType) {
                                             data-testid="test-image"
                                         />
                                         <div className="ml-7 mr-7 md:ml-14 md:mr-14 absolute flex flex-col bottom-16 md:bottom-14 md:gap-10 gap-5">
-                                            <div className="flex flex-col md:h-28 h-14 text-white gap-2.5">
+                                            <div className="flex flex-col md:h-28 h-16 text-white gap-2.5">
                                                 <h2 className='font-bold text-[12px] md:text-[18px]' data-testid="main-article-title">
                                                     {article.title}
                                                 </h2>

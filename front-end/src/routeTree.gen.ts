@@ -13,6 +13,7 @@ import { Route as TechnologyRouteImport } from './routes/technology'
 import { Route as SportRouteImport } from './routes/sport'
 import { Route as ScienceRouteImport } from './routes/science'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ArticleTitleRouteImport } from './routes/$articleTitle'
 import { Route as IndexRouteImport } from './routes/index'
@@ -37,6 +38,11 @@ const RegisterRoute = RegisterRouteImport.update({
   path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -57,6 +63,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$articleTitle': typeof ArticleTitleRoute
   '/login': typeof LoginRoute
+  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/science': typeof ScienceRoute
   '/sport': typeof SportRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$articleTitle': typeof ArticleTitleRoute
   '/login': typeof LoginRoute
+  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/science': typeof ScienceRoute
   '/sport': typeof SportRoute
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$articleTitle': typeof ArticleTitleRoute
   '/login': typeof LoginRoute
+  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/science': typeof ScienceRoute
   '/sport': typeof SportRoute
@@ -87,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$articleTitle'
     | '/login'
+    | '/profile'
     | '/register'
     | '/science'
     | '/sport'
@@ -96,6 +106,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$articleTitle'
     | '/login'
+    | '/profile'
     | '/register'
     | '/science'
     | '/sport'
@@ -105,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$articleTitle'
     | '/login'
+    | '/profile'
     | '/register'
     | '/science'
     | '/sport'
@@ -115,6 +127,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ArticleTitleRoute: typeof ArticleTitleRoute
   LoginRoute: typeof LoginRoute
+  ProfileRoute: typeof ProfileRoute
   RegisterRoute: typeof RegisterRoute
   ScienceRoute: typeof ScienceRoute
   SportRoute: typeof SportRoute
@@ -151,6 +164,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -179,6 +199,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ArticleTitleRoute: ArticleTitleRoute,
   LoginRoute: LoginRoute,
+  ProfileRoute: ProfileRoute,
   RegisterRoute: RegisterRoute,
   ScienceRoute: ScienceRoute,
   SportRoute: SportRoute,

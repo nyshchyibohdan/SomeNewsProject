@@ -15,31 +15,12 @@ export const Route: RootRoute = createRootRoute({
         const hideHeader =
             matchRoute({ to: "/login", fuzzy: true }) ||
             matchRoute({ to: "/register", fuzzy: true });
-        // return (
-        //     <>
-        //         {!hideHeader && <div className="p-2 flex gap-2 sticky top-0 border-b-2 border-amber-50 z-[999]">
-        //             <Link to="/" className="[&.active]:font-bold">
-        //                 Home
-        //             </Link>{' '}
-        //             <Link to="/science" className="[&.active]:font-bold">
-        //                 Science
-        //             </Link>{' '}
-        //             <Link to="/technology" className="[&.active]:font-bold">
-        //                 Technology
-        //             </Link>{' '}
-        //             <Link to="/sport" className="[&.active]:font-bold">
-        //                 Sport
-        //             </Link>{' '}
-        //         </div>}
-        //         <Outlet />
-        //         <TanStackRouterDevtools />
-        //     </>)
 
         return (
             <>
                 {!hideHeader && (
                     <header
-                        className="w-full sticky top-0 bg-black/70 backdrop-blur-3xl md:h-36 h-16 flex flex-row justify-between items-center z-[1000] md:pl-28 md:pr-28 pl-10 pr-10"
+                        className="w-full sticky top-0 bg-black/70 backdrop-blur-3xl md:h-36 h-16 flex flex-row justify-between items-center z-[1000] md:pl-28 md:pr-28 pl-5 pr-5"
                         data-testid="header_"
                     >
                         <div className="hidden sm:block md:text-2xl text-xs ">
@@ -98,6 +79,5 @@ export const Route: RootRoute = createRootRoute({
                 }
             </>
         )
-
     },
 });

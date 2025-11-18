@@ -4,10 +4,10 @@ import { store } from "../store";
 
 export async function beforeLoadPage(isAuthPage: boolean = false) {
     await store.dispatch(getUser());
-    const { user } = store.getState().user;
+    const user = store.getState().user;
     if (isAuthPage) {
-        if (user) throw redirect({ to: "/" });
+        if (user.id) throw redirect({ to: "/" });
     } else {
-        if (!user) throw redirect({ to: "/login" });
+        if (!user.id) throw redirect({ to: "/login" });
     }
 }

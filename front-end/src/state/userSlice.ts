@@ -1,14 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import type { User } from "../types/stateTypes";
 
 const SERVER_BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
+const initialState: User = {
+    id: "",
+    nickname: "",
+    email: "",
+    bio: "",
+    profilePic: "",
+    reposts: [],
+    likes: [],
+};
+
 const userSlice = createSlice({
     name: "user",
-    initialState: { user: null },
+    initialState,
     reducers: {
-        logout: (state) => {
-            state.user = null;
+        logout: () => {
+            return initialState;
         },
     },
     extraReducers: (builder) => {
@@ -16,11 +27,11 @@ const userSlice = createSlice({
             .addCase(getUser.pending, () => {
                 console.log("USER IS PENDING...");
             })
-            .addCase(getUser.fulfilled, (state, action) => {
-                state.user = action.payload?.user;
+            .addCase(getUser.fulfilled, (_state, action) => {
+                return action.payload?.user;
             })
-            .addCase(getUser.rejected, (state) => {
-                state.user = null;
+            .addCase(getUser.rejected, () => {
+                return initialState;
             });
     },
 });
